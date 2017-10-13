@@ -1,0 +1,13 @@
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\obj\Debug\netcoreapp2.0\BinanceExchange.Console.csprojResolveAssemblyReference.cache
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\obj\Debug\netcoreapp2.0\BinanceExchange.Console.csproj.CoreCompileInputs.cache
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\obj\Debug\netcoreapp2.0\BinanceExchange.Console.AssemblyInfoInputs.cache
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\obj\Debug\netcoreapp2.0\BinanceExchange.Console.AssemblyInfo.cs
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\bin\Debug\netcoreapp2.0\BinanceExchange.Console.deps.json
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\bin\Debug\netcoreapp2.0\BinanceExchange.Console.runtimeconfig.json
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\bin\Debug\netcoreapp2.0\BinanceExchange.Console.runtimeconfig.dev.json
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\bin\Debug\netcoreapp2.0\BinanceExchange.Console.dll
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\bin\Debug\netcoreapp2.0\BinanceExchange.Console.pdb
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\bin\Debug\netcoreapp2.0\BinanceExchange.API.dll
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\bin\Debug\netcoreapp2.0\BinanceExchange.API.pdb
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\obj\Debug\netcoreapp2.0\BinanceExchange.Console.dll
+C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.Console\obj\Debug\netcoreapp2.0\BinanceExchange.Console.pdb

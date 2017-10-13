@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinanceExchange.API", "BinanceExchange.API\BinanceExchange.API.csproj", "{562EA76F-8ADE-4D57-9DAD-39196E10567E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinanceExchange.Console", "BinanceExchange.Console\BinanceExchange.Console.csproj", "{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{562EA76F-8ADE-4D57-9DAD-39196E10567E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562EA76F-8ADE-4D57-9DAD-39196E10567E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562EA76F-8ADE-4D57-9DAD-39196E10567E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562EA76F-8ADE-4D57-9DAD-39196E10567E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8DA8B910-FFAB-4008-AB92-829DD0D68074}
+	EndGlobalSection
+EndGlobal
