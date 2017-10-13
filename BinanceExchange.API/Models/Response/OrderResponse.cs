@@ -19,15 +19,15 @@ namespace BinanceExchange.API.Models.Response
         public long OrderId { get; set; }
 
         [DataMember(Order = 3)]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         [DataMember(Order = 4)]
         [JsonProperty(PropertyName = "origQty")]
-        public string OriginalQuantity { get; set; }
+        public decimal OriginalQuantity { get; set; }
 
         [DataMember(Order = 5)]
         [JsonProperty(PropertyName = "executedQty")]
-        public string ExecutedQuantity { get; set; }
+        public decimal ExecutedQuantity { get; set; }
 
         [DataMember(Order = 6)]
         public OrderStatus Status { get; set; }
@@ -42,11 +42,11 @@ namespace BinanceExchange.API.Models.Response
         public OrderSide Side { get; set; }
 
         [DataMember(Order = 10)]
-        public string StopPrice { get; set; }
+        public decimal StopPrice { get; set; }
 
         [DataMember(Order = 11)]
         [JsonProperty(PropertyName = "icebergQty")]
-        public string IcebergQuantity { get; set; }
+        public decimal IcebergQuantity { get; set; }
 
         [DataMember(Order = 12)]
         [JsonConverter(typeof(EpochTimeConverter))]

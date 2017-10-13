@@ -5,8 +5,21 @@ This repository provides a C# wrapper for the official Binance API, and provides
 
 ## Features
 - Rate limiting, with 10 requests in 10 seconds _(disabled by default)_
+- Dotnet core 2.0
 - `IAPICache` abstraction for providing your own cache. _(Currently only one endpoint has caching)_
 - Basic console app with examples ready to launch _(provide API keys)_
+
+## Installation
+
+**Nuget PM**
+```
+Install-Package BinanceDotNet
+```
+
+**dotnet cli**
+```
+dotnet add package BinanceDotNet
+```
 
 
 ## Usage

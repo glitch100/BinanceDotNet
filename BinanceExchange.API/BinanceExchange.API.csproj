@@ -1,6 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Version>1.0.1</Version>
+    <Description>The Binance CryptoCurrency exchange C# wrapper of the API</Description>
+    <PackageId>BinanceDotNet</PackageId>
+    <Authors>Jon Evans</Authors>
+    <Company />
+    <Product>BinanceDotNet</Product>
+    <PackageProjectUrl>https://github.com/glitch100/BinanceDotNet</PackageProjectUrl>
+    <PackageTags>binance, csharp, binance-api, binancedotnet</PackageTags>
+    <AssemblyName>BinanceExchange.API</AssemblyName>
+    <PackageLicenseUrl>https://github.com/glitch100/BinanceDotNet/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/glitch100/BinanceDotNet</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7.1</LangVersion>

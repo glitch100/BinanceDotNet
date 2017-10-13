@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v2.0": {
       "BinanceExchange.Console/1.0.0": {
         "dependencies": {
-          "BinanceExchange.API": "1.0.0"
+          "BinanceExchange.API": "1.0.1"
         },
         "runtime": {
           "BinanceExchange.Console.dll": {}
@@ -779,7 +779,7 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "BinanceExchange.API/1.0.0": {
+      "BinanceExchange.API/1.0.1": {
         "dependencies": {
           "Newtonsoft.Json": "10.0.3",
           "System.Net.Http": "4.3.3",
@@ -1294,7 +1294,7 @@
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
     },
-    "BinanceExchange.API/1.0.0": {
+    "BinanceExchange.API/1.0.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

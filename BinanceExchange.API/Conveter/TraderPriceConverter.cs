@@ -22,16 +22,16 @@ namespace BinanceExchange.API.Conveter
             return new KlineCandleStickResponse
             {
                 OpenTime = Epoch.AddMilliseconds((long) klineCandlesticks.ElementAt(0)),
-                Open = klineCandlesticks.ElementAt(1).ToString(),
-                High = klineCandlesticks.ElementAt(2).ToString(),
-                Low = klineCandlesticks.ElementAt(3).ToString(),
-                Close = klineCandlesticks.ElementAt(4).ToString(),
-                Volume = klineCandlesticks.ElementAt(5).ToString(),
+                Open = (decimal) klineCandlesticks.ElementAt(1),
+                High = (decimal) klineCandlesticks.ElementAt(2),
+                Low = (decimal) klineCandlesticks.ElementAt(3),
+                Close = (decimal) klineCandlesticks.ElementAt(4),
+                Volume = (decimal) klineCandlesticks.ElementAt(5),
                 CloseTime = Epoch.AddMilliseconds((long) klineCandlesticks.ElementAt(6)),
-                QuoteAssetVolume = klineCandlesticks.ElementAt(7).ToString(),
+                QuoteAssetVolume = (decimal) klineCandlesticks.ElementAt(7),
                 NumberOfTrades = (int) klineCandlesticks.ElementAt(8),
-                TakerBuyBaseAssetVolume = klineCandlesticks.ElementAt(9).ToString(),
-                TakerBuyQuoteAssetVolume = klineCandlesticks.ElementAt(10).ToString(),
+                TakerBuyBaseAssetVolume = (decimal) klineCandlesticks.ElementAt(9),
+                TakerBuyQuoteAssetVolume = (decimal) klineCandlesticks.ElementAt(10),
             };
         }
 

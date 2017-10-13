@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BinanceExchange.API.Client;
+using BinanceExchange.API.Enums;
+using BinanceExchange.API.Models.Request;
 
 namespace BinanceExchange.Console
 {
@@ -26,6 +29,14 @@ namespace BinanceExchange.Console
             //Run Client
             await  client.TestConnectivity();
             var response = await client.GetServerTime();
+            var klines = await client.GetKlinesCandlesticks(new GetKlinesCandlesticksRequest
+            {
+                Symbol = "LTCBTC",
+                Interval = KlineInterval.EightHours,
+                StartTime = DateTime.UtcNow.AddDays(-1),
+                EndTime = DateTime.UtcNow,
+            });
+
             System.Console.WriteLine($"Server Time: {response.ServerTime}");
             System.Console.WriteLine("Complete...");
             System.Console.ReadLine();

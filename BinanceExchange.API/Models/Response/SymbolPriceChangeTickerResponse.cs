@@ -9,36 +9,36 @@ namespace BinanceExchange.API.Models.Response
     public class SymbolPriceChangeTickerResponse
     {
         [DataMember(Order = 1)]
-        public string PriceChange { get; set; }
+        public decimal PriceChange { get; set; }
 
         [DataMember(Order = 2)]
-        public string PriceChangePercent { get; set; }
+        public decimal PriceChangePercent { get; set; }
 
         [DataMember(Order = 3)]
         [JsonProperty(PropertyName = "weightedAvgPrice")]
-        public string WeightedAveragePercent { get; set; }
+        public decimal WeightedAveragePercent { get; set; }
 
         [DataMember(Order = 4)]
         [JsonProperty(PropertyName = "prevClosePrice")]
-        public string PreviousClosePrice { get; set; }
+        public decimal PreviousClosePrice { get; set; }
 
         [DataMember(Order = 5)]
-        public string LastPrice { get; set; }
+        public decimal LastPrice { get; set; }
 
         [DataMember(Order = 6)]
-        public string BidPrice { get; set; }
+        public decimal BidPrice { get; set; }
 
         [DataMember(Order = 7)]
-        public string AskPrice { get; set; }
+        public decimal AskPrice { get; set; }
 
         [DataMember(Order = 8)]
-        public string OpenPrice { get; set; }
+        public decimal OpenPrice { get; set; }
 
         [DataMember(Order = 8)]
-        public string HighPrice { get; set; }
+        public decimal HighPrice { get; set; }
 
         [DataMember(Order = 9)]
-        public string Volume { get; set; }
+        public decimal Volume { get; set; }
 
         [DataMember(Order = 10)]
         [JsonConverter(typeof(EpochTimeConverter))]

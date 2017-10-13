@@ -180,14 +180,6 @@ namespace BinanceExchange.API
         {
             Task<HttpResponseMessage> task = null;
 
-            var taskFunction = new Func<Task<HttpResponseMessage>, Task<HttpResponseMessage>>(t =>
-            {
-                _rateSemaphore.Release();
-                if (_rateSemaphore.CurrentCount != _limit || Stopwatch.Elapsed.Seconds < SecondsLimit) return t;
-                Stopwatch.Restart();
-                --_concurrentRequests;
-                return t;
-            });
             if (RateLimitingEnabled)
             {
                 await _rateSemaphore.WaitAsync();
@@ -201,6 +193,15 @@ namespace BinanceExchange.API
                 }
                 ++_concurrentRequests;
             }
+            var taskFunction = new Func<Task<HttpResponseMessage>, Task<HttpResponseMessage>>(t =>
+            {
+                if (!RateLimitingEnabled) return t;
+                _rateSemaphore.Release();
+                if (_rateSemaphore.CurrentCount != _limit || Stopwatch.Elapsed.Seconds < SecondsLimit) return t;
+                Stopwatch.Restart();
+                --_concurrentRequests;
+                return t;
+            });
             switch (verb)
             {
                 case HttpVerb.GET:

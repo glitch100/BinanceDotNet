@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using BinanceExchange.API.Conveter;
 using Newtonsoft.Json;
 
@@ -14,21 +15,21 @@ namespace BinanceExchange.API.Models.Response
         public long Id { get; set; }
 
         [DataMember(Order = 2)]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         [DataMember(Order = 3)]
         [JsonProperty(PropertyName = "qty")]
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
 
         [DataMember(Order = 4)]
-        public string Commission { get; set; }
+        public decimal Commission { get; set; }
 
         [DataMember(Order = 5)]
         public string CommissionAsset { get; set; }
 
         [DataMember(Order = 5)]
         [JsonConverter(typeof(EpochTimeConverter))]
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
 
         [DataMember(Order = 6)]
         public bool IsBuyer { get; set; }

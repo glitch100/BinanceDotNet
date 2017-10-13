@@ -1,9 +1,0 @@
-C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.API\bin\Debug\netcoreapp2.0\BinanceExchange.API.deps.json
-C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.API\bin\Debug\netcoreapp2.0\BinanceExchange.API.dll
-C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.API\bin\Debug\netcoreapp2.0\BinanceExchange.API.pdb
-C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.API\obj\Debug\netcoreapp2.0\BinanceExchange.API.csproj.CoreCompileInputs.cache
-C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.API\obj\Debug\netcoreapp2.0\BinanceExchange.API.AssemblyInfoInputs.cache
-C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.API\obj\Debug\netcoreapp2.0\BinanceExchange.API.AssemblyInfo.cs
-C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.API\obj\Debug\netcoreapp2.0\BinanceExchange.API.dll
-C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.API\obj\Debug\netcoreapp2.0\BinanceExchange.API.pdb
-C:\Users\jon.evans\Documents\Personal Projects\dotnet\BinanceExchange\BinanceExchange.API\obj\Debug\netcoreapp2.0\BinanceExchange.API.csprojResolveAssemblyReference.cache

@@ -12,9 +12,9 @@ namespace BinanceExchange.API.Models.Response
         public string Asset { get; set; }
         
         [DataMember(Order = 2)]
-        public string Free { get; set; }
+        public decimal Free { get; set; }
 
         [DataMember(Order = 3)]
-        public string Locked { get; set; }
+        public decimal Locked { get; set; }
     }
 }

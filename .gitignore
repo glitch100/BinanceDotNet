@@ -381,3 +381,6 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+bin
+obj
+.vs

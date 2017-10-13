@@ -17,11 +17,11 @@ namespace BinanceExchange.API.Models.Response
 
         [DataMember(Order = 2)]
         [JsonProperty(PropertyName = "p")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         [DataMember(Order = 3)]
         [JsonProperty(PropertyName = "q")]
-        public double Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [DataMember(Order = 4)]
         [JsonProperty(PropertyName = "f")]

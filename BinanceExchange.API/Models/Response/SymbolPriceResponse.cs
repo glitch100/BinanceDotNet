@@ -12,6 +12,6 @@ namespace BinanceExchange.API.Models.Response
         public string Symbol { get; set; }
 
         [DataMember(Order = 2)]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
     }
 }
