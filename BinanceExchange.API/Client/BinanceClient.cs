@@ -20,6 +20,10 @@ namespace BinanceExchange.API.Client
 
         public BinanceClient(ClientConfiguration configuration, IAPICache apiCache = null)
         {
+            Guard.AgainstNull(configuration);
+            Guard.AgainstNullOrEmpty(configuration.ApiKey);
+            Guard.AgainstNull(configuration.SecretKey);
+
             _apiKey = configuration.ApiKey;
             _secretKey = configuration.SecretKey;
             RequestClient.SetRateLimiting(configuration.EnableRateLimiting);
@@ -182,6 +186,23 @@ namespace BinanceExchange.API.Client
             Guard.AgainstNull(request.Price);
 
             return await _apiProcessor.ProcessPostRequest<CreateOrderResponse>(Endpoints.Account.NewOrder(request));
+        }
+
+        /// <summary>
+        /// Creates a test order based on the provided request
+        /// </summary>
+        /// <param name="request">The <see cref="CreateOrderRequest"/> that is used to define the order</param>
+        /// <returns></returns>
+        public async Task<EmptyResponse> CreateTestOrder(CreateOrderRequest request)
+        {
+            Guard.AgainstNull(request.Symbol);
+            Guard.AgainstNull(request.Side);
+            Guard.AgainstNull(request.Type);
+            Guard.AgainstNull(request.TimeInForce);
+            Guard.AgainstNull(request.Quantity);
+            Guard.AgainstNull(request.Price);
+
+            return await _apiProcessor.ProcessPostRequest<EmptyResponse>(Endpoints.Account.NewOrderTest(request));
         }
 
         /// <summary>

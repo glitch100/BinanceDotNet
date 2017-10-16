@@ -134,7 +134,7 @@ namespace BinanceExchange.API.Websockets
             };
             websocket.OnError += (sender, e) =>
             {
-                CloseWebsocketInstance(websocket.Id, true);
+                CloseWebSocketInstance(websocket.Id, true);
                 throw new Exception("Binance UserData WebSocket failed")
                 {
                     Data =
@@ -166,7 +166,7 @@ namespace BinanceExchange.API.Websockets
             };
             websocket.OnError += (sender, e) =>
             {
-                CloseWebsocketInstance(websocket.Id, true);
+                CloseWebSocketInstance(websocket.Id, true);
                 throw new Exception("Binance WebSocket failed")
                 {
                     Data =
@@ -188,7 +188,7 @@ namespace BinanceExchange.API.Websockets
         /// </summary>
         /// <param name="id"></param>
         /// <param name="fromError"></param>
-        public void CloseWebsocketInstance(Guid id, bool fromError = false)
+        public void CloseWebSocketInstance(Guid id, bool fromError = false)
         {
             if (_activeWebSockets.ContainsKey(id))
             {

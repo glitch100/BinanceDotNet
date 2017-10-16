@@ -50,7 +50,7 @@ namespace BinanceExchange.API.Websockets
         /// </summary>
         /// <param name="id"></param>
         /// <param name="fromError"></param>
-        void CloseWebsocketInstance(Guid id, bool fromError = false);
+        void CloseWebSocketInstance(Guid id, bool fromError = false);
 
         void Dispose();
     }

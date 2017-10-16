@@ -384,3 +384,5 @@ OpenCover/
 bin
 obj
 .vs
+obj
+bin

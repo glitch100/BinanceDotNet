@@ -1,6 +1,12 @@
 # BinanceDotNet Changelog
 
 **Release Date: 10/16/2017**
+## 1.3.0
+- Added in documentation to `/docs` in repo root
+- Added in Test Order endpoints
+- Adjusted method name
+
+**Release Date: 10/16/2017**
 ## 1.2.0
 - Added in WebSockets endpoints via the new `BinanceWebSocketClient`
 - Added in UserDataStream endpoints

@@ -8,12 +8,26 @@ This repository provides a C# wrapper for the official Binance API, and provides
 
 Feel free to raise issues and Pull Request to help improve the library.
 
+## Documentation
+- [Binance Clients](/docs/BINANCE-CLIENTS.md)
+- [REST API Calls](/docs/REST-API.md)
+- [WebSocket API Calls](/docs/WEBSOCKET-API.md)
+
+
 ## Features
 - Rate limiting, with 10 requests in 10 seconds _(disabled by default)_
 - Dotnet core 2.0
 - Binance WebSockets
 - `IAPICache` abstraction for providing your own cache. _(Currently only one endpoint has caching)_
 - Basic console app with examples ready to launch _(provide API keys)_
+
+## Roadmap
+- In depth documentation on GitHub - 1.2.1
+- Build out Unit Test support - 1.3.0
+- Add in `log4net` logger - 1.4.0
+- Provide additional CacheLayer - 1.5.0
+- Provide Builder support for queries - 2.0.0
+- Abstract out the HttpClient - 2.0.0
 
 ## Installation
 The package is available in NuGet, or feel free to download:
@@ -30,6 +44,8 @@ dotnet add package BinanceDotNet
 ```
 
 ## Usage
+Code examples below, or clone the repository and run the `BinanceExchange.Console` project.
+
 General usage just requires setting up the client with your credentials, and then calling the Client as necessary.
 ```c#
 var client = new BinanceClient(new ClientConfiguration()
@@ -63,13 +79,3 @@ using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
     Thread.Sleep(180000);
 }
 ```
-
-## Roadmap
-- In depth documentation on GitHub - 1.3.0
-- Build out Unit Test support - 1.4.0
-- Add in `log4net` logger - 1.5.0
-- Provide additional CacheLayer - 1.6.0
-- Provide Builder support for queries - 2.0.0
-- Abstract out the HttpClient - 2.0.0
-
-
