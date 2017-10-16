@@ -92,7 +92,7 @@ namespace BinanceExchange.API
 
         /// <summary>
         /// Creates a generic GET request that is signed
-        /// </summary>
+        /// </summary>s
         /// <param name="endpoint"></param>
         /// <param name="apiKey"></param>
         /// <param name="secretKey"></param>
@@ -103,6 +103,36 @@ namespace BinanceExchange.API
         {
             var uri = CreateValidUri(endpoint, secretKey, signatureRawData, receiveWindow);
             return await CreateRequest(uri, HttpVerb.GET);
+        }
+
+        /// <summary>
+        /// Create a generic PostRequest to the specified endpoint
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <returns></returns>
+        public static async Task<HttpResponseMessage> PostRequest(Uri endpoint)
+        {
+            return await CreateRequest(endpoint, HttpVerb.POST);
+        }
+
+        /// <summary>
+        /// Create a generic DeleteRequest to the specified endpoint
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <returns></returns>
+        public static async Task<HttpResponseMessage> DeleteRequest(Uri endpoint)
+        {
+            return await CreateRequest(endpoint, HttpVerb.DELETE);
+        }
+
+        /// <summary>
+        /// Create a generic PutRequest to the specified endpoint
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <returns></returns>
+        public static async Task<HttpResponseMessage> PutRequest(Uri endpoint)
+        {
+            return await CreateRequest(endpoint, HttpVerb.PUT);
         }
 
         /// <summary>
@@ -214,6 +244,10 @@ namespace BinanceExchange.API
                     break;
                 case HttpVerb.DELETE:
                     task = await HttpClient.DeleteAsync(endpoint)
+                        .ContinueWith(taskFunction);
+                    break;
+                case HttpVerb.PUT:
+                    task = await HttpClient.PutAsync(endpoint, null)
                         .ContinueWith(taskFunction);
                     break;
                 default:

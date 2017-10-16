@@ -1,14 +1,14 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "1c8740f40df4efc845228b9ac2e8ba0ea255f830"
+    "signature": "43eee34ac25574c04a208f3af4bbda6fa8575b12"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "BinanceExchange.Console/1.0.0": {
         "dependencies": {
-          "BinanceExchange.API": "1.0.1"
+          "BinanceDotNet": "1.2.0"
         },
         "runtime": {
           "BinanceExchange.Console.dll": {}
@@ -779,11 +779,17 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "BinanceExchange.API/1.0.1": {
+      "WebSocketSharp/1.0.3-rc11": {
+        "runtime": {
+          "lib/websocket-sharp.dll": {}
+        }
+      },
+      "BinanceDotNet/1.2.0": {
         "dependencies": {
           "Newtonsoft.Json": "10.0.3",
           "System.Net.Http": "4.3.3",
-          "System.Net.Http.Formatting.Extension": "5.2.3"
+          "System.Net.Http.Formatting.Extension": "5.2.3",
+          "WebSocketSharp": "1.0.3-rc11"
         },
         "runtime": {
           "BinanceExchange.API.dll": {}
@@ -1294,7 +1300,14 @@
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
     },
-    "BinanceExchange.API/1.0.1": {
+    "WebSocketSharp/1.0.3-rc11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7VCF7f7zVMOvLGD8LeGS4DVXc8lOcB6kXnUMeTxigu+PMiU+6wW5Olq2gYrDU8vDRKOwFY+5RyBaLyzb8skEzA==",
+      "path": "websocketsharp/1.0.3-rc11",
+      "hashPath": "websocketsharp.1.0.3-rc11.nupkg.sha512"
+    },
+    "BinanceDotNet/1.2.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

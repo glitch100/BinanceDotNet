@@ -31,6 +31,34 @@ namespace BinanceExchange.API
 
         private static string Prefix { get; } = $"{BaseUrl}";
 
+        public static class UserStream
+        {
+            internal static string ApiVersion = "v1";
+
+            /// <summary>
+            /// Start a user data stream
+            /// </summary>
+            public static BinanceEndpointData StartUserDataStream => new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/userDataStream"), EndpointSecurityType.ApiKey);
+
+            /// <summary>
+            /// Ping a user data stream to prevent a timeout
+            /// </summary>
+            public static BinanceEndpointData KeepAliveUserDataStream(string listenKey)
+            {
+                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/userDataStream?listenKey={listenKey}"),
+                    EndpointSecurityType.ApiKey);
+            }
+
+            /// <summary>
+            /// Close a user data stream to prevent
+            /// </summary>
+            public static BinanceEndpointData CloseUserDataStream(string listenKey)
+            {
+                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/userDataStream?listenKey={listenKey}"),
+                    EndpointSecurityType.ApiKey);
+            }
+        }
+
         public static class General
         {
             internal static string ApiVersion = "v1";

@@ -107,11 +107,12 @@ namespace BinanceExchange.API
             HttpResponseMessage message;
             switch (endpoint.SecurityType) { 
                 case EndpointSecurityType.ApiKey:
-                case EndpointSecurityType.None:
-                    throw new ArgumentOutOfRangeException();
+                    message = await RequestClient.DeleteRequest(endpoint.Uri);
+                    break;
                 case EndpointSecurityType.Signed:
                     message = await RequestClient.SignedDeleteRequest(endpoint.Uri, _apiKey, _secretKey, endpoint.Uri.Query, receiveWindow);
                     break;
+                case EndpointSecurityType.None:
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -130,11 +131,35 @@ namespace BinanceExchange.API
             HttpResponseMessage message;
             switch (endpoint.SecurityType) { 
                 case EndpointSecurityType.ApiKey:
+                    message = await RequestClient.PostRequest(endpoint.Uri);
+                    break;
                 case EndpointSecurityType.None:
                     throw new ArgumentOutOfRangeException();
                 case EndpointSecurityType.Signed:
                     message = await RequestClient.SignedPostRequest(endpoint.Uri, _apiKey, _secretKey, endpoint.Uri.Query, receiveWindow);
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            return await HandleResponse<T>(message);
+        }
+
+        /// <summary>
+        /// Processes a PUT request
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="endpoint"></param>
+        /// <param name="receiveWindow"></param>
+        /// <returns></returns>
+        public async Task<T> ProcessPutRequest<T>(BinanceEndpointData endpoint, int receiveWindow = 5000) where T : class
+        {
+            HttpResponseMessage message;
+            switch (endpoint.SecurityType) { 
+                case EndpointSecurityType.ApiKey:
+                    message = await RequestClient.PutRequest(endpoint.Uri);
+                    break;
+                case EndpointSecurityType.None:
+                case EndpointSecurityType.Signed:
                 default:
                     throw new ArgumentOutOfRangeException();
             }

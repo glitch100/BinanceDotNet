@@ -5,5 +5,6 @@
         GET,
         POST,
         DELETE,
+        PUT,
     }
 }

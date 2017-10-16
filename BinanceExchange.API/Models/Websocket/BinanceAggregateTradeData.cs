@@ -3,15 +3,28 @@ using System.Runtime.Serialization;
 using BinanceExchange.API.Converter;
 using Newtonsoft.Json;
 
-namespace BinanceExchange.API.Models.Response
+namespace BinanceExchange.API.Models.Websocket
 {
     /// <summary>
-    /// Respone following a call to the Get Compressed Aggregate trades endpoint
+    /// Aggregate trade data response from Trades websocket endpoint
     /// </summary>
     [DataContract]
-    public class CompressedAggregateTradeResponse: IResponse
+    public class BinanceAggregateTradeData : ISymbolWebSocketResponse
     {
+        [JsonProperty(PropertyName = "e")]
         [DataMember(Order = 1)]
+        public string EventType { get; set; }
+
+        [JsonProperty(PropertyName = "E")]
+        [DataMember(Order = 2)]
+        [JsonConverter(typeof(EpochTimeConverter))]
+        public DateTime EventTime { get; set; }
+
+        [JsonProperty(PropertyName = "s")]
+        [DataMember(Order = 3)]
+        public string Symbol { get; set; }
+
+        [DataMember(Order = 4)]
         [JsonProperty(PropertyName = "a")]
         public long AggregateTradeId { get; set; }
 
@@ -34,14 +47,10 @@ namespace BinanceExchange.API.Models.Response
         [DataMember(Order = 6)]
         [JsonProperty("T")]
         [JsonConverter(typeof(EpochTimeConverter))]
-        public DateTime Timestamp { get; set; }
+        public DateTime TradeTime { get; set; }
 
         [DataMember(Order = 7)]
         [JsonProperty("m")]
         public bool WasBuyerMaker { get; set; }
-
-        [DataMember(Order = 8)]
-        [JsonProperty("M")]
-        public bool WasBestPriceMatch { get; set; }
     }
 }

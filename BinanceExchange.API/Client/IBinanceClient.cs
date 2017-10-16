@@ -8,6 +8,26 @@ namespace BinanceExchange.API.Client
     public interface IBinanceClient
     {
         /// <summary>
+        /// Starts a user data stream
+        /// </summary>
+        /// /// <returns><see cref="UserDataStreamResponse"/></returns>
+        Task<UserDataStreamResponse> StartUserDataStream();
+
+        /// <summary>
+        /// Pings a user data stream to prevent timeouts
+        /// </summary>
+        /// <param name="userDataListenKey"></param>
+        /// /// <returns><see cref="UserDataStreamResponse"/></returns>
+        Task<UserDataStreamResponse> KeepAliveUserDataStream(string userDataListenKey);
+
+        /// <summary>
+        /// Closes a user data stream
+        /// </summary>
+        /// <param name="userDataListenKey"></param>
+        /// /// <returns><see cref="UserDataStreamResponse"/></returns>
+        Task<UserDataStreamResponse> CloseUserDataStream(string userDataListenKey);
+
+        /// <summary>
         /// Test the connectivity to the API
         /// </summary>
         Task<EmptyResponse> TestConnectivity();

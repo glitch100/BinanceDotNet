@@ -1,8 +1,9 @@
-﻿using System;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using BinanceExchange.API.Client;
-using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Request;
+using BinanceExchange.API.Websockets;
+using Newtonsoft.Json;
 
 namespace BinanceExchange.Console
 {
@@ -12,8 +13,8 @@ namespace BinanceExchange.Console
         {
             //Provide your configuration
 
-            string apiKey = "YOUR_API_KEY";
-            string secretKey = "YOUR_SECRET_KEY";
+            string apiKey = "YOUR_KEY";
+            string secretKey = "YOUR_SECRET";
             System.Console.WriteLine("--------------------------");
             System.Console.WriteLine("BinanceExchange API - Tester");
             System.Console.WriteLine("--------------------------");
@@ -27,17 +28,29 @@ namespace BinanceExchange.Console
             System.Console.WriteLine("Interacting with Binance...");
 
             //Run Client
-            await  client.TestConnectivity();
-            var response = await client.GetServerTime();
-            var klines = await client.GetKlinesCandlesticks(new GetKlinesCandlesticksRequest
+            await client.TestConnectivity();
+
+            var results = await client.GetAllOrders(new AllOrdersRequest()
             {
-                Symbol = "LTCBTC",
-                Interval = KlineInterval.EightHours,
-                StartTime = DateTime.UtcNow.AddDays(-1),
-                EndTime = DateTime.UtcNow,
+                Symbol = "ETHBTC",
+                Limit = 5,
             });
 
-            System.Console.WriteLine($"Server Time: {response.ServerTime}");
+            var userData = await client.StartUserDataStream();
+            await client.KeepAliveUserDataStream(userData.ListenKey);
+            await client.CloseUserDataStream(userData.ListenKey);
+
+            //Web Socket example.
+            using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
+            {
+                binanceWebSocketClient.ConnectToDepthWebSocket("ETHBTC", data =>
+                {
+                    System.Console.WriteLine($"DepthCall: {JsonConvert.SerializeObject(data)}");
+                });
+
+                Thread.Sleep(180000);
+            }
+
             System.Console.WriteLine("Complete...");
             System.Console.ReadLine();
         }

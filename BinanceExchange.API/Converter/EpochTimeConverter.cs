@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace BinanceExchange.API.Conveter
+namespace BinanceExchange.API.Converter
 {
     public class EpochTimeConverter : DateTimeConverterBase
     {

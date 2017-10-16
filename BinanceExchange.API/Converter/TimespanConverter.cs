@@ -2,7 +2,7 @@
 using System.Xml;
 using Newtonsoft.Json;
 
-namespace BinanceExchange.API.Conveter
+namespace BinanceExchange.API.Converter
 {
     public class TimeSpanConverter : JsonConverter
     {

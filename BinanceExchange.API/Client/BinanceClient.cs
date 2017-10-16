@@ -27,6 +27,42 @@ namespace BinanceExchange.API.Client
             _apiProcessor = new APIProcessor(_apiKey, _secretKey, apiCache);
         }
 
+        #region User Stream
+        /// <summary>
+        /// Starts a user data stream
+        /// </summary>
+        /// /// <returns><see cref="UserDataStreamResponse"/></returns>
+        public async Task<UserDataStreamResponse> StartUserDataStream()
+        {
+            return await _apiProcessor.ProcessPostRequest<UserDataStreamResponse>(Endpoints.UserStream.StartUserDataStream);
+        }
+
+        /// <summary>
+        /// Pings a user data stream to prevent timeouts
+        /// </summary>
+        /// <param name="userDataListenKey"></param>
+        /// /// <returns><see cref="UserDataStreamResponse"/></returns>
+        public async Task<UserDataStreamResponse> KeepAliveUserDataStream(string userDataListenKey)
+        {
+            Guard.AgainstNullOrEmpty(userDataListenKey);
+
+            return await _apiProcessor.ProcessPutRequest<UserDataStreamResponse>(Endpoints.UserStream.KeepAliveUserDataStream(userDataListenKey));
+        }        
+        
+        /// <summary>
+        /// Closes a user data stream
+        /// </summary>
+        /// <param name="userDataListenKey"></param>
+        /// /// <returns><see cref="UserDataStreamResponse"/></returns>
+        public async Task<UserDataStreamResponse> CloseUserDataStream(string userDataListenKey)
+        {
+            Guard.AgainstNullOrEmpty(userDataListenKey);
+
+            return await _apiProcessor.ProcessDeleteRequest<UserDataStreamResponse>(Endpoints.UserStream.CloseUserDataStream(userDataListenKey));
+        }
+        #endregion
+
+        #region General
         /// <summary>
         /// Test the connectivity to the API
         /// </summary>
@@ -43,7 +79,9 @@ namespace BinanceExchange.API.Client
         {
             return await _apiProcessor.ProcessGetRequest<ServerTimeResponse>(Endpoints.General.ServerTime);
         }
+        #endregion
 
+        #region Market Data
         /// <summary>
         /// Gets the current order book for the specified symbol
         /// </summary>
@@ -126,7 +164,9 @@ namespace BinanceExchange.API.Client
         {
              return await _apiProcessor.ProcessGetRequest<List<SymbolOrderBookResponse>>(Endpoints.MarketData.SymbolsOrderBookTicker);
         }
+        #endregion
 
+        #region Account and Market
         /// <summary>
         /// Creates an order based on the provided request
         /// </summary>
@@ -216,5 +256,7 @@ namespace BinanceExchange.API.Client
         {
             return await _apiProcessor.ProcessGetRequest<List<AccountTradeReponse>>(Endpoints.Account.AccountTradeList(request), receiveWindow);
         }
+        #endregion
+
     }
 }

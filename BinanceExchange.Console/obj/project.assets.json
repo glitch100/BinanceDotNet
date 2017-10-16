@@ -1341,19 +1341,29 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "BinanceExchange.API/1.0.1": {
+      "WebSocketSharp/1.0.3-rc11": {
+        "type": "package",
+        "compile": {
+          "lib/websocket-sharp.dll": {}
+        },
+        "runtime": {
+          "lib/websocket-sharp.dll": {}
+        }
+      },
+      "BinanceDotNet/1.2.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
           "Newtonsoft.Json": "10.0.3",
           "System.Net.Http": "4.3.3",
-          "System.Net.Http.Formatting.Extension": "5.2.3"
+          "System.Net.Http.Formatting.Extension": "5.2.3",
+          "WebSocketSharp": "1.0.3-rc11"
         },
         "compile": {
-          "bin/placeholder/BinanceExchange.API.dll": {}
+          "bin/placeholder/BinanceDotNet.dll": {}
         },
         "runtime": {
-          "bin/placeholder/BinanceExchange.API.dll": {}
+          "bin/placeholder/BinanceDotNet.dll": {}
         }
       }
     }
@@ -4893,7 +4903,18 @@
         "system.xml.xmldocument.nuspec"
       ]
     },
-    "BinanceExchange.API/1.0.1": {
+    "WebSocketSharp/1.0.3-rc11": {
+      "sha512": "7VCF7f7zVMOvLGD8LeGS4DVXc8lOcB6kXnUMeTxigu+PMiU+6wW5Olq2gYrDU8vDRKOwFY+5RyBaLyzb8skEzA==",
+      "type": "package",
+      "path": "websocketsharp/1.0.3-rc11",
+      "files": [
+        "lib/websocket-sharp.dll",
+        "lib/websocket-sharp.xml",
+        "websocketsharp.1.0.3-rc11.nupkg.sha512",
+        "websocketsharp.nuspec"
+      ]
+    },
+    "BinanceDotNet/1.2.0": {
       "type": "project",
       "path": "../BinanceExchange.API/BinanceExchange.API.csproj",
       "msbuildProject": "../BinanceExchange.API/BinanceExchange.API.csproj"
@@ -4901,7 +4922,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "BinanceExchange.API >= 1.0.1",
+      "BinanceDotNet >= 1.2.0",
       "Microsoft.NETCore.App >= 2.0.0"
     ]
   },
@@ -4976,6 +4997,16 @@
       "warningLevel": 1,
       "message": "Package 'System.Net.Http.Formatting.Extension 5.2.3' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
       "libraryId": "System.Net.Http.Formatting.Extension",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WebSocketSharp 1.0.3-rc11' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WebSocketSharp",
       "targetGraphs": [
         ".NETCoreApp,Version=v2.0"
       ]

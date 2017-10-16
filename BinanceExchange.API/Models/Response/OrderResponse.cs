@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using BinanceExchange.API.Conveter;
+using BinanceExchange.API.Converter;
 using BinanceExchange.API.Enums;
 using Newtonsoft.Json;
 
