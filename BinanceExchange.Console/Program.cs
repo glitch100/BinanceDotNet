@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BinanceExchange.API.Caching;
 using BinanceExchange.API.Client;
+using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
 using BinanceExchange.API.Models.Websocket;
@@ -44,16 +45,34 @@ namespace BinanceExchange.Console
             };
             var allOrders = client.GetAllOrders(request);
 
+
             // User Data Stream run through
             var userData = await client.StartUserDataStream();
             await client.KeepAliveUserDataStream(userData.ListenKey);
             await client.CloseUserDataStream(userData.ListenKey);
 
+
+            #region Advanced Examples
+            //await BuildLocalKlineCache(client);
+            //await BuildLocalDepthCache(client);
+            #endregion
+
+            System.Console.WriteLine("Complete...");
+            System.Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Build local Depth cache from WebSocket and API Call example.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        private static async Task BuildLocalDepthCache(IBinanceClient client)
+        {
             // Code example of building out a Dictionary local cache for a symbol using deltas from the WebSocket
             var localDepthCache = new Dictionary<string, DepthCacheObject> {{ "BNBBTC", new DepthCacheObject()
             {
-               Asks = new Dictionary<decimal, decimal>(),
-               Bids = new Dictionary<decimal, decimal>(),
+                Asks = new Dictionary<decimal, decimal>(),
+                Bids = new Dictionary<decimal, decimal>(),
             }}};
             var bnbBtcDepthCache = localDepthCache["BNBBTC"];
 
@@ -75,8 +94,8 @@ namespace BinanceExchange.Console
                 }
             });
 
-            // Store the last update
-            long lastUpdateId = 0;
+            // Store the last update from our result set;
+            long lastUpdateId = depthResults.LastUpdateId;
             using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
             {
                 binanceWebSocketClient.ConnectToDepthWebSocket("BNBBTC", data =>
@@ -100,9 +119,99 @@ namespace BinanceExchange.Console
 
                 Thread.Sleep(480000);
             }
+        }
 
-            System.Console.WriteLine("Complete...");
-            System.Console.ReadLine();
+        /// <summary>
+        /// Build Local Kline Cache from WebSocket and API Call example.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        private static async Task BuildLocalKlineCache(IBinanceClient client)
+        {
+            long epochTicks = new DateTime(1970, 1, 1).Ticks;
+
+            // Code example of building out a Dictionary local cache for a symbol using deltas from the WebSocket
+            var localKlineCache = new Dictionary<string, KlineCacheObject> {{ "BNBBTC", new KlineCacheObject()
+            {
+                KlineInterDictionary = new Dictionary<KlineInterval, KlineIntervalCacheObject>()
+                {
+                    {KlineInterval.OneMinute,  new KlineIntervalCacheObject() }
+                }
+            }}};
+
+            // Get Kline Results, and use Cache
+            var startTime = DateTime.UtcNow.AddHours(-1);
+            var startTimeKeyTime = (startTime.Ticks - epochTicks) / TimeSpan.TicksPerSecond;
+            var klineResults = await client.GetKlinesCandlesticks(new GetKlinesCandlesticksRequest()
+            {
+                Symbol = "BNBBTC",
+                Interval = KlineInterval.OneMinute,
+                StartTime = startTime,
+                EndTime = DateTime.UtcNow,
+            });
+
+            var oneMinKlineCache = localKlineCache["BNBBTC"].KlineInterDictionary[KlineInterval.OneMinute];
+            oneMinKlineCache.TimeKlineDictionary = new Dictionary<long, KlineCandleStick>();
+            var instanceKlineCache = oneMinKlineCache.TimeKlineDictionary;
+            //Populate our kline cache with initial results
+            klineResults.ForEach(k =>
+            {
+                instanceKlineCache.Add(((k.OpenTime.Ticks - epochTicks) / TimeSpan.TicksPerSecond), new KlineCandleStick()
+                {
+                    Close = k.Close,
+                    High = k.High,
+                    Low = k.Low,
+                    Open = k.Open,
+                    Volume = k.Volume,
+                });
+            });
+
+            // Store the last update from our result set;
+            using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
+            {
+                binanceWebSocketClient.ConnectToKlineWebSocket("BNBBTC", KlineInterval.OneMinute, data =>
+                {
+                    var keyTime = ((data.Kline.StartTime.Ticks - epochTicks) / TimeSpan.TicksPerSecond);
+                    var klineObj = new KlineCandleStick()
+                    {
+                        Close = data.Kline.Close,
+                        High = data.Kline.High,
+                        Low = data.Kline.Low,
+                        Open = data.Kline.Open,
+                        Volume = data.Kline.Volume,
+                    };
+                    if (!data.Kline.IsBarFinal)
+                    {
+                        if (keyTime < startTimeKeyTime)
+                        {
+                            return;
+                        }
+
+                        TryAddUpdateKlineCache(instanceKlineCache, keyTime, klineObj);
+                    }
+                    else
+                    {
+                        TryAddUpdateKlineCache(instanceKlineCache, keyTime, klineObj);
+                    }
+                    System.Console.Clear();
+                    System.Console.WriteLine($"{JsonConvert.SerializeObject(instanceKlineCache, Formatting.Indented)}");
+                    System.Console.SetWindowPosition(0, 0);
+                });
+
+                Thread.Sleep(480000);
+            }
+        }
+
+        private static void TryAddUpdateKlineCache(Dictionary<long, KlineCandleStick> primary, long keyTime, KlineCandleStick klineObj)
+        {
+            if (primary.ContainsKey(keyTime))
+            {
+                primary[keyTime] = klineObj;
+            }
+            else
+            {
+                primary.Add(keyTime, klineObj);
+            }
         }
 
         private static void CorrectlyUpdateDepthCache(TradeResponse bd,  Dictionary<decimal, decimal> depthCache)

@@ -1,6 +1,10 @@
 # BinanceDotNet Changelog
 
 **Release Date: 10/17/2017**
+## 1.4.2
+- Adjusted Kline cache models for example
+
+**Release Date: 10/17/2017**
 ## 1.4.1
 - Adjusted Depth cache models for example
 
