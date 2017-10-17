@@ -12,10 +12,10 @@ namespace BinanceExchange.API
     {
         private readonly string _apiKey;
         private readonly string _secretKey;
-        private IAPICache _apiCache;
+        private IAPICacheManager _apiCache;
         private bool _cacheEnabled;
 
-        public APIProcessor(string apiKey, string secretKey, IAPICache apiCache)
+        public APIProcessor(string apiKey, string secretKey, IAPICacheManager apiCache)
         {
             _apiKey = apiKey;
             _secretKey = secretKey;
@@ -26,7 +26,7 @@ namespace BinanceExchange.API
             }
         }
 
-        private async Task<T> HandleResponse<T>(HttpResponseMessage message) where T : class
+        private async Task<T> HandleResponse<T>(HttpResponseMessage message, string fullCacheKey) where T : class
         {
             if (message.IsSuccessStatusCode)
             {
@@ -36,16 +36,20 @@ namespace BinanceExchange.API
                 {
                     throw new Exception("Unable to deserialize to provided type");
                 }
+                if (_apiCache.Contains(fullCacheKey))
+                {
+                    _apiCache.Remove(fullCacheKey);
+                }
+                _apiCache.Add(messageObject, fullCacheKey, TimeSpan.FromMinutes(30));
                 return messageObject;
             }
             var errorJson = await message.Content.ReadAsStringAsync();
             var errorObject = JsonConvert.DeserializeObject<BinanceError>(errorJson);
             if (errorObject != null)
             {
-                throw new BinanceException("API Error", errorObject);
+                throw new BinanceException("Binance API Error", errorObject);
             }
             throw new Exception("Error whilst handling the response");
-
         }
 
         /// <summary>
@@ -53,13 +57,13 @@ namespace BinanceExchange.API
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="partialKey">The absolute Uri of the endpoint being hit. This is used in combination with the Type name to generate a unique key</param>
+        /// <param name="item"></param>
         /// <returns>Whether the item exists</returns>
-        private bool CheckAndRetrieveCachedItem<T>(string partialKey, out T item) where T : class
+        private bool CheckAndRetrieveCachedItem<T>(string fullKey, out T item) where T : class
         {
-            var key = $"{nameof(T)}-{partialKey}";
             item = null;
-            var result = _apiCache.Contains(key);
-            item =  result ? _apiCache.Get<T>(key) : null;
+            var result = _apiCache.Contains(fullKey);
+            item =  result ? _apiCache.Get<T>(fullKey) : null;
             return result;
         }
 
@@ -72,10 +76,11 @@ namespace BinanceExchange.API
         /// <returns></returns>
         public async Task<T> ProcessGetRequest<T>(BinanceEndpointData endpoint, int receiveWindow = 5000) where T : class
         {
+            var fullKey = $"{typeof(T).Name}-{endpoint.Uri.AbsoluteUri}";
             if (_cacheEnabled && endpoint.UseCache)
             {
                 T item;
-                if (CheckAndRetrieveCachedItem<T>(endpoint.Uri.AbsoluteUri, out item))
+                if (CheckAndRetrieveCachedItem<T>(fullKey, out item))
                 {
                     return item;
                 }
@@ -92,7 +97,7 @@ namespace BinanceExchange.API
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            return await HandleResponse<T>(message);
+            return await HandleResponse<T>(message, fullKey);
         }
 
         /// <summary>
@@ -104,6 +109,15 @@ namespace BinanceExchange.API
         /// <returns></returns>
         public async Task<T> ProcessDeleteRequest<T>(BinanceEndpointData endpoint, int receiveWindow = 5000) where T : class
         {
+            var fullKey = $"{typeof(T).Name}-{endpoint.Uri.AbsoluteUri}";
+            if (_cacheEnabled && endpoint.UseCache)
+            {
+                T item;
+                if (CheckAndRetrieveCachedItem<T>(fullKey, out item))
+                {
+                    return item;
+                }
+            }
             HttpResponseMessage message;
             switch (endpoint.SecurityType) { 
                 case EndpointSecurityType.ApiKey:
@@ -116,7 +130,7 @@ namespace BinanceExchange.API
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            return await HandleResponse<T>(message);
+            return await HandleResponse<T>(message, fullKey);
         }
 
         /// <summary>
@@ -128,6 +142,15 @@ namespace BinanceExchange.API
         /// <returns></returns>
         public async Task<T> ProcessPostRequest<T>(BinanceEndpointData endpoint, int receiveWindow = 5000) where T : class
         {
+            var fullKey = $"{typeof(T).Name}-{endpoint.Uri.AbsoluteUri}";
+            if (_cacheEnabled && endpoint.UseCache)
+            {
+                T item;
+                if (CheckAndRetrieveCachedItem<T>(fullKey, out item))
+                {
+                    return item;
+                }
+            }
             HttpResponseMessage message;
             switch (endpoint.SecurityType) { 
                 case EndpointSecurityType.ApiKey:
@@ -141,7 +164,7 @@ namespace BinanceExchange.API
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            return await HandleResponse<T>(message);
+            return await HandleResponse<T>(message, fullKey);
         }
 
         /// <summary>
@@ -153,6 +176,15 @@ namespace BinanceExchange.API
         /// <returns></returns>
         public async Task<T> ProcessPutRequest<T>(BinanceEndpointData endpoint, int receiveWindow = 5000) where T : class
         {
+            var fullKey = $"{typeof(T).Name}-{endpoint.Uri.AbsoluteUri}";
+            if (_cacheEnabled && endpoint.UseCache)
+            {
+                T item;
+                if (CheckAndRetrieveCachedItem<T>(fullKey, out item))
+                {
+                    return item;
+                }
+            }
             HttpResponseMessage message;
             switch (endpoint.SecurityType) { 
                 case EndpointSecurityType.ApiKey:
@@ -163,7 +195,7 @@ namespace BinanceExchange.API
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            return await HandleResponse<T>(message);
+            return await HandleResponse<T>(message, fullKey);
         }
     }
 }

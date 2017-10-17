@@ -18,7 +18,7 @@ namespace BinanceExchange.API.Client
         private readonly string _secretKey;
         private readonly APIProcessor _apiProcessor;
 
-        public BinanceClient(ClientConfiguration configuration, IAPICache apiCache = null)
+        public BinanceClient(ClientConfiguration configuration, IAPICacheManager apiCache = null)
         {
             Guard.AgainstNull(configuration);
             Guard.AgainstNullOrEmpty(configuration.ApiKey);

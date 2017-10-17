@@ -2,7 +2,7 @@
 
 ## `BinanceClient: IBinanceClient`
 
-The `BinanceClient` takes in a `ClientConfiguration` object, and a concrete implementation of the `IAPICache` interface.
+The `BinanceClient` takes in a `ClientConfiguration` object, and a concrete implementation of the `IAPICacheManager` interface.
 
 ### `ClientConfiguration`
 - `ApiKey: string`

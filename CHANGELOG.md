@@ -1,5 +1,13 @@
 # BinanceDotNet Changelog
 
+**Release Date: 10/17/2017**
+## 1.4.0
+- Added in API Cache concrete implementation
+- Auditing areas for cache implementation
+- Added `Examples` section on `README.md` for local cache and into `Program.cs` for demo
+- Added new models for cache usage
+- Added more comments to code
+
 **Release Date: 10/16/2017**
 ## 1.3.0
 - Added in documentation to `/docs` in repo root
