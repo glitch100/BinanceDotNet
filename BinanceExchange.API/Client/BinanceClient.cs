@@ -87,7 +87,7 @@ namespace BinanceExchange.API.Client
 
         #region Market Data
         /// <summary>
-        /// Gets the current order book for the specified symbol
+        /// Gets the current depth order book for the specified symbol
         /// </summary>
         /// <param name="symbol">The symbole to retrieve the order book for</param>
         /// <param name="useCache"></param>

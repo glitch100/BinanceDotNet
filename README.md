@@ -87,58 +87,54 @@ You can also calculate volume and more from this cache.
 
 ```c#
 // Code example of building out a Dictionary local cache for a symbol
-// with no expiration on trades/offers.
-var localDepthCache = new Dictionary<string, SymbolCacheItem>();
-// We want to ignore values with 0 quantity and 0 price
-var defaultIgnoreValue = 0.00000000M;
-// Standard Func for repeated logic
-var tradeFactoryFunc = new Func<List<TradeResponse>, List<Trade>>((lt) =>
+var localDepthCache = new Dictionary<string, DepthCacheObject> {{ "BNBBTC", new DepthCacheObject()
 {
-    return lt.Where(ad => ad.Price != defaultIgnoreValue).Select(ad => new Trade()
+    Asks = new Dictionary<decimal, decimal>(),
+    Bids = new Dictionary<decimal, decimal>(),
+}}};
+var bnbBtcDepthCache = localDepthCache["BNBBTC"];
+
+// Get Order Book, and use Cache
+var depthResults = await client.GetOrderBook("BNBBTC", true, 100);
+//Populate our depth cache
+depthResults.Asks.ForEach(a =>
+{
+    if (a.Quantity != 0.00000000M)
     {
-        Price = ad.Price,
-        Quantity = ad.Quantity,
-    }).ToList();
+        bnbBtcDepthCache.Asks.Add(a.Price, a.Quantity);
+    }
 });
+depthResults.Bids.ForEach(a =>
+{
+    if (a.Quantity != 0.00000000M)
+    {
+        bnbBtcDepthCache.Bids.Add(a.Price, a.Quantity);
+    }
+});
+
+// Store the last update
+long lastUpdateId = 0;
 using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
 {
-    binanceWebSocketClient.ConnectToDepthWebSocket("ETHBTC", data =>
+    binanceWebSocketClient.ConnectToDepthWebSocket("BNBBTC", data =>
     {
-        // Check our cache contains this key
-        if (localDepthCache.ContainsKey(data.Symbol))
+        if (lastUpdateId < data.UpdateId)
         {
-            var entry = localDepthCache[data.Symbol];
-            if (entry.CurrentUpdateId < data.UpdateId)
+            data.BidDepthDeltas.ForEach((bd) =>
             {
-                // Double logic to show the same operation on both. We check it's a valid hit, and then
-                // add it to our cache. We do not remove items.
-                data.BidDepthDeltas.Where(bd => bd.Price != defaultIgnoreValue && bd.Quantity != defaultIgnoreValue).ToList().ForEach(
-                    bd => entry.Bids.Add(new Trade()
-                    {
-                        Price = bd.Price,
-                        Quantity = bd.Quantity
-                    }));
-                data.AskDepthDeltas.Where(ad => ad.Price != defaultIgnoreValue && ad.Quantity != defaultIgnoreValue).ToList().ForEach(
-                    ad => entry.Asks.Add(new Trade()
-                    {
-                        Price = ad.Price,
-                        Quantity = ad.Quantity
-                    }));
-            }
-        }
-        else
-        {
-            // First time hits initialize that symbol entry
-            localDepthCache.Add(data.Symbol, new SymbolCacheItem(data.Symbol, data.UpdateId)
+                CorrectlyUpdateDepthCache(bd, bnbBtcDepthCache.Bids);
+            });
+            data.AskDepthDeltas.ForEach((ad) =>
             {
-                Asks = new List<Trade>(tradeFactoryFunc(data.AskDepthDeltas)),
-                Bids = new List<Trade>(tradeFactoryFunc(data.BidDepthDeltas)),
+                CorrectlyUpdateDepthCache(ad, bnbBtcDepthCache.Asks);
             });
         }
-        System.Console.WriteLine($"Depth Cal JSON: {JsonConvert.SerializeObject(data)}");
+        lastUpdateId = data.UpdateId;
+        System.Console.Clear();
+        System.Console.WriteLine($"{JsonConvert.SerializeObject(bnbBtcDepthCache, Formatting.Indented)}");
+        System.Console.SetWindowPosition(0, 0);
     });
 
-    // Just enough time to fill the cache for this example.
     Thread.Sleep(480000);
 }
 ```
