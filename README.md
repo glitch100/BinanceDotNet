@@ -16,13 +16,13 @@ Feel free to raise issues and Pull Request to help improve the library.
 
 ## Features
 - Rate limiting, with 10 requests in 10 seconds _(disabled by default)_
+- `NLog` support
 - Dotnet core 2.0
 - Binance WebSockets
 - `IAPICacheManager` abstraction for providing your own cache or using the build in concrete implementation. _(Currently only one endpoint has caching)_
-- Basic console app with examples ready to launch _(provide API keys)_
+- Console app with examples ready to launch _(provide API keys)_
 
 ## Roadmap
-- Add in `log4net` logger - 1.5.0
 - Build out Unit Test support - 1.6.0
 - Provide Builder support for queries - 2.0.0
 - Abstract out the HttpClient - 2.0.0
@@ -43,7 +43,9 @@ dotnet add package BinanceDotNet
 
 ## Usage
 Code examples below, or clone the repository and run the `BinanceExchange.Console` project.
+**This repository is built off dotnet core, and runs against C# 7.1**
 
+### Creating a Client
 General usage just requires setting up the client with your credentials, and then calling the Client as necessary.
 ```c#
 var client = new BinanceClient(new ClientConfiguration()
@@ -59,6 +61,7 @@ IReponse response = await client.GetCompressedAggregateTrades(new GetCompressedA
 });
 ```
 
+### Creating a WebSocket Client
 For WebSocket endpoints, just instantiate the `BinanceClient`, and provide it into the `BinanceWebSocketClient`
 ```c#
 var client = new BinanceClient(new ClientConfiguration()
@@ -79,6 +82,7 @@ using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
 ```
 
 ## Examples
+More examples are available to play around with within the repositorys Console application.
 
 ### Building out a local cache per symbol from the depth WebSocket
 The example is mainly 'all in one' so you can see a full runthrough of how it works. In your own implementations you may want to have a cache of only the most recent bids/asks, or perhaps will want the empty quanity/price trades.

@@ -8,7 +8,9 @@ using BinanceExchange.API.Extensions;
 using BinanceExchange.API.Models.Websocket;
 using BinanceExchange.API.Utility;
 using Newtonsoft.Json;
+using NLog;
 using WebSocketSharp;
+using Logger = NLog.Logger;
 
 namespace BinanceExchange.API.Websockets
 {
@@ -33,15 +35,17 @@ namespace BinanceExchange.API.Websockets
         private Dictionary<Guid, BinanceWebSocket> _activeWebSockets;
         private List<BinanceWebSocket> _allSockets;
         private readonly IBinanceClient _binanceClient;
+        private ILogger _logger;
 
         private const string AccountEventType = "outboundAccountInfo";
         private const string OrderTradeEventType = "executionReport";
 
-        public BinanceWebSocketClient(IBinanceClient binanceClient)
+        public BinanceWebSocketClient(IBinanceClient binanceClient, ILogger logger = null)
         {
             _binanceClient = binanceClient;
             _activeWebSockets = new Dictionary<Guid, BinanceWebSocket>();
             _allSockets = new List<BinanceWebSocket>();
+            _logger = logger ?? LogManager.GetCurrentClassLogger();
         }
 
 
@@ -55,7 +59,7 @@ namespace BinanceExchange.API.Websockets
         public Guid ConnectToKlineWebSocket(string symbol, KlineInterval interval, BinanceWebSocketMessageHandler<BinanceKlineData> messageEventHandler)
         {
             Guard.AgainstNullOrEmpty(symbol, nameof(symbol));
-
+            _logger.Debug("Connecting to Kline Web Socket");
             var endpoint = new Uri($"{_baseWebsocketUri}/{symbol.ToLower()}@kline_{EnumExtensions.GetEnumMemberValue(interval)}");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
@@ -69,7 +73,7 @@ namespace BinanceExchange.API.Websockets
         public Guid ConnectToDepthWebSocket(string symbol, BinanceWebSocketMessageHandler<BinanceDepthData> messageEventHandler)
         {
             Guard.AgainstNullOrEmpty(symbol, nameof(symbol));
-
+            _logger.Debug("Connecting to Depth Web Socket");
             var endpoint = new Uri($"{_baseWebsocketUri}/{symbol.ToLower()}@depth");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
@@ -83,7 +87,7 @@ namespace BinanceExchange.API.Websockets
         public Guid ConnectToTradesWebSocket(string symbol, BinanceWebSocketMessageHandler<BinanceAggregateTradeData> messageEventHandler)
         {
             Guard.AgainstNullOrEmpty(symbol, nameof(symbol));
-
+            _logger.Debug("Connecting to Trades Web Socket");
             var endpoint = new Uri($"{_baseWebsocketUri}/{symbol.ToLower()}@aggTrades");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
@@ -96,7 +100,7 @@ namespace BinanceExchange.API.Websockets
         public async Task<Guid> ConnectToUserDataWebSocket(UserDataWebSocketMessages userDataMessageHandlers)
         {
             Guard.AgainstNull(_binanceClient, nameof(_binanceClient));
-
+            _logger.Debug("Connecting to User Data Web Socket");
             var listenKey = await _binanceClient.StartUserDataStream();
 
             var endpoint = new Uri($"{_baseWebsocketUri}/{listenKey}");
@@ -108,11 +112,11 @@ namespace BinanceExchange.API.Websockets
             var websocket = new BinanceWebSocket(endpoint.AbsoluteUri);
             websocket.OnOpen += (sender, e) =>
             {
-                //TODO: Log here that connection is opened
+                _logger.Debug($"WebSocket Opened:{endpoint.AbsoluteUri}");
             };
             websocket.OnMessage += (sender, e) =>
             {
-                //TODO: Log message received
+                _logger.Debug($"WebSocket Message Received on Endpoint: {endpoint.AbsoluteUri}");
                 var primitive = JsonConvert.DeserializeObject<IWebSocketResponse>(e.Data);
                 switch (primitive.EventType)
                 {
@@ -137,6 +141,7 @@ namespace BinanceExchange.API.Websockets
             };
             websocket.OnError += (sender, e) =>
             {
+                _logger.Error($"WebSocket Error on {endpoint.AbsoluteUri}: ",e);
                 CloseWebSocketInstance(websocket.Id, true);
                 throw new Exception("Binance UserData WebSocket failed")
                 {
@@ -159,16 +164,18 @@ namespace BinanceExchange.API.Websockets
             var websocket = new BinanceWebSocket(endpoint.AbsoluteUri);
             websocket.OnOpen += (sender, e) =>
             {
-                //TODO: Log here that connection is opened
+                _logger.Debug($"WebSocket Opened:{endpoint.AbsoluteUri}");
             };
             websocket.OnMessage += (sender, e) =>
             {
+                _logger.Debug($"WebSocket Messge Received on: {endpoint.AbsoluteUri}");
                 //TODO: Log message received
                 var data = JsonConvert.DeserializeObject<T>(e.Data);
                 messageEventHandler(data);
             };
             websocket.OnError += (sender, e) =>
             {
+                _logger.Debug($"WebSocket Error on {endpoint.AbsoluteUri}:", e);
                 CloseWebSocketInstance(websocket.Id, true);
                 throw new Exception("Binance WebSocket failed")
                 {
@@ -200,7 +207,6 @@ namespace BinanceExchange.API.Websockets
                 if (!fromError)
                 {
                     ws.CloseAsync(CloseStatusCode.PolicyViolation);
-
                 }
             }
             else

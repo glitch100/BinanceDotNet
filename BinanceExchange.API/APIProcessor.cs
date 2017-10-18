@@ -5,6 +5,7 @@ using BinanceExchange.API.Caching;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Response.Error;
 using Newtonsoft.Json;
+using NLog;
 
 namespace BinanceExchange.API
 {
@@ -13,6 +14,7 @@ namespace BinanceExchange.API
         private readonly string _apiKey;
         private readonly string _secretKey;
         private IAPICacheManager _apiCache;
+        private ILogger _logger;
         private bool _cacheEnabled;
 
         public APIProcessor(string apiKey, string secretKey, IAPICacheManager apiCache)
@@ -24,6 +26,8 @@ namespace BinanceExchange.API
                 _apiCache = apiCache;
                 _cacheEnabled = true;
             }
+            _logger = LogManager.GetCurrentClassLogger();
+            _logger.Debug($"API Processor set up. Cache Enabled={_cacheEnabled}");
         }
 
         private async Task<T> HandleResponse<T>(HttpResponseMessage message, string fullCacheKey) where T : class
@@ -32,6 +36,8 @@ namespace BinanceExchange.API
             {
                 var messageJson = await message.Content.ReadAsStringAsync();
                 var messageObject = JsonConvert.DeserializeObject<T>(messageJson);
+                _logger.Debug($"Successful Message Response={messageJson}");
+
                 if (messageObject == null)
                 {
                     throw new Exception("Unable to deserialize to provided type");
@@ -47,6 +53,7 @@ namespace BinanceExchange.API
             var errorObject = JsonConvert.DeserializeObject<BinanceError>(errorJson);
             if (errorObject != null)
             {
+                _logger.Error($"Error Message Recevied", errorObject);
                 throw new BinanceException("Binance API Error", errorObject);
             }
             throw new Exception("Error whilst handling the response");

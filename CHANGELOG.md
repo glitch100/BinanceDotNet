@@ -1,5 +1,12 @@
 # BinanceDotNet Changelog
 
+**Release Date: 10/18/2017**
+## 1.5.0
+- Added `NLog` support, and sample `nlog.config`
+- Added more advanced example of Kline cache
+- Added basic examples
+- Minor changes
+
 **Release Date: 10/17/2017**
 ## 1.4.2
 - Adjusted Kline cache models for example
