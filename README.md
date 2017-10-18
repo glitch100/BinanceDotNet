@@ -117,7 +117,7 @@ depthResults.Bids.ForEach(a =>
 });
 
 // Store the last update
-long lastUpdateId = 0;
+long lastUpdateId = depthResults.LastUpdateId;
 using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
 {
     binanceWebSocketClient.ConnectToDepthWebSocket("BNBBTC", data =>

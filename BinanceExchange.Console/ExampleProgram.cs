@@ -38,6 +38,7 @@ namespace BinanceExchange.Console
             //Provide your configuration and keys here, this allows the client to function as expected.
             string apiKey = "YOUR_KEY";
             string secretKey = "YOUR_SECRET_KEY";
+
             System.Console.WriteLine("--------------------------");
             System.Console.WriteLine("BinanceExchange API - Tester");
             System.Console.WriteLine("--------------------------");
