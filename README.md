@@ -82,7 +82,7 @@ using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
 ```
 
 ## Examples
-More examples are available to play around with within the repositorys Console application.
+More examples are available to play around with within the repositorys Console application which can be found [here](/BinanceExchange.Console/ExampleProgram.cs). Otherwise here is an example around utilising both `WebSockets` and `REST` API 
 
 ### Building out a local cache per symbol from the depth WebSocket
 The example is mainly 'all in one' so you can see a full runthrough of how it works. In your own implementations you may want to have a cache of only the most recent bids/asks, or perhaps will want the empty quanity/price trades.
