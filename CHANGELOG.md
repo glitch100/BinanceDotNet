@@ -1,6 +1,12 @@
 # BinanceDotNet Changelog
 
 **Release Date: 10/19/2017**
+## 1.6.0
+- Start of unit test coverage
+- Abstraction
+- Changed `BinanceClient` requirements
+
+**Release Date: 10/19/2017**
 ## 1.5.1
 - Added `ResultTransformations` `static` class; used to transform API results into meaningful data
 - Adjusted examples

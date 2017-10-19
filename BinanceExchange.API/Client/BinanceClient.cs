@@ -17,7 +17,7 @@ namespace BinanceExchange.API.Client
     {
         private readonly string _apiKey;
         private readonly string _secretKey;
-        private readonly APIProcessor _apiProcessor;
+        private readonly IAPIProcessor _apiProcessor;
         private readonly ILogger _logger;
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BinanceExchange.API.Client
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="apiCache"></param>
-        public BinanceClient(ClientConfiguration configuration, IAPICacheManager apiCache = null)
+        public BinanceClient(ClientConfiguration configuration, IAPIProcessor apiProcessor = null)
         {
             _logger = configuration.Logger ?? LogManager.GetCurrentClassLogger();
             Guard.AgainstNull(configuration);
@@ -34,9 +34,18 @@ namespace BinanceExchange.API.Client
 
             _apiKey = configuration.ApiKey;
             _secretKey = configuration.SecretKey;
+
             RequestClient.SetRateLimiting(configuration.EnableRateLimiting);
             RequestClient.SetAPIKey(_apiKey);
-            _apiProcessor = new APIProcessor(_apiKey, _secretKey, apiCache);
+            if (apiProcessor == null)
+            {
+                _apiProcessor = new APIProcessor(_apiKey, _secretKey, new APICacheManager());
+                _apiProcessor.SetCacheTime(configuration.CacheTime);
+            }
+            else
+            {
+                _apiProcessor = apiProcessor;
+            }
         }
 
         #region User Stream

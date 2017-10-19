@@ -9,13 +9,17 @@ using NLog;
 
 namespace BinanceExchange.API
 {
-    public class APIProcessor
+    /// <summary>
+    /// The API Processor is the chief piece of functionality responsible for handling and creating requests to the API
+    /// </summary>
+    public class APIProcessor : IAPIProcessor
     {
         private readonly string _apiKey;
         private readonly string _secretKey;
         private IAPICacheManager _apiCache;
         private ILogger _logger;
         private bool _cacheEnabled;
+        private TimeSpan _cacheTime;
 
         public APIProcessor(string apiKey, string secretKey, IAPICacheManager apiCache)
         {
@@ -28,6 +32,15 @@ namespace BinanceExchange.API
             }
             _logger = LogManager.GetCurrentClassLogger();
             _logger.Debug($"API Processor set up. Cache Enabled={_cacheEnabled}");
+        }
+
+        /// <summary>
+        /// Set the cache expiry time
+        /// </summary>
+        /// <param name="time"></param>
+        public void SetCacheTime(TimeSpan time)
+        {
+            _cacheTime = time;
         }
 
         private async Task<T> HandleResponse<T>(HttpResponseMessage message, string fullCacheKey) where T : class
@@ -46,7 +59,7 @@ namespace BinanceExchange.API
                 {
                     _apiCache.Remove(fullCacheKey);
                 }
-                _apiCache.Add(messageObject, fullCacheKey, TimeSpan.FromMinutes(30));
+                _apiCache.Add(messageObject, fullCacheKey, _cacheTime);
                 return messageObject;
             }
             var errorJson = await message.Content.ReadAsStringAsync();

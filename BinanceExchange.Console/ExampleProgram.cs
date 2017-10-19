@@ -37,8 +37,8 @@ namespace BinanceExchange.Console
             var logger = LogManager.GetLogger("*");
 
             //Provide your configuration and keys here, this allows the client to function as expected.
-            string apiKey = "YOUR_KEY";
-            string secretKey = "YOUR_SECRET";
+            string apiKey = "API_KEY";
+            string secretKey = "SECRET_KEY";
 
             System.Console.WriteLine("--------------------------");
             System.Console.WriteLine("BinanceExchange API - Tester");
@@ -50,7 +50,7 @@ namespace BinanceExchange.Console
                 ApiKey = apiKey,
                 SecretKey = secretKey,
                 Logger = logger,
-            }, new APICacheManager());
+            });
 
             System.Console.WriteLine("Interacting with Binance...");
 
