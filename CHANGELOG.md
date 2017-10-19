@@ -1,5 +1,10 @@
 # BinanceDotNet Changelog
 
+**Release Date: 10/19/2017**
+## 1.5.1
+- Added `ResultTransformations` `static` class; used to transform API results into meaningful data
+- Adjusted examples
+
 **Release Date: 10/18/2017**
 ## 1.5.0
 - Added `NLog` support, and sample `nlog.config`
