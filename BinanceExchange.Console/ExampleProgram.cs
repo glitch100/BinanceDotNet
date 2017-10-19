@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using BinanceExchange.API;
 using BinanceExchange.API.Caching;
 using BinanceExchange.API.Client;
 using BinanceExchange.API.Enums;
@@ -37,7 +38,7 @@ namespace BinanceExchange.Console
 
             //Provide your configuration and keys here, this allows the client to function as expected.
             string apiKey = "YOUR_KEY";
-            string secretKey = "YOUR_SECRET_KEY";
+            string secretKey = "YOUR_SECRET";
 
             System.Console.WriteLine("--------------------------");
             System.Console.WriteLine("BinanceExchange API - Tester");
@@ -147,18 +148,21 @@ namespace BinanceExchange.Console
             // You could provide additional logic here such as populating a database, ping off more messages, or simply
             // timing out a fill for the cache.
             var dict = new Dictionary<string, KlineCacheObject>();
-            await BuildAndUpdateLocalKlineCache(client, "BNBBTC", KlineInterval.OneMinute,
-                new GetKlinesCandlesticksRequest()
-                {
-                    StartTime = DateTime.UtcNow.AddHours(-1),
-                    EndTime = DateTime.UtcNow,
-                    Interval = KlineInterval.OneMinute,
-                    Symbol = "BNBBTC"
-                }, new WebSocketConnectionFunc(15000), dict);
+            //await BuildAndUpdateLocalKlineCache(client, "BNBBTC", KlineInterval.OneMinute,
+            //    new GetKlinesCandlesticksRequest()
+            //    {
+            //        StartTime = DateTime.UtcNow.AddHours(-1),
+            //        EndTime = DateTime.UtcNow,
+            //        Interval = KlineInterval.OneMinute,
+            //        Symbol = "BNBBTC"
+            //    }, new WebSocketConnectionFunc(15000), dict);
 
             // This builds a local depth cache from an initial call to the API and then continues to fill 
             // the cache with data from the WebSocket
-            //await BuildLocalDepthCache(client);
+            var localDepthCache = await BuildLocalDepthCache(client);
+            // Build the Buy Sell volume from the results
+            var volume = ResultTransformations.CalculateTradeVolumeFromDepth("BNBBTC", localDepthCache);
+
             #endregion
             System.Console.WriteLine("Complete.");
             System.Console.ReadLine();
@@ -169,7 +173,7 @@ namespace BinanceExchange.Console
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        private static async Task BuildLocalDepthCache(IBinanceClient client)
+        private static async Task<Dictionary<string, DepthCacheObject>> BuildLocalDepthCache(IBinanceClient client)
         {
             // Code example of building out a Dictionary local cache for a symbol using deltas from the WebSocket
             var localDepthCache = new Dictionary<string, DepthCacheObject> {{ "BNBBTC", new DepthCacheObject()
@@ -220,8 +224,9 @@ namespace BinanceExchange.Console
                     System.Console.SetWindowPosition(0, 0);
                 });
 
-                Thread.Sleep(480000);
+                Thread.Sleep(8000);
             }
+            return localDepthCache;
         }
 
         /// <summary>
