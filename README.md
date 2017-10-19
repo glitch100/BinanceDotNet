@@ -82,63 +82,79 @@ using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
 ```
 
 ## Examples
-More examples are available to play around with within the repositorys Console application which can be found [here](/BinanceExchange.Console/ExampleProgram.cs). Otherwise here is an example around utilising both `WebSockets` and `REST` API 
+More examples are available to play around with within the repositorys Console application which can be found [here](/BinanceExchange.Console/ExampleProgram.cs). Otherwise here is an example around utilising both `WebSockets` and `REST` API
 
 ### Building out a local cache per symbol from the depth WebSocket
 The example is mainly 'all in one' so you can see a full runthrough of how it works. In your own implementations you may want to have a cache of only the most recent bids/asks, or perhaps will want the empty quanity/price trades.
 
-You can also calculate volume and more from this cache.
+You can also calculate volume and more from this cache. The following code is _partial_ from the `ExampleProgram.cs`.
 
 ```c#
-// Code example of building out a Dictionary local cache for a symbol
-var localDepthCache = new Dictionary<string, DepthCacheObject> {{ "BNBBTC", new DepthCacheObject()
+private static async Task<Dictionary<string, DepthCacheObject>> BuildLocalDepthCache(IBinanceClient client)
 {
-    Asks = new Dictionary<decimal, decimal>(),
-    Bids = new Dictionary<decimal, decimal>(),
-}}};
-var bnbBtcDepthCache = localDepthCache["BNBBTC"];
+    // Code example of building out a Dictionary local cache for a symbol using deltas from the WebSocket
+    var localDepthCache = new Dictionary<string, DepthCacheObject> {{ "BNBBTC", new DepthCacheObject()
+    {
+        Asks = new Dictionary<decimal, decimal>(),
+        Bids = new Dictionary<decimal, decimal>(),
+    }}};
+    var bnbBtcDepthCache = localDepthCache["BNBBTC"];
 
-// Get Order Book, and use Cache
-var depthResults = await client.GetOrderBook("BNBBTC", true, 100);
-//Populate our depth cache
-depthResults.Asks.ForEach(a =>
-{
-    if (a.Quantity != 0.00000000M)
+    // Get Order Book, and use Cache
+    var depthResults = await client.GetOrderBook("BNBBTC", true, 100);
+    //Populate our depth cache
+    depthResults.Asks.ForEach(a =>
     {
-        bnbBtcDepthCache.Asks.Add(a.Price, a.Quantity);
-    }
-});
-depthResults.Bids.ForEach(a =>
-{
-    if (a.Quantity != 0.00000000M)
-    {
-        bnbBtcDepthCache.Bids.Add(a.Price, a.Quantity);
-    }
-});
-
-// Store the last update
-long lastUpdateId = depthResults.LastUpdateId;
-using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
-{
-    binanceWebSocketClient.ConnectToDepthWebSocket("BNBBTC", data =>
-    {
-        if (lastUpdateId < data.UpdateId)
+        if (a.Quantity != 0.00000000M)
         {
-            data.BidDepthDeltas.ForEach((bd) =>
-            {
-                CorrectlyUpdateDepthCache(bd, bnbBtcDepthCache.Bids);
-            });
-            data.AskDepthDeltas.ForEach((ad) =>
-            {
-                CorrectlyUpdateDepthCache(ad, bnbBtcDepthCache.Asks);
-            });
+            bnbBtcDepthCache.Asks.Add(a.Price, a.Quantity);
         }
-        lastUpdateId = data.UpdateId;
-        System.Console.Clear();
-        System.Console.WriteLine($"{JsonConvert.SerializeObject(bnbBtcDepthCache, Formatting.Indented)}");
-        System.Console.SetWindowPosition(0, 0);
+    });
+    depthResults.Bids.ForEach(a =>
+    {
+        if (a.Quantity != 0.00000000M)
+        {
+            bnbBtcDepthCache.Bids.Add(a.Price, a.Quantity);
+        }
     });
 
-    Thread.Sleep(480000);
+    // Store the last update from our result set;
+    long lastUpdateId = depthResults.LastUpdateId;
+    using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
+    {
+        binanceWebSocketClient.ConnectToDepthWebSocket("BNBBTC", data =>
+        {
+            if (lastUpdateId < data.UpdateId)
+            {
+                data.BidDepthDeltas.ForEach((bd) =>
+                {
+                    CorrectlyUpdateDepthCache(bd, bnbBtcDepthCache.Bids);
+                });
+                data.AskDepthDeltas.ForEach((ad) =>
+                {
+                    CorrectlyUpdateDepthCache(ad, bnbBtcDepthCache.Asks);
+                });
+            }
+            lastUpdateId = data.UpdateId;
+            System.Console.Clear();
+            System.Console.WriteLine($"{JsonConvert.SerializeObject(bnbBtcDepthCache, Formatting.Indented)}");
+            System.Console.SetWindowPosition(0, 0);
+        });
+
+        Thread.Sleep(8000);
+    }
+    return localDepthCache;
 }
 ```
+
+### Result Transformations
+You can use the data returned from above to utilise the `ResultTransformations` `static` class, to transform data returned from the API into more meaningful, known shapes, such as Volume etc.
+
+```c#
+// This builds a local depth cache from an initial call to the API and then continues to fill
+// the cache with data from the WebSocket
+var localDepthCache = await BuildLocalDepthCache(client);
+// Build the Buy Sell volume from the results
+var volume = ResultTransformations.CalculateTradeVolumeFromDepth("BNBBTC", localDepthCache);
+```
+

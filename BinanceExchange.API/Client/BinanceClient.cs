@@ -34,9 +34,12 @@ namespace BinanceExchange.API.Client
 
             _apiKey = configuration.ApiKey;
             _secretKey = configuration.SecretKey;
+
             RequestClient.SetRateLimiting(configuration.EnableRateLimiting);
             RequestClient.SetAPIKey(_apiKey);
+
             _apiProcessor = new APIProcessor(_apiKey, _secretKey, apiCache);
+            _apiProcessor.SetCacheTime(configuration.CacheTime);
         }
 
         #region User Stream

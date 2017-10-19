@@ -16,6 +16,7 @@
     <PackageReleaseNotes>Added in ResultTransformations static class</PackageReleaseNotes>
     <AssemblyVersion>1.5.1.0</AssemblyVersion>
     <FileVersion>1.5.1.0</FileVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7.1</LangVersion>
