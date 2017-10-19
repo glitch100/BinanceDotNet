@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using BinanceExchange.API;
-using BinanceExchange.API.Caching;
 using BinanceExchange.API.Client;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Request;
@@ -37,8 +36,8 @@ namespace BinanceExchange.Console
             var logger = LogManager.GetLogger("*");
 
             //Provide your configuration and keys here, this allows the client to function as expected.
-            string apiKey = "SmA6MOWh1dJgAPNzbr991HFl7cg9ELu19NWFlIkhcWJgCwIld4CR2ZdGrmzMINpt";
-            string secretKey = "DXbl77HDBcmw3nxGCiW1ck6rTbNUW6IOpujnTlQsXW6paItIr08ZCxKYmvh1QobB";
+            string apiKey = "API_KEY";
+            string secretKey = "SECRET_KEY";
 
             System.Console.WriteLine("--------------------------");
             System.Console.WriteLine("BinanceExchange API - Tester");
@@ -50,7 +49,7 @@ namespace BinanceExchange.Console
                 ApiKey = apiKey,
                 SecretKey = secretKey,
                 Logger = logger,
-            }, new APICacheManager());
+            });
 
             System.Console.WriteLine("Interacting with Binance...");
 

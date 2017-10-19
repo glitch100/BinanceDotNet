@@ -2,7 +2,9 @@
 
 ## `BinanceClient: IBinanceClient`
 
-The `BinanceClient` takes in a `ClientConfiguration` object, and a concrete implementation of the `IAPICacheManager` interface.
+The `BinanceClient` is the main entry point for accessing the Binance Official API. It takes in a `ClientConfiguration` as documented below, or your own configured `IAPIProcessor`, however if not provided it will stand up it's own instance.
+
+`BinanceClient(ClientConfiguration configuration, IAPIProcessor apiProcessor = null)`
 
 ### `ClientConfiguration`
 - `ApiKey: string` - Your API Key
@@ -10,9 +12,6 @@ The `BinanceClient` takes in a `ClientConfiguration` object, and a concrete impl
 - `EnableRateLimiting: bool` - Whether you want RateLimiting enabled (_false by default_)
 - `Logger: ILogger` - Your own version of the `NLog.ILogger` interface
 - `CacheTime: TimeSpan` - The time that cache entries should expire
-
-The API Key and Secret Key must be provided to avoid an exception, where as the `EnableRateLimiting` `bool` argument, which defaults to false, can allow you to have a rate limited API, to prevent excessive calls.
-
 
 ## `BinanceWebSocketClient: IBinanceWebSocketClient, IDisposable`
 

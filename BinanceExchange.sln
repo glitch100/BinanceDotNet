@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinanceExchange.API", "BinanceExchange.API\BinanceExchange.API.csproj", "{562EA76F-8ADE-4D57-9DAD-39196E10567E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinanceExchange.API", "BinanceExchange.API\BinanceExchange.API.csproj", "{562EA76F-8ADE-4D57-9DAD-39196E10567E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinanceExchange.Console", "BinanceExchange.Console\BinanceExchange.Console.csproj", "{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinanceExchange.Console", "BinanceExchange.Console\BinanceExchange.Console.csproj", "{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinanceExchange.Tests", "BinanceExchange.Tests\BinanceExchange.Tests.csproj", "{1850BA62-E887-4E6C-AFAB-10A49ADB116B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1850BA62-E887-4E6C-AFAB-10A49ADB116B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1850BA62-E887-4E6C-AFAB-10A49ADB116B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1850BA62-E887-4E6C-AFAB-10A49ADB116B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1850BA62-E887-4E6C-AFAB-10A49ADB116B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

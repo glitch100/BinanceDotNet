@@ -17,15 +17,24 @@ Feel free to raise issues and Pull Request to help improve the library.
 ## Features
 - Rate limiting, with 10 requests in 10 seconds _(disabled by default)_
 - `NLog` support
-- Dotnet core 2.0
+- dotnet core 2.0
 - Binance WebSockets
+- Unit test coverage (_in progress_)
 - `IAPICacheManager` abstraction for providing your own cache or using the build in concrete implementation. _(Currently only one endpoint has caching)_
 - Console app with examples ready to launch _(provide API keys)_
 
 ## Roadmap
-- Build out Unit Test support - 1.6.0
+- Start building out Unit Test support - 1.6.0~
 - Provide Builder support for queries - 2.0.0
-- Abstract out the HttpClient - 2.0.0
+- Abstract out the HttpClient - 2.1.0
+
+## Contributing to `BinanceDotNet`
+```git
+git clone git@github.com:glitch100/BinanceDotNet.git
+```
+- Navigate to `ExampleProgram.cs`
+- Add your own Private and Secret keys
+- Play around with the API
 
 ## Installation
 The package is available in NuGet, or feel free to download:

@@ -34,6 +34,10 @@ namespace BinanceExchange.API
             _logger.Debug($"API Processor set up. Cache Enabled={_cacheEnabled}");
         }
 
+        /// <summary>
+        /// Set the cache expiry time
+        /// </summary>
+        /// <param name="time"></param>
         public void SetCacheTime(TimeSpan time)
         {
             _cacheTime = time;

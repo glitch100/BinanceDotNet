@@ -1,9 +1,16 @@
+using System;
 using System.Threading.Tasks;
 
 namespace BinanceExchange.API
 {
     public interface IAPIProcessor
     {
+        /// <summary>
+        /// Set the cache expiry time
+        /// </summary>
+        /// <param name="time"></param>
+        void SetCacheTime(TimeSpan time);
+
         /// <summary>
         /// Processes a GET request
         /// </summary>
