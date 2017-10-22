@@ -57,6 +57,7 @@ Code examples below, or clone the repository and run the `BinanceExchange.Consol
 ### Creating a Client
 General usage just requires setting up the client with your credentials, and then calling the Client as necessary.
 ```c#
+// Build out a client, provide a logger, and more configuration options, or even your own APIProcessor implementation
 var client = new BinanceClient(new ClientConfiguration()
 {
     ApiKey = "YOUR_API_KEY",
