@@ -13,8 +13,8 @@ Feel free to raise issues and Pull Request to help improve the library.
 - [REST API Calls](/docs/REST-API.md)
 - [WebSocket API Calls](/docs/WEBSOCKET-API.md)
 
-
 ## Features
+- Simple, Configurable, Extendable
 - Rate limiting, with 10 requests in 10 seconds _(disabled by default)_
 - `NLog` support
 - dotnet core 2.0
@@ -23,10 +23,15 @@ Feel free to raise issues and Pull Request to help improve the library.
 - `IAPICacheManager` abstraction for providing your own cache or using the build in concrete implementation. _(Currently only one endpoint has caching)_
 - Console app with examples ready to launch _(provide API keys)_
 
+## Examples
+More examples are available to play around with within the repositorys Console application which can be found [here](/BinanceExchange.Console/ExampleProgram.cs). Otherwise there are some examples around utilising both `WebSockets` and `REST` API in the `Usage` section below.
+
 ## Roadmap
-- Start building out Unit Test support - 1.6.0~
-- Provide Builder support for queries - 2.0.0
-- Abstract out the HttpClient - 2.1.0
+Work will continue on this API wrapper over the coming months adding and extending out the number of features that the `BinanceDotNet` library has. Please raise issues for new features desired
+
+- Start building out Unit Test support - 2.1.0~
+- Provide Builder support for queries - 2.5.0~
+- Abstract out the HttpClient - 3.0.0
 
 ## Contributing to `BinanceDotNet`
 ```git
@@ -73,6 +78,7 @@ IReponse response = await client.GetCompressedAggregateTrades(new GetCompressedA
 
 ### Creating a WebSocket Client
 For WebSocket endpoints, just instantiate the `BinanceClient`, and provide it into the `BinanceWebSocketClient`
+You can use a `using` block or manual management.
 ```c#
 var client = new BinanceClient(new ClientConfiguration()
 {
@@ -80,7 +86,18 @@ var client = new BinanceClient(new ClientConfiguration()
     SecretKey = "YOUR_SECRET_KEY",
 });
 
-using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
+
+// Manual management
+var manualWebSocketClient = new InstanceBinanceWebSocketClient(client);
+var socketId = binanceWebSocketClient.ConnectToDepthWebSocket("ETHBTC", data =>
+{
+    System.Console.WriteLine($"DepthCall: {JsonConvert.SerializeObject(data)}");
+});
+manualWebSocketClient.CloseWebSocketInstance(socketId);
+
+
+// Disposable and managed
+using (var binanceWebSocketClient = new DisposableBinanceWebSocketClient(client))
 {
     binanceWebSocketClient.ConnectToDepthWebSocket("ETHBTC", data =>
     {
@@ -90,9 +107,6 @@ using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
     Thread.Sleep(180000);
 }
 ```
-
-## Examples
-More examples are available to play around with within the repositorys Console application which can be found [here](/BinanceExchange.Console/ExampleProgram.cs). Otherwise here is an example around utilising both `WebSockets` and `REST` API
 
 ### Building out a local cache per symbol from the depth WebSocket
 The example is mainly 'all in one' so you can see a full runthrough of how it works. In your own implementations you may want to have a cache of only the most recent bids/asks, or perhaps will want the empty quanity/price trades.
@@ -130,7 +144,7 @@ private static async Task<Dictionary<string, DepthCacheObject>> BuildLocalDepthC
 
     // Store the last update from our result set;
     long lastUpdateId = depthResults.LastUpdateId;
-    using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
+    using (var binanceWebSocketClient = new DisposableBinanceWebSocketClient(client))
     {
         binanceWebSocketClient.ConnectToDepthWebSocket("BNBBTC", data =>
         {

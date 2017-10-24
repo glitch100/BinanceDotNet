@@ -1,5 +1,11 @@
 # BinanceDotNet Changelog
 
+**Release Date: 10/24/2017**
+## 2.0.0
+> Breaking Change
+- Building out 2 instances of the `BinanceWebSocket` system from a base `Abtract*` class. You can now have the `Disposable*` instance, which works the same as is, or you can have a manual one, which requires manual management of the the individual `WebSockets` with the `InstanceBinanceWebSocketClient`.
+- Changed `BinanceClient` requirements
+
 **Release Date: 10/19/2017**
 ## 1.6.0
 - Start of unit test coverage

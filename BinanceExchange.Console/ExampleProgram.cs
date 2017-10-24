@@ -37,8 +37,8 @@ namespace BinanceExchange.Console
             var logger = LogManager.GetLogger("*");
 
             //Provide your configuration and keys here, this allows the client to function as expected.
-            string apiKey = "API_KEY";
-            string secretKey = "SECRET_KEY";
+            string apiKey = "YOUR_API_KEY";
+            string secretKey = "YOUR_SECRET_KEY";
 
             System.Console.WriteLine("--------------------------");
             System.Console.WriteLine("BinanceExchange API - Tester");
@@ -140,6 +140,15 @@ namespace BinanceExchange.Console
             await client.KeepAliveUserDataStream(userData.ListenKey);
             await client.CloseUserDataStream(userData.ListenKey);
 
+            // Manual WebSocket usage
+            var manualBinanceWebSocket = new InstanceBinanceWebSocketClient(client);
+            var socketId = manualBinanceWebSocket.ConnectToDepthWebSocket("ETHBTC", b =>
+            {
+                System.Console.Clear();
+                System.Console.WriteLine($"{JsonConvert.SerializeObject(b.BidDepthDeltas, Formatting.Indented)}");
+                System.Console.SetWindowPosition(0, 0);
+            });
+
 
             #region Advanced Examples           
             // This builds a local Kline cache, with an initial call to the API and then continues to fill
@@ -165,6 +174,8 @@ namespace BinanceExchange.Console
 
             #endregion
             System.Console.WriteLine("Complete.");
+            Thread.Sleep(6000);
+            manualBinanceWebSocket.CloseWebSocketInstance(socketId);
             System.Console.ReadLine();
         }
 
@@ -203,7 +214,7 @@ namespace BinanceExchange.Console
 
             // Store the last update from our result set;
             long lastUpdateId = depthResults.LastUpdateId;
-            using (var binanceWebSocketClient = new BinanceWebSocketClient(client))
+            using (var binanceWebSocketClient = new DisposableBinanceWebSocketClient(client))
             {
                 binanceWebSocketClient.ConnectToDepthWebSocket("BNBBTC", data =>
                 {
@@ -293,7 +304,7 @@ namespace BinanceExchange.Console
             });
 
             // Store the last update from our result set;
-            using (var binanceWebSocketClient = new BinanceWebSocketClient(binanceClient))
+            using (var binanceWebSocketClient = new DisposableBinanceWebSocketClient(binanceClient))
             {
                 binanceWebSocketClient.ConnectToKlineWebSocket(symbol, interval, data =>
                 {

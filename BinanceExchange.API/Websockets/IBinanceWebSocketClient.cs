@@ -9,11 +9,6 @@ namespace BinanceExchange.API.Websockets
     public interface IBinanceWebSocketClient
     {
         /// <summary>
-        /// These are provided to bypass an exception which occurs (down to the WebsocketSharp library)
-        /// </summary>
-        SslProtocols SupportedProtocols { get; }
-
-        /// <summary>
         /// Connect to the Kline WebSocket
         /// </summary>
         /// <param name="symbol"></param>
@@ -51,7 +46,5 @@ namespace BinanceExchange.API.Websockets
         /// <param name="id"></param>
         /// <param name="fromError"></param>
         void CloseWebSocketInstance(Guid id, bool fromError = false);
-
-        void Dispose();
     }
 }

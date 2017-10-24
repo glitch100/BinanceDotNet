@@ -1,5 +1,5 @@
 # WebSocket API
-This page outlines all of the general Websocket API endpoints available via the `IBinanceWebSocketClient`.
+This page outlines all of the general Websocket API endpoints available via implementations from `IBinanceWebSocketClient`.
 
 ## WebSocket  Endpoints
 [Binance Documentation](https://www.binance.com/restapipub.html#wss-endpoint)
@@ -19,16 +19,26 @@ Guid ConnectToTradesWebSocket(string symbol, BinanceWebSocketMessageHandler<Bina
 Task<Guid> ConnectToUserDataWebSocket(UserDataWebSocketMessages userDataMessageHandlers);
 ```
 
-> Sample Usage
+> Sample Usage - Disposable
 ```c#
-//Where X is one of the above method calls
-using (var client = new BinanceWebSocketClient(client))
+
+using (var binanceWebSocketClient = new DisposableBinanceWebSocketClient(binanceClient))
 {
-    binanceWebSocketClient.X("ETHBTC", data =>
+    binanceWebSocketClient.ConnectToTradesWebSocket("ETHBTC", data =>
     {
         System.Console.WriteLine($"KlineCall: {JsonConvert.SerializeObject(data)}");
     });
 }
+```
+
+> Sample Usage - Manual
+```c#
+
+var binanceWebSocketClient = new InstanceBinanceWebSocketClient(binanceClient))
+binanceWebSocketClient.ConnectToTradesWebSocket("ETHBTC", data =>
+{
+    System.Console.WriteLine($"KlineCall: {JsonConvert.SerializeObject(data)}");
+});
 ```
 
 ## Additional API
