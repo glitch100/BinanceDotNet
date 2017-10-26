@@ -108,6 +108,36 @@ using (var binanceWebSocketClient = new DisposableBinanceWebSocketClient(client)
 }
 ```
 
+### Error Handling
+The Binance API provides rich exceptions based on different error types. You can decorate calls like this if you would like to handle the various exceptions.
+
+```c#
+// Firing off a request and catching all the different exception types.
+try
+{
+    accountTrades = await client.GetAccountTrades(new AllTradesRequest()
+    {
+        FromId = 352262,
+        Symbol = "ETHBTC",
+    });
+}
+catch (BinanceBadRequestException badRequestException)
+{
+
+}
+catch (BinanceServerException serverException)
+{
+
+}
+catch (BinanceTimeoutException timeoutException)
+{
+
+}
+catch (BinanceException unknownException)
+{
+}
+```
+
 ### Building out a local cache per symbol from the depth WebSocket
 The example is mainly 'all in one' so you can see a full runthrough of how it works. In your own implementations you may want to have a cache of only the most recent bids/asks, or perhaps will want the empty quanity/price trades.
 

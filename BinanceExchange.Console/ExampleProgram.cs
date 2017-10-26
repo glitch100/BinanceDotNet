@@ -8,6 +8,7 @@ using BinanceExchange.API.Client;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
+using BinanceExchange.API.Models.Response.Error;
 using BinanceExchange.API.Models.Websocket;
 using BinanceExchange.API.Utility;
 using BinanceExchange.API.Websockets;
@@ -133,6 +134,32 @@ namespace BinanceExchange.Console
                     OrderId = 5425425,
                     Symbol = "ETHBTC",
                 });
+
+                // Firing off a request and catching all the different exception types.
+                try
+                {
+                    accountTrades = await client.GetAccountTrades(new AllTradesRequest()
+                    {
+                        FromId = 352262,
+                        Symbol = "ETHBTC",
+                    });
+                }
+                catch (BinanceBadRequestException badRequestException)
+                {
+
+                }
+                catch (BinanceServerException serverException)
+                {
+
+                }
+                catch (BinanceTimeoutException timeoutException)
+                {
+
+                }
+                catch (BinanceException unknownException)
+                {
+                    
+                }
             }
 
             // Start User Data Stream, ping and close

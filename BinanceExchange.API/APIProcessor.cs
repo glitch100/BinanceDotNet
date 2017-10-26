@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BinanceExchange.API.Caching;
@@ -64,12 +65,25 @@ namespace BinanceExchange.API
             }
             var errorJson = await message.Content.ReadAsStringAsync();
             var errorObject = JsonConvert.DeserializeObject<BinanceError>(errorJson);
-            if (errorObject != null)
+            if (errorObject == null) throw new BinanceException("Unexpected Error whilst handling the response", null);
+            _logger.Error($"Error Message Recevied", errorObject);
+            throw CreateBinanceException(message.StatusCode, errorObject);
+        }
+
+        private BinanceException CreateBinanceException(HttpStatusCode statusCode, BinanceError errorObject)
+        {
+            if (statusCode == HttpStatusCode.GatewayTimeout)
             {
-                _logger.Error($"Error Message Recevied", errorObject);
-                throw new BinanceException("Binance API Error", errorObject);
+                return new BinanceTimeoutException(errorObject);
             }
-            throw new Exception("Error whilst handling the response");
+            var parsedStatusCode = (int)statusCode;
+            if (parsedStatusCode >= 400 && parsedStatusCode <= 500)
+            {
+                return new BinanceBadRequestException(errorObject);
+            }
+            return parsedStatusCode >= 500 ? 
+                new BinanceServerException(errorObject) : 
+                new BinanceException("Binance API Error", errorObject);
         }
 
         /// <summary>
