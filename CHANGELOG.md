@@ -1,5 +1,9 @@
 # BinanceDotNet Changelog
 
+**Release Date: 10/31/2017**
+## 2.2.0
+- Added `TradingPairSymbols` `static` class. Access all symbols that Binance list with ease.
+
 **Release Date: 10/26/2017**
 ## 2.1.0
 - Added in richer exceptions based on contextual errors:

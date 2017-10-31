@@ -29,7 +29,7 @@ More examples are available to play around with within the repositorys Console a
 ## Roadmap
 Work will continue on this API wrapper over the coming months adding and extending out the number of features that the `BinanceDotNet` library has. Please raise issues for new features desired
 
-- Start building out Unit Test support - 2.1.0~
+- Start building out Unit Test support - >~2.1.0
 - Provide Builder support for queries - 2.5.0~
 - Abstract out the HttpClient - 3.0.0
 
@@ -69,8 +69,11 @@ var client = new BinanceClient(new ClientConfiguration()
     SecretKey = "YOUR_SECRET_KEY",
 });
 
+//You an also specify symbols like this.
+var desiredSymbol = TradingPairSymbols.BNBPairs.BNB_BTC,
+
 IReponse response = await client.GetCompressedAggregateTrades(new GetCompressedAggregateTradesRequest(){
-  Symbol = "BTCETH",
+  Symbol = "BNBBTC",
   StartTime = DateTime.UtcNow().AddDays(-1),
   EndTime = Date.UtcNow(),
 });

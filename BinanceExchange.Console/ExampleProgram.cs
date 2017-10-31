@@ -6,6 +6,7 @@ using BinanceExchange.API;
 using BinanceExchange.API.Caching;
 using BinanceExchange.API.Client;
 using BinanceExchange.API.Enums;
+using BinanceExchange.API.Market;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
 using BinanceExchange.API.Models.Response.Error;
@@ -71,7 +72,12 @@ namespace BinanceExchange.Console
                     Symbol = "ETHBTC",
                     Limit = 5,
                 };
-                var allOrders = await client.GetAllOrders(allOrdersRequest);
+                allOrdersRequest = new AllOrdersRequest()
+                {
+                    Symbol = TradingPairSymbols.BTCPairs.ETH_BTC,
+                    Limit = 5,
+                };
+                var allOrders = await client.GetAllOrders(allOrdersRequest);                // Get All Orders
 
                 // Get the order book, and use the cache
                 var orderBook = await client.GetOrderBook("ETHBTC", true);
