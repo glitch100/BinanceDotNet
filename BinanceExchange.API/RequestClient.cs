@@ -27,6 +27,7 @@ namespace BinanceExchange.API
         private static readonly Stopwatch Stopwatch;
         private static int _concurrentRequests = 0;
         private static ILogger _logger;
+        private static readonly object LockObject = new object();
 
         static RequestClient()
         {
@@ -82,9 +83,15 @@ namespace BinanceExchange.API
         {
             if (HttpClient.DefaultRequestHeaders.Contains(APIHeader))
             {
-                HttpClient.DefaultRequestHeaders.Remove(APIHeader);
+                lock (LockObject)
+                {
+                    if (HttpClient.DefaultRequestHeaders.Contains(APIHeader))
+                    {
+                        HttpClient.DefaultRequestHeaders.Remove(APIHeader);
+                    }
+                }
             }
-            HttpClient.DefaultRequestHeaders.Add(APIHeader, key);
+            HttpClient.DefaultRequestHeaders.TryAddWithoutValidation(APIHeader, new[] {key});
         }
 
         /// <summary>

@@ -13,9 +13,9 @@ namespace BinanceExchange.Tests.Client.BinanceClient
         public async Task StartUserDataStream_Invoke_CallsProcessPostRequest()
         {
             // Arrange
-            await ConcreteBinanceClient.StartUserDataStream();
 
             // Act
+            await ConcreteBinanceClient.StartUserDataStream();
 
             // Assert
             MockAPIProcessor.Verify(a => a.ProcessPostRequest<UserDataStreamResponse>(
@@ -41,9 +41,9 @@ namespace BinanceExchange.Tests.Client.BinanceClient
         {
             // Arrange
             var listenKey = "listenKey";
-            await ConcreteBinanceClient.KeepAliveUserDataStream(listenKey);
 
             // Act
+            await ConcreteBinanceClient.KeepAliveUserDataStream(listenKey);
 
             // Assert
             MockAPIProcessor.Verify(a => a.ProcessPutRequest<UserDataStreamResponse>(
@@ -69,9 +69,9 @@ namespace BinanceExchange.Tests.Client.BinanceClient
         {
             // Arrange
             var listenKey = "listenKey";
-            await ConcreteBinanceClient.CloseUserDataStream(listenKey);
 
             // Act
+            await ConcreteBinanceClient.CloseUserDataStream(listenKey);
 
             // Assert
             MockAPIProcessor.Verify(a => a.ProcessDeleteRequest<UserDataStreamResponse>(

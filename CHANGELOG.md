@@ -1,5 +1,11 @@
 # BinanceDotNet Changelog
 
+**Release Date: 11/02/2017**
+## 2.2.1
+- Updated `TradingPairSymbols` `static` class with `YOYO`, `ARK`, `XRP` and `POWR`. `BTC` and `ETH` pairs.
+- Added more unit tests
+- Added defensive logic around async api key additions
+
 **Release Date: 10/31/2017**
 ## 2.2.0
 - Added `TradingPairSymbols` `static` class. Access all symbols that Binance list with ease.

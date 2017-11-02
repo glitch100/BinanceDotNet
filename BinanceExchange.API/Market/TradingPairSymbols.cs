@@ -37,7 +37,6 @@
             public static readonly string LLT_BTC = "LLTBTC";
             public static readonly string LRC_BTC = "LRCBTC";
             public static readonly string QTUM_BTC = "QTUMBTC";
-            public static readonly string YOYO_BTC = "YOYOBTC";
             public static readonly string OMG_BTC = "OMGBTC";
             public static readonly string ZRX_BTC = "ZRXBTC";
             public static readonly string STRAT_BTC = "STRATBTC";
@@ -71,6 +70,9 @@
             public static readonly string REQ_BTC = "REQBTC";
             public static readonly string VIB_BTC = "VIBBTC";
             public static readonly string TRX_BTC = "TRXBTC";
+            public static readonly string POWR_BTC = "POWRBTC";
+            public static readonly string YOYO_BTC = "YOYOBTC";
+            public static readonly string XRP_BTC = "XRPBTC";
         }
 
         /// <summary>
@@ -120,6 +122,10 @@
             public static readonly string VIB_ETH = "VIBETH";
             public static readonly string HSR_ETH = "HSRETH";
             public static readonly string TRX_ETH = "TRXETH";
+            public static readonly string POWR_ETH = "POWRETH";
+            public static readonly string ARK_ETH = "ARKETH";
+            public static readonly string YOYO_ETH = "YOYOETH";
+            public static readonly string XRP_ETH = "XRPETH";
         }
     }
 }
