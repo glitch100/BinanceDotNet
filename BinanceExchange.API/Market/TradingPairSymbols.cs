@@ -8,6 +8,7 @@
     {
         public static readonly string BTC_USDT = "BTCUSDT";
         public static readonly string ETH_USDT = "ETHUSDT";
+        public static readonly string BNB_USDT = "BNBUSDT";
 
         /// <summary>
         /// All BNB trading pairs
@@ -16,6 +17,7 @@
         {
             public static readonly string BNB_BTC = "BNBBTC";
             public static readonly string BNB_ETH = "BNBETH";
+            public static readonly string BNB_VEN = "BNBVEN";
         }
 
         /// <summary>
