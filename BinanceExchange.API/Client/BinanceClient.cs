@@ -127,10 +127,11 @@ namespace BinanceExchange.API.Client
         /// <returns></returns>
         public async Task<List<CompressedAggregateTradeResponse>> GetCompressedAggregateTrades(GetCompressedAggregateTradesRequest request)
         {
+            Guard.AgainstNull(request);
             Guard.AgainstNull(request.Symbol);
             Guard.AgainstDateTimeMin(request.StartTime);
             Guard.AgainstDateTimeMin(request.EndTime);
-            if (request.Limit == 0 || request.Limit > 500) 
+            if (request.Limit <= 0 || request.Limit > 500) 
             {
                 request.Limit = 500;
             }

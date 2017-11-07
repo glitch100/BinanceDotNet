@@ -18,6 +18,9 @@
             public static readonly string BNB_BTC = "BNBBTC";
             public static readonly string BNB_ETH = "BNBETH";
             public static readonly string BNB_VEN = "BNBVEN";
+            public static readonly string BNB_POWR = "BNBPOWR";
+            public static readonly string BNB_RCN = "BNBRCN";
+            public static readonly string BNB_NULS = "BNBNULS";
         }
 
         /// <summary>
@@ -77,6 +80,9 @@
             public static readonly string XRP_BTC = "XRPBTC";
             public static readonly string MOD_BTC = "MODBTC";
             public static readonly string ENJ_BTC = "ENJBTC";
+            public static readonly string VEN_BTC = "VENBTC";
+            public static readonly string KMD_BTC = "KMDBTC";
+            public static readonly string RCN_BTC = "RCNBTC";
         }
 
         /// <summary>
@@ -132,6 +138,9 @@
             public static readonly string XRP_ETH = "XRPETH";
             public static readonly string MOD_ETH = "MODETH";
             public static readonly string ENJ_ETH = "ENJETH";
+            public static readonly string VEN_ETH = "VENETH";
+            public static readonly string KMD_ETH = "KMDETH";
+            public static readonly string RCN_ETH = "RCNETH";
         }
     }
 }

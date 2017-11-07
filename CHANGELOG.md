@@ -1,12 +1,17 @@
 # BinanceDotNet Changelog
 
+**Release Date: 11/08/2017**
+## 2.2.4
+- Added new trading pairs for `NULS`, `RCN`, `KMD`, `POWR` and `VEN`
+- Added more test coverage to Market Data call
+
 **Release Date: 11/06/2017**
 ## 2.2.3
 - Added new trading pairs for `BNB/USDT` and `BNB/VEN` - *hooray*
 
 **Release Date: 11/03/2017**
 ## 2.2.2
-- Added new trading pairs for `MOD` and `ENJ`
+- Added new trading pairs for `MOD` and `ENJ`g
 
 **Release Date: 11/02/2017**
 ## 2.2.1
