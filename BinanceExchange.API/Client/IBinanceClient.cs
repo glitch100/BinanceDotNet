@@ -133,5 +133,21 @@ namespace BinanceExchange.API.Client
         /// <param name="receiveWindow"></param>
         /// <returns></returns>
         Task<List<AccountTradeReponse>> GetAccountTrades(AllTradesRequest request, int receiveWindow = 5000);
+
+        /// <summary>
+        /// Sends a request to withdraw to an address
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="receiveWindow"></param>
+        /// <returns></returns>
+        Task<WithdrawResponse> CreateWithdrawRequest(WithdrawRequest request, int receiveWindow = 5000);
+
+        /// <summary>
+        /// Sends a request to withdraw to an address
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="receiveWindow"></param>
+        /// <returns></returns>
+        Task<DepositListResponse> GetDepositHistory(FundHistoryRequest request, int receiveWindow = 5000);
     }
 }

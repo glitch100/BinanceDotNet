@@ -25,11 +25,17 @@ namespace BinanceExchange.API
         /// </summary>
 
         /// <summary>
-        /// Defaults to binance domain (https)
+        /// Defaults to API binance domain (https)
         /// </summary>
-        internal static string BaseUrl = "https://www.binance.com/api";
+        internal static string APIBaseUrl = "https://www.binance.com/api";
 
-        private static string Prefix { get; } = $"{BaseUrl}";
+        /// <summary>
+        /// Defaults to WAPI binance domain (https)
+        /// </summary>
+        internal static string WAPIBaseUrl = "https://www.binance.com/wapi";
+
+        private static string APIPrefix { get; } = $"{APIBaseUrl}";
+        private static string WAPIPrefix { get; } = $"{WAPIBaseUrl}";
 
         public static class UserStream
         {
@@ -38,14 +44,14 @@ namespace BinanceExchange.API
             /// <summary>
             /// Start a user data stream
             /// </summary>
-            public static BinanceEndpointData StartUserDataStream => new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/userDataStream"), EndpointSecurityType.ApiKey);
+            public static BinanceEndpointData StartUserDataStream => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/userDataStream"), EndpointSecurityType.ApiKey);
 
             /// <summary>
             /// Ping a user data stream to prevent a timeout
             /// </summary>
             public static BinanceEndpointData KeepAliveUserDataStream(string listenKey)
             {
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/userDataStream?listenKey={listenKey}"),
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/userDataStream?listenKey={listenKey}"),
                     EndpointSecurityType.ApiKey);
             }
 
@@ -54,7 +60,7 @@ namespace BinanceExchange.API
             /// </summary>
             public static BinanceEndpointData CloseUserDataStream(string listenKey)
             {
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/userDataStream?listenKey={listenKey}"),
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/userDataStream?listenKey={listenKey}"),
                     EndpointSecurityType.ApiKey);
             }
         }
@@ -66,12 +72,12 @@ namespace BinanceExchange.API
             /// <summary>
             /// Test connectivity to the Rest API.
             /// </summary>
-            public static BinanceEndpointData TestConnectivity => new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/ping"), EndpointSecurityType.None);
+            public static BinanceEndpointData TestConnectivity => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/ping"), EndpointSecurityType.None);
 
             /// <summary>
             /// Test connectivity to the Rest API and get the current server time.
             /// </summary>
-            public static BinanceEndpointData ServerTime => new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/time"), EndpointSecurityType.None);
+            public static BinanceEndpointData ServerTime => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/time"), EndpointSecurityType.None);
         }
 
         public static class MarketData
@@ -83,7 +89,7 @@ namespace BinanceExchange.API
             /// </summary>
             public static BinanceEndpointData OrderBook(string symbol, int limit, bool useCache = false)
             {
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/depth?symbol={symbol}&limit={limit}"), EndpointSecurityType.None, useCache);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/depth?symbol={symbol}&limit={limit}"), EndpointSecurityType.None, useCache);
             }
 
             /// <summary>
@@ -92,7 +98,7 @@ namespace BinanceExchange.API
             public static BinanceEndpointData CompressedAggregateTrades(GetCompressedAggregateTradesRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/aggTrades?{queryString}"), EndpointSecurityType.None);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/aggTrades?{queryString}"), EndpointSecurityType.None);
             }
 
             /// <summary>
@@ -101,7 +107,7 @@ namespace BinanceExchange.API
             public static BinanceEndpointData KlineCandlesticks(GetKlinesCandlesticksRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/klines?{queryString}"), EndpointSecurityType.None);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/klines?{queryString}"), EndpointSecurityType.None);
             }
 
             /// <summary>
@@ -109,19 +115,19 @@ namespace BinanceExchange.API
             /// </summary>
             public static BinanceEndpointData DayPriceTicker(string symbol)
             {
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/ticker/24hr?symbol={symbol}"),
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/ticker/24hr?symbol={symbol}"),
                     EndpointSecurityType.None);
             }
 
             /// <summary>
             /// Latest price for all symbols.
             /// </summary>
-            public static BinanceEndpointData AllSymbolsPriceTicker => new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/ticker/allPrices"), EndpointSecurityType.ApiKey);
+            public static BinanceEndpointData AllSymbolsPriceTicker => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/ticker/allPrices"), EndpointSecurityType.ApiKey);
 
             /// <summary>
             /// Best price/qty on the order book for all symbols.
             /// </summary>
-            public static BinanceEndpointData SymbolsOrderBookTicker => new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/ticker/allBookTickers"), EndpointSecurityType.ApiKey);
+            public static BinanceEndpointData SymbolsOrderBookTicker => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/ticker/allBookTickers"), EndpointSecurityType.ApiKey);
         }
 
         public static class Account
@@ -131,41 +137,67 @@ namespace BinanceExchange.API
             public static BinanceEndpointData NewOrder(CreateOrderRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/order?{queryString}"), EndpointSecurityType.Signed);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/order?{queryString}"), EndpointSecurityType.Signed);
             }            
             public static BinanceEndpointData NewOrderTest(CreateOrderRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/order/test?{queryString}"), EndpointSecurityType.Signed);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/order/test?{queryString}"), EndpointSecurityType.Signed);
             }
 
             public static BinanceEndpointData QueryOrder(QueryOrderRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/order?{queryString}"), EndpointSecurityType.Signed);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/order?{queryString}"), EndpointSecurityType.Signed);
             }
+
             public static BinanceEndpointData CancelOrder(CancelOrderRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/order?{queryString}"), EndpointSecurityType.Signed);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/order?{queryString}"), EndpointSecurityType.Signed);
             }
+
             public static BinanceEndpointData CurrentOpenOrders(CurrentOpenOrdersRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/openOrders?{queryString}"), EndpointSecurityType.Signed);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/openOrders?{queryString}"), EndpointSecurityType.Signed);
             }
+
             public static BinanceEndpointData AllOrders(AllOrdersRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/allOrders?{queryString}"), EndpointSecurityType.Signed);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/allOrders?{queryString}"), EndpointSecurityType.Signed);
             }
 
-            public static BinanceEndpointData AccountInformation => new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/account"), EndpointSecurityType.Signed);
+            public static BinanceEndpointData AccountInformation => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/account"), EndpointSecurityType.Signed);
 
             public static BinanceEndpointData AccountTradeList(AllTradesRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
-                return new BinanceEndpointData(new Uri($"{Prefix}/{ApiVersion}/myTrades?{queryString}"), EndpointSecurityType.Signed);
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/myTrades?{queryString}"), EndpointSecurityType.Signed);
+            }
+
+            public static BinanceEndpointData Withdraw(WithdrawRequest request)
+            {
+                var queryString = GenerateQueryStringFromData(request);
+                return new BinanceEndpointData(new Uri($"{WAPIPrefix}/{ApiVersion}/withdraw.html?{queryString}"), EndpointSecurityType.Signed);
+            }
+
+            public static BinanceEndpointData DepositHistory(FundHistoryRequest request)
+            {
+                var queryString = GenerateQueryStringFromData(request);
+                return new BinanceEndpointData(new Uri($"{WAPIPrefix}/{ApiVersion}/depositHistory.html?{queryString}"), EndpointSecurityType.Signed);
+            }
+
+            public static BinanceEndpointData WithdrawHistory(FundHistoryRequest request)
+            {
+                var queryString = GenerateQueryStringFromData(request);
+                return new BinanceEndpointData(new Uri($"{WAPIPrefix}/{ApiVersion}/withdrawHistory.html?{queryString}"), EndpointSecurityType.Signed);
+            }
+            public static BinanceEndpointData DepositAddress(DepositAddressRequest request)
+            {
+                var queryString = GenerateQueryStringFromData(request);
+                return new BinanceEndpointData(new Uri($"{WAPIPrefix}/{ApiVersion}/depositAddress.html?{queryString}"), EndpointSecurityType.Signed);
             }
         }
 

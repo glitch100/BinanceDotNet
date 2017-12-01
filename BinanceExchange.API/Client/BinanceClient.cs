@@ -295,6 +295,59 @@ namespace BinanceExchange.API.Client
         {
             return await _apiProcessor.ProcessGetRequest<List<AccountTradeReponse>>(Endpoints.Account.AccountTradeList(request), receiveWindow);
         }
+
+        /// <summary>
+        /// Sends a request to withdraw to an address
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="receiveWindow"></param>
+        /// <returns></returns>
+        public async Task<WithdrawResponse> CreateWithdrawRequest(WithdrawRequest request, int receiveWindow = 5000)
+        {
+            Guard.AgainstNullOrEmpty(request.Asset);
+            Guard.AgainstNullOrEmpty(request.Address);
+            Guard.AgainstNull(request.Amount);
+
+            return await _apiProcessor.ProcessPostRequest<WithdrawResponse>(Endpoints.Account.Withdraw(request), receiveWindow);
+        }
+
+        /// <summary>
+        /// Gets the Deposit history
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="receiveWindow"></param>
+        /// <returns></returns>
+        public async Task<DepositListResponse> GetDepositHistory(FundHistoryRequest request, int receiveWindow = 5000)
+        {
+            return await _apiProcessor.ProcessGetRequest<DepositListResponse>(Endpoints.Account.DepositHistory(request), receiveWindow);
+        }
+
+        /// <summary>
+        /// Gets the Withdraw history
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="receiveWindow"></param>
+        /// <returns></returns>
+        public async Task<WithdrawListResponse> GetWithdrawHistory(FundHistoryRequest request, int receiveWindow = 5000)
+        {
+            Guard.AgainstNull(request);
+
+            return await _apiProcessor.ProcessGetRequest<WithdrawListResponse>(Endpoints.Account.WithdrawHistory(request), receiveWindow);
+        }
+
+        /// <summary>
+        /// Gets the the Deposit address
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="receiveWindow"></param>
+        /// <returns></returns>
+        public async Task<DepositAddressResponse> DepositAddress(DepositAddressRequest request, int receiveWindow = 5000)
+        {
+            Guard.AgainstNull(request);
+            Guard.AgainstNullOrEmpty(request.Asset);
+
+            return await _apiProcessor.ProcessGetRequest<DepositAddressResponse>(Endpoints.Account.DepositAddress(request), receiveWindow);
+        }
         #endregion
 
     }
