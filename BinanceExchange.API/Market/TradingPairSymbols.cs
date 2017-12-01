@@ -6,9 +6,17 @@
     /// </summary>
     public static class TradingPairSymbols
     {
-        public static readonly string BTC_USDT = "BTCUSDT";
-        public static readonly string ETH_USDT = "ETHUSDT";
-        public static readonly string BNB_USDT = "BNBUSDT";
+        /// <summary>
+        /// All USDT trading pairs
+        /// </summary>
+        public static class USDTPairs
+        {
+            public static readonly string BTC_USDT = "BTCUSDT";
+            public static readonly string ETH_USDT = "ETHUSDT";
+            public static readonly string BNB_USDT = "BNBUSDT";
+            public static readonly string BCC_USDT = "BCCUSDT";
+            public static readonly string NEO_USDT = "NEOUSDT";
+        }
 
         /// <summary>
         /// All BNB trading pairs
@@ -21,6 +29,19 @@
             public static readonly string BNB_POWR = "BNBPOWR";
             public static readonly string BNB_RCN = "BNBRCN";
             public static readonly string BNB_NULS = "BNBNULS";
+            public static readonly string BNB_DLT = "BNBDLT";
+            public static readonly string BNB_WTC = "BNBWTC";
+            public static readonly string BNB_AMB = "BNBAMB";
+            public static readonly string BNB_BCC = "BNBBCC";
+            public static readonly string BNB_BAT = "BNBBAT";
+            public static readonly string BNB_BCPT = "BNBBCPT";
+            public static readonly string BNB_NEO = "BNBNEO";
+            public static readonly string BNB_QSP = "BNBQSP";
+            public static readonly string BNB_BTS = "BNBBTS";
+            public static readonly string BNB_XZC = "BNBXZC";
+            public static readonly string BNB_LSK = "BNBLSK";
+            public static readonly string BNB_IOTA = "BNBIOTA";
+            public static readonly string BNB_ADX = "BNBADX";
         }
 
         /// <summary>
@@ -83,6 +104,29 @@
             public static readonly string VEN_BTC = "VENBTC";
             public static readonly string KMD_BTC = "KMDBTC";
             public static readonly string RCN_BTC = "RCNBTC";
+            public static readonly string NULS_BTC = "NULSBTC";
+            public static readonly string RDN_BTC = "RDNBTC";
+            public static readonly string XMR_BTC = "XMRBTC";
+            public static readonly string DLT_BTC = "DLTBTC";
+            public static readonly string AMB_BTC = "AMBBTC";
+            public static readonly string BAT_BTC = "BATBTC";
+            public static readonly string BCPT_BTC = "BCPTBTC";
+            public static readonly string ARN_BTC = "ARNBTC";
+            public static readonly string GVT_BTC = "GVTBTC";
+            public static readonly string CDT_BTC = "CDTBTC";
+            public static readonly string GXS_BTC = "GXSBTC";
+            public static readonly string POE_BTC = "POEBTC";
+            public static readonly string QSP_BTC = "QSPBTC";
+            public static readonly string BTS_BTC = "BTSBTC";
+            public static readonly string XZC_BTC = "XZCBTC";
+            public static readonly string LSK_BTC = "LSKBTC";
+            public static readonly string TNT_BTC = "TNTBTC";
+            public static readonly string FUEL_BTC = "FUELBTC";
+            public static readonly string MANA_BTC = "MANABTC";
+            public static readonly string BCD_BTC = "BCDBTC";
+            public static readonly string DGD_BTC = "DGDBTC";
+            public static readonly string ADX_BTC = "ADXBTC";
+            public static readonly string ADA_BTC = "ADABTC";
         }
 
         /// <summary>
@@ -141,6 +185,29 @@
             public static readonly string VEN_ETH = "VENETH";
             public static readonly string KMD_ETH = "KMDETH";
             public static readonly string RCN_ETH = "RCNETH";
+            public static readonly string NULS_ETH = "NULSETH";
+            public static readonly string RDN_ETH = "RDNETH";
+            public static readonly string XMR_ETH = "XMRETH";
+            public static readonly string DLT_ETH = "DLTETH";
+            public static readonly string AMB_ETH = "AMBETH";
+            public static readonly string BAT_ETH = "BATETH";
+            public static readonly string BCPT_ETH = "BCPTETH";
+            public static readonly string ARN_ETH = "ARNETH";
+            public static readonly string GVT_ETH = "GVTETH";
+            public static readonly string CDT_ETH = "CDTETH";
+            public static readonly string GXS_ETH = "GXSETH";
+            public static readonly string POE_ETH = "POEETH";
+            public static readonly string QSP_ETH = "QSPETH";
+            public static readonly string BTS_ETH = "BTSETH";
+            public static readonly string XZC_ETH = "XZCETH";
+            public static readonly string LSK_ETH = "LSKETH";
+            public static readonly string TNT_ETH = "TNTETH";
+            public static readonly string FUEL_ETH = "FUELETH";
+            public static readonly string MANA_ETH = "MANAETH";
+            public static readonly string BCD_ETH = "BCDETH";
+            public static readonly string DGD_ETH = "DGDETH";
+            public static readonly string ADX_ETH = "ADXETH";
+            public static readonly string ADA_ETH = "ADAETH";
         }
     }
 }

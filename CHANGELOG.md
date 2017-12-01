@@ -1,5 +1,12 @@
 # BinanceDotNet Changelog
 
+**Release Date: 11/30/2016**
+## 3.0.0
+>BREAKING CHANGE
+- New trading symbols added
+- Added in all new endpoints, for `WithdrawHistory`, `DepositHistory`, `DepositAddress` and `Withdraw` all of which are `SIGNED`
+- New models
+
 **Release Date: 11/08/2017**
 ## 2.2.4
 - Added new trading pairs for `NULS`, `RCN`, `KMD`, `POWR` and `VEN`
