@@ -31,7 +31,7 @@ Work will continue on this API wrapper over the coming months adding and extendi
 
 - Start building out Unit Test support - >~2.1.0
 - Provide Builder support for queries - 2.5.0~
-- Abstract out the HttpClient - 3.0.0
+- Abstract out the HttpClient - 3.0.0~
 
 ## Contributing to `BinanceDotNet`
 ```git

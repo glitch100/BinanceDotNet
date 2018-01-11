@@ -1,6 +1,10 @@
 # BinanceDotNet Changelog
 
-**Release Date: 11/30/2016**
+**Release Date: 01/11/2018**
+## 3.0.1
+- Fixed `OrderStatus` enum bug. Issue #7
+
+**Release Date: 11/30/2017**
 ## 3.0.0
 >BREAKING CHANGE
 - New trading symbols added
