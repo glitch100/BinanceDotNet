@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using BinanceExchange.API.Enums;
+using BinanceExchange.API.Extensions;
 using NLog;
 
 namespace BinanceExchange.API
@@ -186,6 +187,7 @@ namespace BinanceExchange.API
             return await CreateRequest(uri, HttpVerb.DELETE);
         }
 
+
         /// <summary>
         /// Creates a valid Uri with signature
         /// </summary>
@@ -194,9 +196,15 @@ namespace BinanceExchange.API
         /// <param name="signatureRawData"></param>
         /// <param name="receiveWindow"></param>
         /// <returns></returns>
+        /// 
         private static Uri CreateValidUri(Uri endpoint, string secretKey, string signatureRawData, long receiveWindow)
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
+            string timestamp;
+#if NETSTANDARDFEATURE
+            timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
+#else
+            timestamp = DateTime.UtcNow.ConvertToUnixTime().ToString();
+#endif
             var qsDataProvided = !string.IsNullOrEmpty(signatureRawData);
             var argEnding = $"timestamp={timestamp}&recvWindow={receiveWindow}";
             var adjustedSignature = !string.IsNullOrEmpty(signatureRawData) ? $"{signatureRawData.Substring(1)}&{argEnding}" : $"{argEnding}";

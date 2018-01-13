@@ -212,7 +212,7 @@ namespace BinanceExchange.API
 
             return String.Join("&", obj.Children()
                 .Cast<JProperty>()
-                .Select(j => j.Name + "=" + HttpUtility.UrlEncode(j.Value.ToString())));
+                .Select(j => j.Name + "=" + System.Net.WebUtility.UrlEncode(j.Value.ToString())));
         }
     }
 }
