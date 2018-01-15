@@ -12,9 +12,9 @@ namespace BinanceExchange.API.Models.Request
         public string Symbol { get; set; }
 
         [DataMember(Order = 2)]
-        public long FromId { get; set; }
+        public long? FromId { get; set; }
 
         [DataMember(Order = 3)]
-        public int Limit { get; set; }
+        public int? Limit { get; set; }
     }
 }
