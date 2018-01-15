@@ -9,6 +9,8 @@ namespace BinanceExchange.API.Models.Response.Error
         [JsonProperty(PropertyName = "msg")]
         public string Message { get; set; }
 
+        public string RequestMessage { get; set; }
+
         public override string ToString()
         {
             return $"{Code}: {Message}";
