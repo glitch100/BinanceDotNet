@@ -34,29 +34,32 @@ namespace BinanceExchange.API.Models.Response
         [DataMember(Order = 8)]
         public decimal OpenPrice { get; set; }
 
-        [DataMember(Order = 8)]
+        [DataMember(Order = 9)]
         public decimal HighPrice { get; set; }
 
-        [DataMember(Order = 9)]
+        [DataMember(Order = 10)]
+        public decimal LowPrice { get; set; }
+
+        [DataMember(Order = 11)]
         public decimal Volume { get; set; }
 
-        [DataMember(Order = 10)]
+        [DataMember(Order = 12)]
         [JsonConverter(typeof(EpochTimeConverter))]
         public DateTime OpenTime { get; set; }
 
-        [DataMember(Order = 11)]
+        [DataMember(Order = 13)]
         [JsonConverter(typeof(EpochTimeConverter))]
         public DateTime CloseTime { get; set; }
 
-        [DataMember(Order = 12)]
+        [DataMember(Order = 14)]
         [JsonProperty(PropertyName = "firstId")]
         public long FirstTradeId { get; set; }
 
-        [DataMember(Order = 13)]
+        [DataMember(Order = 15)]
         [JsonProperty(PropertyName = "lastId")]
         public long LastId { get; set; }
 
-        [DataMember(Order = 14)]
+        [DataMember(Order = 16)]
         [JsonProperty(PropertyName = "count")]
         public int TradeCount { get; set; }
     }
