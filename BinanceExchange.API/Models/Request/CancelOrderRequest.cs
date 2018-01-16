@@ -13,13 +13,13 @@ namespace BinanceExchange.API.Models.Request
         public string Symbol { get; set; }
 
         [DataMember(Order = 2)]
-        public long OrderId { get; set; }
+        public long? OrderId { get; set; }
 
         [DataMember(Order = 3)]
         [JsonProperty(PropertyName = "origClientOrderId")]
-        public long OriginalClientOrderId { get; set; }
+        public long? OriginalClientOrderId { get; set; }
 
         [DataMember(Order = 4)]
-        public long NewClientOrderId { get; set; }
+        public long? NewClientOrderId { get; set; }
     }
 }
