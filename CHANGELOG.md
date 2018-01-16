@@ -1,5 +1,12 @@
 # BinanceDotNet Changelog
 
+**Release Date: 01/16/2018**
+## 3.1.0
+- Made properties in requests nullable to prevent malformed requests when params not provided
+- Additional logging
+- Fix for `OrderStatus` issue
+- `catch` for deserializing response
+
 **Release Date: 01/11/2018**
 ## 3.0.1
 - Fixed `OrderStatus` enum bug. Issue #7

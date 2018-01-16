@@ -118,6 +118,7 @@ namespace BinanceExchange.API
         {
             _logger.Debug($"Creating a SIGNED GET Request to {endpoint.AbsoluteUri}");
             var uri = CreateValidUri(endpoint, secretKey, signatureRawData, receiveWindow);
+            _logger.Debug($"Concat URL for request: {uri.AbsoluteUri}");
             return await CreateRequest(uri, HttpVerb.GET);
         }
 
