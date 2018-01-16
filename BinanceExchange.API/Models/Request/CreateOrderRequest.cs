@@ -36,10 +36,10 @@ namespace BinanceExchange.API.Models.Request
         public string NewClientOrderId { get; set; }
 
         [DataMember(Order = 8)]
-        public decimal StopPrice { get; set; }
+        public decimal? StopPrice { get; set; }
 
         [DataMember(Order = 9)]
         [JsonProperty("icebergQty")]
-        public decimal IcebergQuantity { get; set; }
+        public decimal? IcebergQuantity { get; set; }
     }
 }

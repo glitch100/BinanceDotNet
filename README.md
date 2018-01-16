@@ -13,6 +13,19 @@ Feel free to raise issues and Pull Request to help improve the library. If you f
 - [REST API Calls](/docs/REST-API.md)
 - [WebSocket API Calls](/docs/WEBSOCKET-API.md)
 
+## Donations and Contribution
+Upkeep of this API takes a lot of time from answering issues and PR's on the Repository, as well as tweets and direct emails.
+You can donate cryptocurrency of any amount to the following wallets:
+
+```
+ETH: 0xd5775e2dee4b9fa9a3be5222970c04ac574e8412
+TRX: 0xd5775e2dee4b9fa9a3be5222970c04ac574e8412
+```
+_Want to send something else? Just tweet me! @Glitch100_
+
+Or you can help maintain the repository! Donations of time are welcome, just hit me up and we can work on it. From answering issues, to contributing code anyone can assist.
+
+
 ## Features
 - Simple, Configurable, Extendable
 - Rate limiting, with 10 requests in 10 seconds _(disabled by default)_
@@ -31,7 +44,7 @@ Work will continue on this API wrapper over the coming months adding and extendi
 
 - Start building out Unit Test support - >~2.1.0
 - Provide Builder support for queries - 2.5.0~
-- Abstract out the HttpClient - 3.0.0
+- Abstract out the HttpClient - 3.0.0~
 
 ## Contributing to `BinanceDotNet`
 ```git

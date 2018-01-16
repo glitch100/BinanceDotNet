@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using BinanceExchange.API.Converter;
 using BinanceExchange.API.Enums;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace BinanceExchange.API.Models.Response
 {
@@ -29,6 +30,7 @@ namespace BinanceExchange.API.Models.Response
         [JsonProperty(PropertyName = "executedQty")]
         public decimal ExecutedQuantity { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         [DataMember(Order = 6)]
         public OrderStatus Status { get; set; }
 

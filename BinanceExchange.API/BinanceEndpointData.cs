@@ -15,5 +15,10 @@ namespace BinanceExchange.API
             SecurityType = securityType;
             UseCache = useCache;
         }
+
+        public override string ToString()
+        {
+            return Uri.AbsoluteUri;
+        }
     }
 }

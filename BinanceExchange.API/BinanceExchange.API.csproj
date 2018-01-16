@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <Description>The Binance CryptoCurrency exchange C# wrapper of the API. It is built in dotnet core, supports all REST and WebSocket endpoints, has full logging capabilities, a built in Cache for selected endpoints, a Rate limiter and more. Enjoy Binance API data, fast and reliably.</Description>
     <PackageId>BinanceDotNet</PackageId>
     <Authors>Jon Evans</Authors>
@@ -13,9 +13,9 @@
     <PackageLicenseUrl>https://github.com/glitch100/BinanceDotNet/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/glitch100/BinanceDotNet</RepositoryUrl>
     <PackageIconUrl>https://i.imgur.com/x2YPVe6.png</PackageIconUrl>
-    <PackageReleaseNotes>New endpoints added, new trading pairs, new models and adjustments. BREAKING CHANGE</PackageReleaseNotes>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <PackageReleaseNotes>Making properties nullable so request query strings are accurate, added error catching in deserialization, and additional logs</PackageReleaseNotes>
+    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <FileVersion>3.1.0.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

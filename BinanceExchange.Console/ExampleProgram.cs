@@ -77,7 +77,8 @@ namespace BinanceExchange.Console
                     Symbol = TradingPairSymbols.BTCPairs.ETH_BTC,
                     Limit = 5,
                 };
-                var allOrders = await client.GetAllOrders(allOrdersRequest);                // Get All Orders
+                // Get All Orders
+                var allOrders = await client.GetAllOrders(allOrdersRequest);                
 
                 // Get the order book, and use the cache
                 var orderBook = await client.GetOrderBook("ETHBTC", true);
