@@ -201,7 +201,7 @@ namespace BinanceExchange.API
         private static Uri CreateValidUri(Uri endpoint, string secretKey, string signatureRawData, long receiveWindow)
         {
             string timestamp;
-#if NETSTANDARDFEATURE
+#if NETSTANDARD2_0
             timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
 #else
             timestamp = DateTime.UtcNow.ConvertToUnixTime().ToString();

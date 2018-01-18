@@ -147,14 +147,12 @@ namespace BinanceExchange.API.Websockets
                     }
                 };
             };
-#if NETSTANDARDFEATURE
-            ActiveWebSockets.TryAdd(websocket.Id, websocket);
-#else
+
             if (!ActiveWebSockets.ContainsKey(websocket.Id))
             {
                 ActiveWebSockets.Add(websocket.Id, websocket);
             }
-#endif
+
             AllSockets.Add(websocket);
             websocket.SslConfiguration.EnabledSslProtocols = SupportedProtocols;
             websocket.Connect();
@@ -188,14 +186,12 @@ namespace BinanceExchange.API.Websockets
                     }
                 };
             };
-#if NETSTANDARDFEATURE
-            ActiveWebSockets.TryAdd(websocket.Id, websocket);
-#else
+
             if (!ActiveWebSockets.ContainsKey(websocket.Id))
             {
                 ActiveWebSockets.Add(websocket.Id, websocket);
             }
-#endif
+
             AllSockets.Add(websocket);
             websocket.SslConfiguration.EnabledSslProtocols = SupportedProtocols;
             websocket.Connect();
