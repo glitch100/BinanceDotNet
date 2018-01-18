@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BinanceExchange.API.Caching;
+using BinanceExchange.Abstractions.Caching.Interfaces;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Response.Error;
 using Newtonsoft.Json;

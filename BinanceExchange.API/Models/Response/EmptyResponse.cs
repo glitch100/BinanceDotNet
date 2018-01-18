@@ -1,4 +1,6 @@
-﻿namespace BinanceExchange.API.Models.Response
+﻿using BinanceExchange.Abstractions.Models.Response.Interfaces;
+
+namespace BinanceExchange.API.Models.Response
 {
     /// <summary>
     /// Empty Response

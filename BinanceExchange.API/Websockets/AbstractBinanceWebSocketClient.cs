@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Security.Authentication;
 using System.Threading.Tasks;
+using BinanceExchange.Abstractions.Models.WebSocket.Interfaces;
 using BinanceExchange.API.Client;
+using BinanceExchange.API.Client.Interfaces;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Extensions;
 using BinanceExchange.API.Models.Websocket;
 using BinanceExchange.API.Utility;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using NLog;
 using WebSocketSharp;
 
 namespace BinanceExchange.API.Websockets

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using BinanceExchange.Abstractions.Models.Response.Interfaces;
 
 namespace BinanceExchange.API.Models.Response
 {

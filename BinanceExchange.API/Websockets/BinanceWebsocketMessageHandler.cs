@@ -1,4 +1,5 @@
-﻿using BinanceExchange.API.Models.Websocket;
+﻿using BinanceExchange.Abstractions.Models.WebSocket.Interfaces;
+using BinanceExchange.API.Models.Websocket;
 
 namespace BinanceExchange.API.Websockets
 {

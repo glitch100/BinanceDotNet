@@ -1,4 +1,5 @@
 using BinanceExchange.API.Client;
+using BinanceExchange.API.Client.Interfaces;
 using NLog;
 
 namespace BinanceExchange.API.Websockets

@@ -1,5 +1,5 @@
 ﻿
-namespace BinanceExchange.API.Models.Response
+namespace BinanceExchange.Abstractions.Models.Response.Interfaces
 {
     public interface IConfirmationResponse : IResponse
     {

@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using BinanceExchange.Abstractions.Models.Request;
 using BinanceExchange.API.Converter;
 using Newtonsoft.Json;
 

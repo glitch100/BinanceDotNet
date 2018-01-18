@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BinanceExchange.API.Client;
+using BinanceExchange.API.Client.Interfaces;
 using NLog;
 using WebSocketSharp;
 

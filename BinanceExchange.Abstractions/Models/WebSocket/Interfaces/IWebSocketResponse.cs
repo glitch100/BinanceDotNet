@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BinanceExchange.API.Models.Websocket
+namespace BinanceExchange.Abstractions.Models.WebSocket.Interfaces
 {
     public interface IWebSocketResponse
     {
