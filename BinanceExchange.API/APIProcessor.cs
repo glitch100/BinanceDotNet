@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using BinanceExchange.Abstractions.Caching.Interfaces;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Response.Error;
+using log4net;
+using log4net.Core;
 using Newtonsoft.Json;
-using NLog;
 
 namespace BinanceExchange.API
 {
@@ -18,7 +19,7 @@ namespace BinanceExchange.API
         private readonly string _apiKey;
         private readonly string _secretKey;
         private IAPICacheManager _apiCache;
-        private ILogger _logger;
+        private ILog _logger;
         private bool _cacheEnabled;
         private TimeSpan _cacheTime;
 
@@ -31,8 +32,8 @@ namespace BinanceExchange.API
                 _apiCache = apiCache;
                 _cacheEnabled = true;
             }
-            _logger = LogManager.GetCurrentClassLogger();
-            _logger.Debug($"API Processor set up. Cache Enabled={_cacheEnabled}");
+            _logger = LogManager.GetLogger(typeof(APIProcessor));
+            _logger.Debug( $"API Processor set up. Cache Enabled={_cacheEnabled}");
         }
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace BinanceExchange.API
             if (errorObject == null) throw new BinanceException("Unexpected Error whilst handling the response", null);
             errorObject.RequestMessage = requestMessage;
             var exception = CreateBinanceException(message.StatusCode, errorObject);
-            _logger.Error(exception, $"Error Message Received:");
+            _logger.Error($"Error Message Received:", exception);
             throw exception;
         }
 

@@ -18,10 +18,10 @@ namespace BinanceExchange.API.Models.Response
 
         [DataMember(Order = 3)]
         [JsonProperty(PropertyName = "origClientOrderId")]
-        public long OriginalClientOrderId { get; set; }
+        public string OriginalClientOrderId { get; set; }
 
         [DataMember(Order = 4)]
-        public long ClientOrderId { get; set; }
+        public string ClientOrderId { get; set; }
 
     }
 }

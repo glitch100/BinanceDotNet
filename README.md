@@ -29,8 +29,8 @@ Or you can help maintain the repository! Donations of time are welcome, just hit
 ## Features
 - Simple, Configurable, Extendable
 - Rate limiting, with 10 requests in 10 seconds _(disabled by default)_
-- `NLog` support
-- dotnet core 2.0
+- `log4net` Interfaces supported
+- dotnet standard, dotnet core, 4.5.1, 4.6.1 support
 - Binance WebSockets
 - Unit test coverage (_in progress_)
 - `IAPICacheManager` abstraction for providing your own cache or using the build in concrete implementation. _(Currently only one endpoint has caching)_

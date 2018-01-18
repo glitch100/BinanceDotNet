@@ -1,6 +1,5 @@
 ﻿using System.Runtime.Serialization;
 using BinanceExchange.Abstractions.Models.Response.Interfaces;
-using BinanceExchange.API.Models.Response;
 using Newtonsoft.Json;
 
 namespace BinanceExchange.API.Models.Websocket

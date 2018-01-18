@@ -10,7 +10,7 @@ The `BinanceClient` is the main entry point for accessing the Binance Official A
 - `ApiKey: string` - Your API Key
 - `SecretKey: string` - Your Secret Key
 - `EnableRateLimiting: bool` - Whether you want RateLimiting enabled (_false by default_)
-- `Logger: ILogger` - Your own version of the `NLog.ILogger` interface
+- `Logger: ILog` - Your own version of the `log4net.ILog` interface
 - `CacheTime: TimeSpan` - The time that cache entries should expire
 
 ## `BinanceWebSocketClient: IBinanceWebSocketClient, IDisposable`

@@ -1,5 +1,4 @@
 using System;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Websocket;

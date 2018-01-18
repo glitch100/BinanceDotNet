@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Web;
 using BinanceExchange.Abstractions.Models.Request;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Request;

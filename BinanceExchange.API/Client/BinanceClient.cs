@@ -6,7 +6,8 @@ using BinanceExchange.API.Client.Interfaces;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
 using BinanceExchange.API.Utility;
-using NLog;
+using log4net;
+using log4net.Core;
 
 namespace BinanceExchange.API.Client
 {
@@ -19,7 +20,7 @@ namespace BinanceExchange.API.Client
         private readonly string _apiKey;
         private readonly string _secretKey;
         private readonly IAPIProcessor _apiProcessor;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
         /// <summary>
         /// Create a new Binance Client based on the configuration provided
@@ -28,7 +29,7 @@ namespace BinanceExchange.API.Client
         /// <param name="apiCache"></param>
         public BinanceClient(ClientConfiguration configuration, IAPIProcessor apiProcessor = null)
         {
-            _logger = configuration.Logger ?? LogManager.GetCurrentClassLogger();
+            _logger = configuration.Logger ?? LogManager.GetLogger(typeof(BinanceClient));
             Guard.AgainstNull(configuration);
             Guard.AgainstNullOrEmpty(configuration.ApiKey);
             Guard.AgainstNull(configuration.SecretKey);

@@ -9,7 +9,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Extensions;
-using NLog;
+using log4net;
+using log4net.Core;
 
 namespace BinanceExchange.API
 {
@@ -27,7 +28,7 @@ namespace BinanceExchange.API
         private const string APIHeader = "X-MBX-APIKEY";
         private static readonly Stopwatch Stopwatch;
         private static int _concurrentRequests = 0;
-        private static ILogger _logger;
+        private static ILog _logger;
         private static readonly object LockObject = new object();
 
         static RequestClient()
@@ -40,7 +41,7 @@ namespace BinanceExchange.API
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _rateSemaphore = new SemaphoreSlim(_limit, _limit);
             Stopwatch = new Stopwatch();
-            _logger = LogManager.GetCurrentClassLogger();
+            _logger = LogManager.GetLogger(typeof(RequestClient));
         }
 
 
@@ -286,7 +287,7 @@ namespace BinanceExchange.API
             return await task;
         }
 
-        public static void SetLogger(ILogger logger)
+        public static void SetLogger(ILog logger)
         {
             _logger = logger;
         }

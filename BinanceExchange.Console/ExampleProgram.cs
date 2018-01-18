@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using BinanceExchange.API;
@@ -13,11 +14,9 @@ using BinanceExchange.API.Models.Response.Error;
 using BinanceExchange.API.Models.Websocket;
 using BinanceExchange.API.Utility;
 using BinanceExchange.API.Websockets;
-using Microsoft.Extensions.Logging;
+using log4net;
 using Newtonsoft.Json;
-using NLog;
-using NLog.Extensions.Logging;
-using LogLevel = NLog.LogLevel;
+using WebSocketSharp;
 
 namespace BinanceExchange.Console
 {
@@ -28,16 +27,6 @@ namespace BinanceExchange.Console
     {
         public static async Task Main(string[] args)
         {
-            //Logging Configuration. 
-            //Ensure that `nlog.config` is configured as you want, and is copied to output directory.
-            var loggerFactory = new LoggerFactory();
-            loggerFactory.AddNLog(new NLogProviderOptions { CaptureMessageTemplates = true, CaptureMessageProperties = true });
-            //This utilises the nlog.config from the build directory
-            loggerFactory.ConfigureNLog("nlog.config");
-            //For the sakes of this example we are outputting only fatal logs, debug being the lowest.
-            LogManager.GlobalThreshold = LogLevel.Fatal;
-            var logger = LogManager.GetLogger("*");
-
             //Provide your configuration and keys here, this allows the client to function as expected.
             string apiKey = "YOUR_API_KEY";
             string secretKey = "YOUR_SECRET_KEY";
@@ -46,14 +35,18 @@ namespace BinanceExchange.Console
             System.Console.WriteLine("BinanceExchange API - Tester");
             System.Console.WriteLine("--------------------------");
 
+            //Building a test logger
+            var exampleProgramLogger = LogManager.GetLogger(typeof(ExampleProgram));
+            exampleProgramLogger.Debug("Logging Test");
+
             //Initialise the general client client with config
             var client = new BinanceClient(new ClientConfiguration()
             {
                 ApiKey = apiKey,
                 SecretKey = secretKey,
-                Logger = logger,
+                Logger = exampleProgramLogger,
             });
-
+                
             System.Console.WriteLine("Interacting with Binance...");
 
             bool DEBUG_ALL = false;
@@ -86,9 +79,9 @@ namespace BinanceExchange.Console
                 // Cancel an order
                 var cancelOrder = await client.CancelOrder(new CancelOrderRequest()
                 {
-                    NewClientOrderId = 123456,
+                    NewClientOrderId = "123456",
                     OrderId = 523531,
-                    OriginalClientOrderId = 23525,
+                    OriginalClientOrderId = "789",
                     Symbol = "ETHBTC",
                 });
 
