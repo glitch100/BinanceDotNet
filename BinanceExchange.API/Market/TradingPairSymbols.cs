@@ -23,25 +23,43 @@
         /// </summary>
         public static class BNBPairs
         {
-            public static readonly string BNB_BTC = "BNBBTC";
-            public static readonly string BNB_ETH = "BNBETH";
-            public static readonly string BNB_VEN = "BNBVEN";
-            public static readonly string BNB_POWR = "BNBPOWR";
-            public static readonly string BNB_RCN = "BNBRCN";
-            public static readonly string BNB_NULS = "BNBNULS";
-            public static readonly string BNB_DLT = "BNBDLT";
-            public static readonly string BNB_WTC = "BNBWTC";
-            public static readonly string BNB_AMB = "BNBAMB";
-            public static readonly string BNB_BCC = "BNBBCC";
-            public static readonly string BNB_BAT = "BNBBAT";
-            public static readonly string BNB_BCPT = "BNBBCPT";
-            public static readonly string BNB_NEO = "BNBNEO";
-            public static readonly string BNB_QSP = "BNBQSP";
-            public static readonly string BNB_BTS = "BNBBTS";
-            public static readonly string BNB_XZC = "BNBXZC";
-            public static readonly string BNB_LSK = "BNBLSK";
-            public static readonly string BNB_IOTA = "BNBIOTA";
-            public static readonly string BNB_ADX = "BNBADX";
+            public static readonly string ADX_BNB = "ADXBNB";
+            public static readonly string AION_BNB = "AION_BNB";
+            public static readonly string AMB_BNB = "AMBBNB";
+            public static readonly string APPC_BNB = "APPCBNB";
+            public static readonly string BAT_BNB = "BATBNB";
+            public static readonly string BCC_BNB = "BCCBNB";
+            public static readonly string BCPT_BNB = "BCPTBNB";
+            public static readonly string BRD_BNB = "BRDBNB";
+            public static readonly string BTS_BNB = "BTSBNB";
+            public static readonly string CMT_BNB = "CMTBNB";
+            public static readonly string CND_BNB = "CNDBNB";
+            public static readonly string DLT_BNB = "DLTBNB";
+            public static readonly string ETH_BNB = "ETHBNB";
+            public static readonly string GTO_BNB = "GTOBNB";
+            public static readonly string ICX_BNB = "ICXBNB";
+            public static readonly string IOTA_BNB = "IOTABNB";
+            public static readonly string LSK_BNB = "LSKBNB";
+            public static readonly string LTC_BNB = "LTCBNB";
+            public static readonly string MCO_BNB = "MCOBNB";
+            public static readonly string NAV_BNB = "NAVBNB";
+            public static readonly string NEBL_BNB = "NEBLBNB";
+            public static readonly string NEO_BNB = "NEOBNB";
+            public static readonly string NULS_BNB = "NULSBNB";
+            public static readonly string OST_BNB = "OSTBNB";
+            public static readonly string POWR_BNB = "POWRBNB";
+            public static readonly string QSP_BNB = "QSPBNB";
+            public static readonly string RCN_BNB = "RCNBNB";
+            public static readonly string RDN_BNB = "RDNBNB";
+            public static readonly string RLC_BNB = "RLCBNB";
+            public static readonly string TRIG_BNB = "TRIGBNB";
+            public static readonly string VEN_BNB = "VENBNB";
+            public static readonly string WABI_BNB = "WABIBNB";
+            public static readonly string WAVES_BNB = "WAVESBNB";
+            public static readonly string WTC_BNB = "WTCBNB";
+            public static readonly string XLM_BNB = "XLM_BNB";
+            public static readonly string XZC_BNB = "XZCBNB";
+            public static readonly string YOYO_BNB = "YOYOBNB";
         }
 
         /// <summary>
