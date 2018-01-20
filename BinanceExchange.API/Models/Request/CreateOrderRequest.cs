@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
-using BinanceExchange.Abstractions.Models.Request;
+using BinanceExchange.API.Models.Request.Interfaces;
 
 namespace BinanceExchange.API.Models.Request
 {

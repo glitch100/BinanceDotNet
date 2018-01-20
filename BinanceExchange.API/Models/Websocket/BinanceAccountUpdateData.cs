@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using BinanceExchange.Abstractions.Models.WebSocket.Interfaces;
 using BinanceExchange.API.Converter;
+using BinanceExchange.API.Models.WebSocket.Interfaces;
 using Newtonsoft.Json;
 
-namespace BinanceExchange.API.Models.Websocket
+namespace BinanceExchange.API.Models.WebSocket
 {
     [DataContract]
     public class BinanceAccountUpdateData: IWebSocketResponse

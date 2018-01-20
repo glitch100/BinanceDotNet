@@ -1,8 +1,8 @@
 ﻿using System.Runtime.Serialization;
-using BinanceExchange.Abstractions.Models.Response.Interfaces;
+using BinanceExchange.API.Models.Response.Interfaces;
 using Newtonsoft.Json;
 
-namespace BinanceExchange.API.Models.Websocket
+namespace BinanceExchange.API.Models.WebSocket
 {
     [DataContract]
     public class BalanceResponseData: IBalanceResponse

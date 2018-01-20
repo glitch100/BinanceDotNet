@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Extensions;
 using log4net;
-using log4net.Core;
 
 namespace BinanceExchange.API
 {

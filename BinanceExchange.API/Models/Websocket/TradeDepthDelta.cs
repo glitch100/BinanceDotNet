@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace BinanceExchange.API.Models.Websocket
+namespace BinanceExchange.API.Models.WebSocket
 {
     [DataContract]
     public class TradeDepthDelta

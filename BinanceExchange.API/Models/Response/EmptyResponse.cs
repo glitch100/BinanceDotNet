@@ -1,4 +1,4 @@
-﻿using BinanceExchange.Abstractions.Models.Response.Interfaces;
+﻿using BinanceExchange.API.Models.Response.Interfaces;
 
 namespace BinanceExchange.API.Models.Response
 {

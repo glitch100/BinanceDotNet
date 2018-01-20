@@ -1,14 +1,18 @@
 # BinanceDotNet Changelog
 
-**Release Date: 01/18/2018**
+**Release Date: TBD**
 ## 4.0.0
-- Added `Abstractions` project
+- Introduced interface folder seperation
 - Fix to Timestamp logic for non dotnetstandard projects
 - Changes to types that shouldn't been strings
 - Backwards compatible support for older `.NET` versions
+- Fixes to some models
+- Adjusting some other types
+- Removing unused code
 _BREAKING CHANGES_
 - Removed `NLog` support
-- Moved interfaces to `Abstractions`
+- Moved a number of files
+
 
 **Release Date: 01/16/2018**
 ## 3.1.0

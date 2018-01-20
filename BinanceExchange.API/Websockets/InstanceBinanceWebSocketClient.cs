@@ -1,6 +1,5 @@
 using BinanceExchange.API.Client.Interfaces;
 using log4net;
-using log4net.Core;
 
 namespace BinanceExchange.API.Websockets
 {

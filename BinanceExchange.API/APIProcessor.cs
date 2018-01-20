@@ -2,11 +2,10 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BinanceExchange.Abstractions.Caching.Interfaces;
+using BinanceExchange.API.Caching.Interfaces;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Response.Error;
 using log4net;
-using log4net.Core;
 using Newtonsoft.Json;
 
 namespace BinanceExchange.API

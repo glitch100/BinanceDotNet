@@ -7,7 +7,6 @@ using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
 using BinanceExchange.API.Utility;
 using log4net;
-using log4net.Core;
 
 namespace BinanceExchange.API.Client
 {

@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Security.Authentication;
 using System.Threading.Tasks;
-using BinanceExchange.Abstractions.Models.WebSocket.Interfaces;
 using BinanceExchange.API.Client.Interfaces;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Extensions;
-using BinanceExchange.API.Models.Websocket;
+using BinanceExchange.API.Models.WebSocket;
 using BinanceExchange.API.Utility;
 using log4net;
-using log4net.Core;
 using Newtonsoft.Json;
 using WebSocketSharp;
+using IWebSocketResponse = BinanceExchange.API.Models.WebSocket.Interfaces.IWebSocketResponse;
 
 namespace BinanceExchange.API.Websockets
 {

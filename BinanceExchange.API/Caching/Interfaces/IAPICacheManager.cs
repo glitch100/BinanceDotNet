@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BinanceExchange.Abstractions.Caching.Interfaces
+namespace BinanceExchange.API.Caching.Interfaces
 {
     public interface IAPICacheManager
     {

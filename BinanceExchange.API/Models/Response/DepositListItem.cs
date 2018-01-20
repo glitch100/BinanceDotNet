@@ -2,8 +2,8 @@
 using BinanceExchange.API.Converter;
 using Newtonsoft.Json;
 using System;
-using BinanceExchange.Abstractions.Models.Response.Interfaces;
 using BinanceExchange.API.Enums;
+using BinanceExchange.API.Models.Response.Interfaces;
 
 namespace BinanceExchange.API.Models.Response
 {

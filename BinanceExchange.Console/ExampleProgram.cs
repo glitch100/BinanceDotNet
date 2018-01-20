@@ -11,7 +11,7 @@ using BinanceExchange.API.Market;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
 using BinanceExchange.API.Models.Response.Error;
-using BinanceExchange.API.Models.Websocket;
+using BinanceExchange.API.Models.WebSocket;
 using BinanceExchange.API.Utility;
 using BinanceExchange.API.Websockets;
 using log4net;

@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinanceExchange.Console", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinanceExchange.Tests", "BinanceExchange.Tests\BinanceExchange.Tests.csproj", "{1850BA62-E887-4E6C-AFAB-10A49ADB116B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinanceExchange.Abstractions", "BinanceExchange.Abstractions\BinanceExchange.Abstractions.csproj", "{38039123-E242-4514-89D4-F0010F664E65}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{1850BA62-E887-4E6C-AFAB-10A49ADB116B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1850BA62-E887-4E6C-AFAB-10A49ADB116B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1850BA62-E887-4E6C-AFAB-10A49ADB116B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38039123-E242-4514-89D4-F0010F664E65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38039123-E242-4514-89D4-F0010F664E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38039123-E242-4514-89D4-F0010F664E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38039123-E242-4514-89D4-F0010F664E65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

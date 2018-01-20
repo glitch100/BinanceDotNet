@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BinanceExchange.Abstractions.Caching.Interfaces;
+using BinanceExchange.API.Caching.Interfaces;
 using BinanceExchange.API.Utility;
 using Microsoft.Extensions.Caching.Memory;
 
