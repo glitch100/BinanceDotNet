@@ -9,6 +9,7 @@ namespace BinanceExchange.API.Client
         public string SecretKey { get; set; }
         public bool EnableRateLimiting { get; set; }
         public TimeSpan CacheTime { get; set; } = TimeSpan.FromMinutes(30);
+        public TimeSpan TimestampOffset { get; set; } = TimeSpan.FromMilliseconds(0);
         public ILogger Logger { get; set; }
     }
 }
