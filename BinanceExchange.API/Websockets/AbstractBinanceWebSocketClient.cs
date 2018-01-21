@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Security.Authentication;
 using System.Threading.Tasks;
-using BinanceExchange.API.Client;
+using BinanceExchange.API.Client.Interfaces;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Extensions;
-using BinanceExchange.API.Models.Websocket;
+using BinanceExchange.API.Models.WebSocket;
 using BinanceExchange.API.Utility;
+using log4net;
 using Newtonsoft.Json;
-using NLog;
 using WebSocketSharp;
+using IWebSocketResponse = BinanceExchange.API.Models.WebSocket.Interfaces.IWebSocketResponse;
 
 namespace BinanceExchange.API.Websockets
 {
@@ -31,17 +32,17 @@ namespace BinanceExchange.API.Websockets
         protected Dictionary<Guid, BinanceWebSocket> ActiveWebSockets;
         protected List<BinanceWebSocket> AllSockets;
         protected readonly IBinanceClient BinanceClient;
-        protected ILogger Logger;
+        protected ILog Logger;
 
         protected const string AccountEventType = "outboundAccountInfo";
         protected const string OrderTradeEventType = "executionReport";
 
-        public AbstractBinanceWebSocketClient(IBinanceClient binanceClient, ILogger logger = null)
+        public AbstractBinanceWebSocketClient(IBinanceClient binanceClient, ILog logger = null)
         {
             BinanceClient = binanceClient;
             ActiveWebSockets = new Dictionary<Guid, BinanceWebSocket>();
             AllSockets = new List<BinanceWebSocket>();
-            Logger = logger ?? LogManager.GetCurrentClassLogger();
+            Logger = logger ?? LogManager.GetLogger(typeof(AbstractBinanceWebSocketClient));
         }
 
 
@@ -137,7 +138,7 @@ namespace BinanceExchange.API.Websockets
             };
             websocket.OnError += (sender, e) =>
             {
-                Logger.Error($"WebSocket Error on {endpoint.AbsoluteUri}: ", e);
+                Logger.Error($"WebSocket Error on {endpoint.AbsoluteUri}: ", e.Exception);
                 CloseWebSocketInstance(websocket.Id, true);
                 throw new Exception("Binance UserData WebSocket failed")
                 {
@@ -147,7 +148,12 @@ namespace BinanceExchange.API.Websockets
                     }
                 };
             };
-            ActiveWebSockets.TryAdd(websocket.Id, websocket);
+
+            if (!ActiveWebSockets.ContainsKey(websocket.Id))
+            {
+                ActiveWebSockets.Add(websocket.Id, websocket);
+            }
+
             AllSockets.Add(websocket);
             websocket.SslConfiguration.EnabledSslProtocols = SupportedProtocols;
             websocket.Connect();
@@ -171,7 +177,7 @@ namespace BinanceExchange.API.Websockets
             };
             websocket.OnError += (sender, e) =>
             {
-                Logger.Debug($"WebSocket Error on {endpoint.AbsoluteUri}:", e);
+                Logger.Debug($"WebSocket Error on {endpoint.AbsoluteUri}:", e.Exception);
                 CloseWebSocketInstance(websocket.Id, true);
                 throw new Exception("Binance WebSocket failed")
                 {
@@ -181,7 +187,12 @@ namespace BinanceExchange.API.Websockets
                     }
                 };
             };
-            ActiveWebSockets.TryAdd(websocket.Id, websocket);
+
+            if (!ActiveWebSockets.ContainsKey(websocket.Id))
+            {
+                ActiveWebSockets.Add(websocket.Id, websocket);
+            }
+
             AllSockets.Add(websocket);
             websocket.SslConfiguration.EnabledSslProtocols = SupportedProtocols;
             websocket.Connect();

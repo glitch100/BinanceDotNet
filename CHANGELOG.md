@@ -1,5 +1,19 @@
 # BinanceDotNet Changelog
 
+**Release Date: TBD**
+## 4.0.0
+- Introduced interface folder seperation
+- Fix to Timestamp logic for non dotnetstandard projects
+- Changes to types that shouldn't been strings
+- Backwards compatible support for older `.NET` versions
+- Fixes to some models
+- Adjusting some other types
+- Removing unused code
+_BREAKING CHANGES_
+- Removed `NLog` support
+- Moved a number of files
+
+
 **Release Date: 01/16/2018**
 ## 3.1.0
 - Made properties in requests nullable to prevent malformed requests when params not provided

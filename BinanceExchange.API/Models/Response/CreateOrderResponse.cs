@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 using BinanceExchange.API.Converter;
+using BinanceExchange.API.Models.Response.Interfaces;
 using Newtonsoft.Json;
 
 namespace BinanceExchange.API.Models.Response
