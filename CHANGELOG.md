@@ -1,6 +1,6 @@
 # BinanceDotNet Changelog
 
-**Release Date: TBD**
+**Release Date: 1/21/2018**
 ## 4.0.0
 - Introduced interface folder seperation
 - Fix to Timestamp logic for non dotnetstandard projects
