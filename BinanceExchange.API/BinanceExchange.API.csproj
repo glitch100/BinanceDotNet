@@ -1,32 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Version>3.1.0</Version>
+    <TargetFrameworks>netstandard2.0;net451;net452;net461;</TargetFrameworks>
+    <Version>4.0.0</Version>
     <Description>The Binance CryptoCurrency exchange C# wrapper of the API. It is built in dotnet core, supports all REST and WebSocket endpoints, has full logging capabilities, a built in Cache for selected endpoints, a Rate limiter and more. Enjoy Binance API data, fast and reliably.</Description>
+    <Title>Binance Cryptocurrency Exchange - C# API in .NET</Title>
     <PackageId>BinanceDotNet</PackageId>
     <Authors>Jon Evans</Authors>
     <Company />
     <Product>BinanceDotNet</Product>
     <PackageProjectUrl>https://github.com/glitch100/BinanceDotNet</PackageProjectUrl>
-    <PackageTags>binance, csharp, binance-api, binancedotnet</PackageTags>
+    <PackageTags>binance, csharp, binance-api, binancedotnet, binance exchange</PackageTags>
     <AssemblyName>BinanceExchange.API</AssemblyName>
     <PackageLicenseUrl>https://github.com/glitch100/BinanceDotNet/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/glitch100/BinanceDotNet</RepositoryUrl>
     <PackageIconUrl>https://i.imgur.com/x2YPVe6.png</PackageIconUrl>
-    <PackageReleaseNotes>Making properties nullable so request query strings are accurate, added error catching in deserialization, and additional logs</PackageReleaseNotes>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
-    <FileVersion>3.1.0.0</FileVersion>
+    <PackageReleaseNotes>Added in netstandard2.0;net451;net452;net461; support and multiple target frameworks, various fixes</PackageReleaseNotes>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <FileVersion>4.0.0.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-rc1" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
-    <PackageReference Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
-    <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
+    <PackageReference Include="WebSocketSharp-netstandard" Version="1.0.1" />
   </ItemGroup>
 </Project>

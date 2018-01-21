@@ -5,7 +5,7 @@ using BinanceExchange.API.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace BinanceExchange.API.Models.Websocket
+namespace BinanceExchange.API.Models.WebSocket
 {
     [DataContract]
     public class BinanceKline

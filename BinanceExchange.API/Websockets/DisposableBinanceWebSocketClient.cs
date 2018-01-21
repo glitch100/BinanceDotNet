@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using BinanceExchange.API.Client;
-using NLog;
+using BinanceExchange.API.Client.Interfaces;
+using log4net;
 using WebSocketSharp;
 
 namespace BinanceExchange.API.Websockets
@@ -12,7 +12,7 @@ namespace BinanceExchange.API.Websockets
     /// </summary>
     public class DisposableBinanceWebSocketClient : AbstractBinanceWebSocketClient, IDisposable, IBinanceWebSocketClient
     {
-        public DisposableBinanceWebSocketClient(IBinanceClient binanceClient, ILogger logger = null) : base(binanceClient, logger)
+        public DisposableBinanceWebSocketClient(IBinanceClient binanceClient, ILog logger = null) : base(binanceClient, logger)
         {
         }
 
