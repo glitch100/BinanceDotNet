@@ -25,7 +25,7 @@ namespace BinanceExchange.API.Models.Request
 
         [DataMember(Order = 4)]
         [JsonConverter(typeof(StringEnumConverter))]
-        public TimeInForce TimeInForce { get; set; }
+        public TimeInForce? TimeInForce { get; set; }
 
         [DataMember(Order = 5)]
         public decimal Quantity { get; set; }
