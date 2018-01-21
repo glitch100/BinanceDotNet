@@ -27,6 +27,7 @@ namespace BinanceExchange.API
         private const string APIHeader = "X-MBX-APIKEY";
         private static readonly Stopwatch Stopwatch;
         private static int _concurrentRequests = 0;
+        private static TimeSpan _timestampOffset;
         private static ILog _logger;
         private static readonly object LockObject = new object();
 
@@ -53,6 +54,16 @@ namespace BinanceExchange.API
             _limit = limit;
             _rateSemaphore = new SemaphoreSlim(limit, limit);
             _logger.Debug($"Request Limit Adjusted to: {limit}");
+        }
+
+        /// <summary>
+        /// Used to adjust the client timestamp
+        /// </summary>
+        /// <param name="time">TimeSpan to adjust timestamp by</param>
+        public static void SetTimestampOffset(TimeSpan time)
+        {
+            _timestampOffset = time;
+            _logger.Debug($"Timestamp offset is now : {time}");
         }
 
         /// <summary>
@@ -92,7 +103,7 @@ namespace BinanceExchange.API
                     }
                 }
             }
-            HttpClient.DefaultRequestHeaders.TryAddWithoutValidation(APIHeader, new[] {key});
+            HttpClient.DefaultRequestHeaders.TryAddWithoutValidation(APIHeader, new[] { key });
         }
 
         /// <summary>
@@ -202,9 +213,9 @@ namespace BinanceExchange.API
         {
             string timestamp;
 #if NETSTANDARD2_0
-            timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
+            timestamp = DateTimeOffset.UtcNow.AddMilliseconds(_timestampOffset.TotalMilliseconds).ToUnixTimeMilliseconds().ToString();
 #else
-            timestamp = DateTime.UtcNow.ConvertToUnixTime().ToString();
+            timestamp = DateTime.UtcNow.AddMilliseconds(_timestampOffset.TotalMilliseconds).ConvertToUnixTime().ToString();
 #endif
             var qsDataProvided = !string.IsNullOrEmpty(signatureRawData);
             var argEnding = $"timestamp={timestamp}&recvWindow={receiveWindow}";
