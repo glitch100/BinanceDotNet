@@ -10,7 +10,7 @@ namespace BinanceExchange.API.Models.Request
     /// Request object used to retrieve exchange information
     /// </summary>
     [DataContract]
-    class ExchangeInfo : IRequest
+    public class ExchangeInfo : IRequest
     {
     }
 }
