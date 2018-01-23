@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using BinanceExchange.API.Converter;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Response.Interfaces;
+using Newtonsoft.Json.Converters;
 
 namespace BinanceExchange.API.Models.Response
 {
@@ -30,6 +31,7 @@ namespace BinanceExchange.API.Models.Response
         public int QuotePrecision { get; private set; }
 
         [DataMember(Order = 7)]
+        [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
         public List<OrderType> OrderTypes { get; private set; }
 
         [DataMember(Order = 8)]
