@@ -246,7 +246,7 @@ namespace BinanceExchange.API.Client
         {
             Guard.AgainstNull(request.Symbol);
       
-            return await _apiProcessor.ProcessPostRequest<OrderResponse>(Endpoints.Account.QueryOrder(request), receiveWindow);
+            return await _apiProcessor.ProcessGetRequest<OrderResponse>(Endpoints.Account.QueryOrder(request), receiveWindow);
         }
 
         /// <summary>
