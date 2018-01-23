@@ -1,5 +1,9 @@
 # BinanceDotNet Changelog
 
+**Release Date: 1/23/2018**
+## 4.0.1
+- Fixed bug around QueryOrder Http method
+
 **Release Date: 1/21/2018**
 ## 4.0.0
 - Introduced interface folder seperation
@@ -12,7 +16,6 @@
 _BREAKING CHANGES_
 - Removed `NLog` support
 - Moved a number of files
-
 
 **Release Date: 01/16/2018**
 ## 3.1.0
