@@ -1,5 +1,9 @@
 # BinanceDotNet Changelog
 
+**Release Date: 1/25/2018**
+## 4.1.0
+- Adjusted `CreateOrder` request to allow you to specify what type of response you want
+
 **Release Date: 1/23/2018**
 ## 4.0.1
 - Fixed bug around QueryOrder Http method
