@@ -4,6 +4,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using BinanceExchange.API.Converter;
 using BinanceExchange.API.Models.Response.Interfaces;
+using BinanceExchange.API.Enums;
+using Newtonsoft.Json.Converters;
 
 namespace BinanceExchange.API.Models.Response
 {
@@ -11,6 +13,7 @@ namespace BinanceExchange.API.Models.Response
     public class ExchangeInfoSymbolFilter
     {
         [DataMember(Order = 1)]
-        public string FilterType { get; private set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ExchangeInfoSymbolFilterType FilterType { get; private set; }
     }
 }

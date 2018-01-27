@@ -4,10 +4,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using BinanceExchange.API.Models.Response;
+using BinanceExchange.API.Models.Response.Error;
+using BinanceExchange.API.Enums;
 
 namespace BinanceExchange.API.Converter
 {
-    class ExchangeInfoSymbolFilterConverter : JsonConverter
+    public class ExchangeInfoSymbolFilterConverter : JsonConverter
     {
         public override bool CanWrite => false;
 
@@ -15,33 +17,27 @@ namespace BinanceExchange.API.Converter
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var arr = JArray.Load(reader);
-            List<ExchangeInfoSymbolFilter> items = new List<ExchangeInfoSymbolFilter>();
-            foreach (var obj in arr)
+            JObject jObject = JObject.Load(reader);
+            var value = jObject.ToObject<ExchangeInfoSymbolFilter>();
+            
+            ExchangeInfoSymbolFilter item;
+            switch (value.FilterType)
             {
-                string discriminator = (string)obj["filterType"];
-
-                ExchangeInfoSymbolFilter item;
-                switch (discriminator)
-                {
-                    case "PRICE_FILTER":
-                        item = new ExchangeInfoSymbolFilterPrice();
-                        break;
-                    case "LOT_SIZE":
-                        item = new ExchangeInfoSymbolFilterLotSize();
-                        break;
-                    case "MIN_NOTIONAL":
-                        item = new ExchangeInfoSymbolFilterMinNotional();
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
-
-                serializer.Populate(obj.CreateReader(), item);
-                items.Add(item);
+                case ExchangeInfoSymbolFilterType.PriceFilter:
+                    item = new ExchangeInfoSymbolFilterPrice();
+                    break;
+                case ExchangeInfoSymbolFilterType.LotSize:
+                    item = new ExchangeInfoSymbolFilterLotSize();
+                    break;
+                case ExchangeInfoSymbolFilterType.MinNotional:
+                    item = new ExchangeInfoSymbolFilterMinNotional();
+                    break;
+                default:
+                    throw new BinanceException($"Unkown ExchangeInfoSymbolFilter: {value}", null);
             }
 
-            return items;
+            serializer.Populate(jObject.CreateReader(), item);
+            return item;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

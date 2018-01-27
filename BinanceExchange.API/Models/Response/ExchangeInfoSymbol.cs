@@ -13,32 +13,32 @@ namespace BinanceExchange.API.Models.Response
     public class ExchangeInfoSymbol
     {
         [DataMember(Order = 1)]
-        public string Symbol { get; private set; }
+        public string Symbol { get; set; }
 
         [DataMember(Order = 2)]
-        public string Status { get; private set; }
+        public string Status { get; set; }
 
         [DataMember(Order = 3)]
-        public string BaseAsset { get; private set; }
+        public string BaseAsset { get; set; }
 
         [DataMember(Order = 4)]
-        public int BaseAssetPrecision { get; private set; }
+        public int BaseAssetPrecision { get; set; }
 
         [DataMember(Order = 5)]
-        public string QuoteAsset { get; private set; }
+        public string QuoteAsset { get; set; }
 
         [DataMember(Order = 6)]
-        public int QuotePrecision { get; private set; }
+        public int QuotePrecision { get; set; }
 
         [DataMember(Order = 7)]
         [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-        public List<OrderType> OrderTypes { get; private set; }
+        public List<ExchangeInfoOrderType> OrderTypes { get; set; }
 
         [DataMember(Order = 8)]
-        public bool IcebergAllowed { get; private set; }
+        public bool IcebergAllowed { get; set; }
 
         [DataMember(Order = 9)]
-        [JsonConverter(typeof(ExchangeInfoSymbolFilterConverter))]
-        public List<ExchangeInfoSymbolFilter> Filters { get; private set; }
+        [JsonProperty(ItemConverterType = typeof(ExchangeInfoSymbolFilterConverter))]
+        public List<ExchangeInfoSymbolFilter> Filters { get; set; }
     }
 }
