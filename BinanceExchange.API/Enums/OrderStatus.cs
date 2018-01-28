@@ -10,7 +10,7 @@ namespace BinanceExchange.API.Enums
         PartiallyFilled,
         [EnumMember(Value = "FILLED")]
         Filled,
-        [EnumMember(Value = "CANCELLED")]
+        [EnumMember(Value = "CANCELED")]
         Cancelled,
         [EnumMember(Value = "PENDING_CANCEL")]
         PendingCancel,

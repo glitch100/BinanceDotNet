@@ -2,10 +2,11 @@ using System;
 using System.Runtime.Serialization;
 using BinanceExchange.API.Converter;
 using BinanceExchange.API.Enums;
+using BinanceExchange.API.Models.WebSocket.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace BinanceExchange.API.Models.Websocket
+namespace BinanceExchange.API.Models.WebSocket
 {
     /// <summary>
     /// Shared class that represents either a trade or an order, and the data returned from the WebSocket endpoint

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BinanceExchange.API.Caching;
+using BinanceExchange.API.Client.Interfaces;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
 using BinanceExchange.API.Utility;
-using NLog;
+using log4net;
 
 namespace BinanceExchange.API.Client
 {
@@ -15,10 +16,22 @@ namespace BinanceExchange.API.Client
     /// </summary>
     public class BinanceClient : IBinanceClient
     {
+        public TimeSpan TimestampOffset {
+            get
+            {
+                return _timestampOffset;
+            }
+            set
+            {
+                _timestampOffset = value;
+                RequestClient.SetTimestampOffset(_timestampOffset);
+            }
+        }
+        private TimeSpan _timestampOffset;
         private readonly string _apiKey;
         private readonly string _secretKey;
         private readonly IAPIProcessor _apiProcessor;
-        private readonly ILogger _logger;
+        private readonly ILog _logger;
 
         /// <summary>
         /// Create a new Binance Client based on the configuration provided
@@ -27,14 +40,14 @@ namespace BinanceExchange.API.Client
         /// <param name="apiCache"></param>
         public BinanceClient(ClientConfiguration configuration, IAPIProcessor apiProcessor = null)
         {
-            _logger = configuration.Logger ?? LogManager.GetCurrentClassLogger();
+            _logger = configuration.Logger ?? LogManager.GetLogger(typeof(BinanceClient));
             Guard.AgainstNull(configuration);
             Guard.AgainstNullOrEmpty(configuration.ApiKey);
             Guard.AgainstNull(configuration.SecretKey);
 
             _apiKey = configuration.ApiKey;
             _secretKey = configuration.SecretKey;
-
+            RequestClient.SetTimestampOffset(configuration.TimestampOffset);
             RequestClient.SetRateLimiting(configuration.EnableRateLimiting);
             RequestClient.SetAPIKey(_apiKey);
             if (apiProcessor == null)
@@ -233,7 +246,7 @@ namespace BinanceExchange.API.Client
         {
             Guard.AgainstNull(request.Symbol);
       
-            return await _apiProcessor.ProcessPostRequest<OrderResponse>(Endpoints.Account.QueryOrder(request), receiveWindow);
+            return await _apiProcessor.ProcessGetRequest<OrderResponse>(Endpoints.Account.QueryOrder(request), receiveWindow);
         }
 
         /// <summary>

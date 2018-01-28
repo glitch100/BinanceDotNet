@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BinanceExchange.API.Models.ResultSets;
-using BinanceExchange.API.Models.Websocket;
+using BinanceExchange.API.Models.WebSocket;
 
 namespace BinanceExchange.API
 {

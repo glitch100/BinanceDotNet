@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BinanceExchange.API.Models.Websocket
+namespace BinanceExchange.API.Models.WebSocket
 {
     public class DepthCacheObject
     {

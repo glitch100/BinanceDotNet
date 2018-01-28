@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using BinanceExchange.API.Models.Request.Interfaces;
 using Newtonsoft.Json;
 
 namespace BinanceExchange.API.Models.Request
@@ -13,10 +14,10 @@ namespace BinanceExchange.API.Models.Request
         public string Symbol { get; set; }
 
         [DataMember(Order = 2)]
-        public long OrderId { get; set; }
+        public long? OrderId { get; set; }
 
         [DataMember(Order = 3)]
         [JsonProperty(PropertyName = "origClientOrderId")]
-        public long OriginalClientOrderId { get; set; }
+        public string OriginalClientOrderId { get; set; }
     }
 }

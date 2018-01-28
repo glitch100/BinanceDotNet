@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BinanceExchange.API.Models.ResultSets
+﻿namespace BinanceExchange.API.Models.ResultSets
 {
     public class BuySellDepthVolume
     {

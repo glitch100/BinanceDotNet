@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using BinanceExchange.API.Enums;
 
-namespace BinanceExchange.API.Models.Websocket
+namespace BinanceExchange.API.Models.WebSocket
 {
     public class KlineCacheObject
     {

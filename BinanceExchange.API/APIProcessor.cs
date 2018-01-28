@@ -2,11 +2,11 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BinanceExchange.API.Caching;
+using BinanceExchange.API.Caching.Interfaces;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Response.Error;
+using log4net;
 using Newtonsoft.Json;
-using NLog;
 
 namespace BinanceExchange.API
 {
@@ -18,7 +18,7 @@ namespace BinanceExchange.API
         private readonly string _apiKey;
         private readonly string _secretKey;
         private IAPICacheManager _apiCache;
-        private ILogger _logger;
+        private ILog _logger;
         private bool _cacheEnabled;
         private TimeSpan _cacheTime;
 
@@ -31,8 +31,8 @@ namespace BinanceExchange.API
                 _apiCache = apiCache;
                 _cacheEnabled = true;
             }
-            _logger = LogManager.GetCurrentClassLogger();
-            _logger.Debug($"API Processor set up. Cache Enabled={_cacheEnabled}");
+            _logger = LogManager.GetLogger(typeof(APIProcessor));
+            _logger.Debug( $"API Processor set up. Cache Enabled={_cacheEnabled}");
         }
 
         /// <summary>
@@ -44,12 +44,26 @@ namespace BinanceExchange.API
             _cacheTime = time;
         }
 
-        private async Task<T> HandleResponse<T>(HttpResponseMessage message, string fullCacheKey) where T : class
+        private async Task<T> HandleResponse<T>(HttpResponseMessage message, string requestMessage, string fullCacheKey) where T : class
         {
             if (message.IsSuccessStatusCode)
             {
                 var messageJson = await message.Content.ReadAsStringAsync();
-                var messageObject = JsonConvert.DeserializeObject<T>(messageJson);
+                T messageObject = null;
+                try
+                {
+                    messageObject = JsonConvert.DeserializeObject<T>(messageJson);
+                }
+                catch (Exception ex)
+                {
+                    string deserializeErrorMessage = $"Unable to deserialize message from: {requestMessage}. Exception: {ex.Message}";
+                    _logger.Error(deserializeErrorMessage);
+                    throw new BinanceException(deserializeErrorMessage, new BinanceError()
+                    {
+                        RequestMessage = requestMessage,
+                        Message = ex.Message
+                    });
+                }
                 _logger.Debug($"Successful Message Response={messageJson}");
 
                 if (messageObject == null)
@@ -66,8 +80,10 @@ namespace BinanceExchange.API
             var errorJson = await message.Content.ReadAsStringAsync();
             var errorObject = JsonConvert.DeserializeObject<BinanceError>(errorJson);
             if (errorObject == null) throw new BinanceException("Unexpected Error whilst handling the response", null);
-            _logger.Error($"Error Message Recevied", errorObject);
-            throw CreateBinanceException(message.StatusCode, errorObject);
+            errorObject.RequestMessage = requestMessage;
+            var exception = CreateBinanceException(message.StatusCode, errorObject);
+            _logger.Error($"Error Message Received:", exception);
+            throw exception;
         }
 
         private BinanceException CreateBinanceException(HttpStatusCode statusCode, BinanceError errorObject)
@@ -113,8 +129,7 @@ namespace BinanceExchange.API
             var fullKey = $"{typeof(T).Name}-{endpoint.Uri.AbsoluteUri}";
             if (_cacheEnabled && endpoint.UseCache)
             {
-                T item;
-                if (CheckAndRetrieveCachedItem<T>(fullKey, out item))
+                if (CheckAndRetrieveCachedItem<T>(fullKey, out var item))
                 {
                     return item;
                 }
@@ -131,7 +146,7 @@ namespace BinanceExchange.API
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            return await HandleResponse<T>(message, fullKey);
+            return await HandleResponse<T>(message, endpoint.ToString(), fullKey);
         }
 
         /// <summary>
@@ -164,7 +179,7 @@ namespace BinanceExchange.API
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            return await HandleResponse<T>(message, fullKey);
+            return await HandleResponse<T>(message, endpoint.ToString(), fullKey);
         }
 
         /// <summary>
@@ -198,7 +213,7 @@ namespace BinanceExchange.API
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            return await HandleResponse<T>(message, fullKey);
+            return await HandleResponse<T>(message, endpoint.ToString(), fullKey);
         }
 
         /// <summary>
@@ -229,7 +244,7 @@ namespace BinanceExchange.API
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            return await HandleResponse<T>(message, fullKey);
+            return await HandleResponse<T>(message, endpoint.ToString(), fullKey);
         }
     }
 }
