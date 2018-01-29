@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinanceExchange.API", "Bina
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinanceExchange.Console", "BinanceExchange.Console\BinanceExchange.Console.csproj", "{D603602C-D6C7-464C-8FAC-2C5D6713FFAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinanceExchange.Tests", "BinanceExchange.Tests\BinanceExchange.Tests.csproj", "{1850BA62-E887-4E6C-AFAB-10A49ADB116B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinanceExchange.Tests", "BinanceExchange.Tests\BinanceExchange.Tests.csproj", "{1850BA62-E887-4E6C-AFAB-10A49ADB116B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

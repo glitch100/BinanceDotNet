@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using BinanceExchange.API.Enums;
-using NLog;
+using BinanceExchange.API.Extensions;
+using log4net;
 
 namespace BinanceExchange.API
 {
@@ -26,7 +27,8 @@ namespace BinanceExchange.API
         private const string APIHeader = "X-MBX-APIKEY";
         private static readonly Stopwatch Stopwatch;
         private static int _concurrentRequests = 0;
-        private static ILogger _logger;
+        private static TimeSpan _timestampOffset;
+        private static ILog _logger;
         private static readonly object LockObject = new object();
 
         static RequestClient()
@@ -39,7 +41,7 @@ namespace BinanceExchange.API
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _rateSemaphore = new SemaphoreSlim(_limit, _limit);
             Stopwatch = new Stopwatch();
-            _logger = LogManager.GetCurrentClassLogger();
+            _logger = LogManager.GetLogger(typeof(RequestClient));
         }
 
 
@@ -52,6 +54,16 @@ namespace BinanceExchange.API
             _limit = limit;
             _rateSemaphore = new SemaphoreSlim(limit, limit);
             _logger.Debug($"Request Limit Adjusted to: {limit}");
+        }
+
+        /// <summary>
+        /// Used to adjust the client timestamp
+        /// </summary>
+        /// <param name="time">TimeSpan to adjust timestamp by</param>
+        public static void SetTimestampOffset(TimeSpan time)
+        {
+            _timestampOffset = time;
+            _logger.Debug($"Timestamp offset is now : {time}");
         }
 
         /// <summary>
@@ -91,7 +103,7 @@ namespace BinanceExchange.API
                     }
                 }
             }
-            HttpClient.DefaultRequestHeaders.TryAddWithoutValidation(APIHeader, new[] {key});
+            HttpClient.DefaultRequestHeaders.TryAddWithoutValidation(APIHeader, new[] { key });
         }
 
         /// <summary>
@@ -187,6 +199,7 @@ namespace BinanceExchange.API
             return await CreateRequest(uri, HttpVerb.DELETE);
         }
 
+
         /// <summary>
         /// Creates a valid Uri with signature
         /// </summary>
@@ -195,9 +208,15 @@ namespace BinanceExchange.API
         /// <param name="signatureRawData"></param>
         /// <param name="receiveWindow"></param>
         /// <returns></returns>
+        /// 
         private static Uri CreateValidUri(Uri endpoint, string secretKey, string signatureRawData, long receiveWindow)
         {
-            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
+            string timestamp;
+#if NETSTANDARD2_0
+            timestamp = DateTimeOffset.UtcNow.AddMilliseconds(_timestampOffset.TotalMilliseconds).ToUnixTimeMilliseconds().ToString();
+#else
+            timestamp = DateTime.UtcNow.AddMilliseconds(_timestampOffset.TotalMilliseconds).ConvertToUnixTime().ToString();
+#endif
             var qsDataProvided = !string.IsNullOrEmpty(signatureRawData);
             var argEnding = $"timestamp={timestamp}&recvWindow={receiveWindow}";
             var adjustedSignature = !string.IsNullOrEmpty(signatureRawData) ? $"{signatureRawData.Substring(1)}&{argEnding}" : $"{argEnding}";
@@ -278,7 +297,7 @@ namespace BinanceExchange.API
             return await task;
         }
 
-        public static void SetLogger(ILogger logger)
+        public static void SetLogger(ILog logger)
         {
             _logger = logger;
         }

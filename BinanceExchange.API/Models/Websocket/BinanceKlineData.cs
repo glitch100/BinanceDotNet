@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using BinanceExchange.API.Converter;
+using BinanceExchange.API.Models.WebSocket.Interfaces;
 using Newtonsoft.Json;
 
-namespace BinanceExchange.API.Models.Websocket
+namespace BinanceExchange.API.Models.WebSocket
 {
     /// <summary>
     /// Data returned from the Binance WebSocket Kline endpoint

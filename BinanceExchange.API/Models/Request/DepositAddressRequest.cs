@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using BinanceExchange.API.Models.Request.Interfaces;
 
 namespace BinanceExchange.API.Models.Request
 {

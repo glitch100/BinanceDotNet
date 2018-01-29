@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
 
-namespace BinanceExchange.API.Client
+namespace BinanceExchange.API.Client.Interfaces
 {
     public interface IBinanceClient
     {

@@ -3,6 +3,7 @@ using BinanceExchange.API.Enums;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using BinanceExchange.API.Converter;
+using BinanceExchange.API.Models.Request.Interfaces;
 
 namespace BinanceExchange.API.Models.Request
 {

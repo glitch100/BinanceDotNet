@@ -1,7 +1,7 @@
 ﻿using BinanceExchange.API;
 using BinanceExchange.API.Client;
+using log4net;
 using Moq;
-using NLog;
 
 namespace BinanceExchange.Tests.Client.BinanceClient
 {
@@ -10,12 +10,12 @@ namespace BinanceExchange.Tests.Client.BinanceClient
         protected API.Client.BinanceClient ConcreteBinanceClient;
         protected ClientConfiguration DefaultClientConfiguration;
 
-        protected Mock<ILogger> MockLogger;
+        protected Mock<ILog> MockLogger;
         protected Mock<IAPIProcessor> MockAPIProcessor;
 
         public BinanceClientBaseTests()
         {
-            MockLogger = new Mock<ILogger>();
+            MockLogger = new Mock<ILog>();
             MockAPIProcessor = new Mock<IAPIProcessor>();
 
             DefaultClientConfiguration = new ClientConfiguration()
