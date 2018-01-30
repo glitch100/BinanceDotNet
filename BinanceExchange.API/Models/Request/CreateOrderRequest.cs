@@ -31,7 +31,7 @@ namespace BinanceExchange.API.Models.Request
         public decimal Quantity { get; set; }
 
         [DataMember(Order = 6)]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         [DataMember(Order = 7)]
         public string NewClientOrderId { get; set; }
