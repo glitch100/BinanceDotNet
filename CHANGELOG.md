@@ -1,5 +1,10 @@
 # BinanceDotNet Changelog
 
+**Release Date: 1/30/2018**
+## 4.0.2
+- Removed `TimeInForce` as required param from New order
+- Changed `Quantity` to be `decimal`
+
 **Release Date: 1/23/2018**
 ## 4.0.1
 - Fixed bug around QueryOrder Http method

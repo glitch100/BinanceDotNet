@@ -13,6 +13,20 @@ Feel free to raise issues and Pull Request to help improve the library. If you f
 - [REST API Calls](/docs/REST-API.md)
 - [WebSocket API Calls](/docs/WEBSOCKET-API.md)
 
+## Installation
+The package is available in NuGet, or feel free to download:
+https://www.nuget.org/packages/BinanceDotNet/
+
+**Nuget PM**
+```
+Install-Package BinanceDotNet
+```
+
+**dotnet cli**
+```
+dotnet add package BinanceDotNet
+```
+
 ## Donations and Contribution
 Upkeep of this API takes a lot of time from answering issues and PR's on the Repository, as well as tweets and direct emails.
 You can donate cryptocurrency of any amount to the following wallets:
@@ -54,19 +68,6 @@ git clone git@github.com:glitch100/BinanceDotNet.git
 - Add your own Private and Secret keys
 - Play around with the API
 
-## Installation
-The package is available in NuGet, or feel free to download:
-https://www.nuget.org/packages/BinanceDotNet/
-
-**Nuget PM**
-```
-Install-Package BinanceDotNet
-```
-
-**dotnet cli**
-```
-dotnet add package BinanceDotNet
-```
 
 ## Usage
 Code examples below, or clone the repository and run the `BinanceExchange.Console` project.

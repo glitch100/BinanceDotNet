@@ -212,7 +212,6 @@ namespace BinanceExchange.API.Client
             Guard.AgainstNull(request.Symbol);
             Guard.AgainstNull(request.Side);
             Guard.AgainstNull(request.Type);
-            Guard.AgainstNull(request.TimeInForce);
             Guard.AgainstNull(request.Quantity);
             Guard.AgainstNull(request.Price);
 
