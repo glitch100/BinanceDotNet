@@ -14,7 +14,7 @@
     <PackageLicenseUrl>https://github.com/glitch100/BinanceDotNet/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/glitch100/BinanceDotNet</RepositoryUrl>
     <PackageIconUrl>https://i.imgur.com/x2YPVe6.png</PackageIconUrl>
-    <PackageReleaseNotes>Added RESULT, ACK, and FULL response types for create order</PackageReleaseNotes>
+    <PackageReleaseNotes>Added RESULT, ACK, and FULL response types for create order, Adjusted fields types, and removed required param</PackageReleaseNotes>
     <AssemblyVersion>4.1.0.0</AssemblyVersion>
     <FileVersion>4.1.0.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>

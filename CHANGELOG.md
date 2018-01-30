@@ -1,8 +1,10 @@
 # BinanceDotNet Changelog
 
-**Release Date: 1/25/2018**
+**Release Date: 1/30/2018**
 ## 4.1.0
 - Adjusted `CreateOrder` request to allow you to specify what type of response you want
+- Removed `TimeInForce` as required param from New order
+- Changed `Quantity` to be `decimal`
 
 **Release Date: 1/23/2018**
 ## 4.0.1
