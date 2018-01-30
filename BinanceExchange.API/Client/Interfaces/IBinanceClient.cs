@@ -149,5 +149,11 @@ namespace BinanceExchange.API.Client.Interfaces
         /// <param name="receiveWindow"></param>
         /// <returns></returns>
         Task<DepositListResponse> GetDepositHistory(FundHistoryRequest request, int receiveWindow = 5000);
+
+        /// <summary>
+        /// Current exchange trading rules and symbol information
+        /// </summary>
+        Task<ExchangeInfoResponse> GetExchangeInfo();
+
     }
 }
