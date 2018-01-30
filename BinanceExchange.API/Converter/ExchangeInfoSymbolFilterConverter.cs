@@ -19,8 +19,9 @@ namespace BinanceExchange.API.Converter
         {
             JObject jObject = JObject.Load(reader);
             var value = jObject.ToObject<ExchangeInfoSymbolFilter>();
+
+            ExchangeInfoSymbolFilter item = null;
             
-            ExchangeInfoSymbolFilter item;
             switch (value.FilterType)
             {
                 case ExchangeInfoSymbolFilterType.PriceFilter:
@@ -32,8 +33,6 @@ namespace BinanceExchange.API.Converter
                 case ExchangeInfoSymbolFilterType.MinNotional:
                     item = new ExchangeInfoSymbolFilterMinNotional();
                     break;
-                default:
-                    throw new BinanceException($"Unkown ExchangeInfoSymbolFilter: {value}", null);
             }
 
             serializer.Populate(jObject.CreateReader(), item);

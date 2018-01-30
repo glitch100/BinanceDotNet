@@ -11,12 +11,12 @@ namespace BinanceExchange.API.Models.Response
     public class ExchangeInfoSymbolFilterPrice : ExchangeInfoSymbolFilter
     {
         [DataMember(Order = 1)]
-        public Decimal MinPrice { get; private set; }
+        public Decimal MinPrice { get; set; }
 
         [DataMember(Order = 2)]
-        public Decimal MaxPrice { get; private set; }
+        public Decimal MaxPrice { get; set; }
 
         [DataMember(Order = 3)]
-        public Decimal TickSize { get; private set; }
+        public Decimal TickSize { get; set; }
     }
 }

@@ -11,6 +11,6 @@ namespace BinanceExchange.API.Models.Response
     public class ExchangeInfoSymbolFilterMinNotional : ExchangeInfoSymbolFilter
     {
         [DataMember(Order = 1)]
-        public Decimal MinNotional { get; private set; }
+        public Decimal MinNotional { get; set; }
     }
 }
