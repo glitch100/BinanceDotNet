@@ -14,6 +14,6 @@ namespace BinanceExchange.API.Models.Response
     {
         [DataMember(Order = 1)]
         [JsonConverter(typeof(StringEnumConverter))]
-        public ExchangeInfoSymbolFilterType FilterType { get; private set; }
+        public ExchangeInfoSymbolFilterType FilterType { get; set; }
     }
 }
