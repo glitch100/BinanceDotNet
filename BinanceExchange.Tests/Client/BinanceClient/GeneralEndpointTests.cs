@@ -41,21 +41,5 @@ namespace BinanceExchange.Tests.Client.BinanceClient
                 Times.Once()
             );
         }
-
-        [Fact]
-        public async Task GenerateQueryStringFromData_DecimalConversion()
-        {
-            // queryString creation
-            var queryString = Endpoints.GenerateQueryStringFromData(new CreateOrderRequest()
-            {
-                Side = OrderSide.Buy,
-                Price = 0.0000705m,
-                Quantity = 300,
-                Symbol = "IOSTBTC",
-                Type = OrderType.Limit
-            });
-            // Assertion
-            Assert.Equal("symbol=IOSTBTC&side=BUY&type=LIMIT&quantity=300&price=0.0000705", queryString);
-        }
     }
 }
