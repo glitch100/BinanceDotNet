@@ -202,7 +202,7 @@ namespace BinanceExchange.API
             }
         }
 
-        public static string GenerateQueryStringFromData(IRequest request)
+        private static string GenerateQueryStringFromData(IRequest request)
         {
             if (request == null)
             {
