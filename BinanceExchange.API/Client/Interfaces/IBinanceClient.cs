@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
+using BinanceExchange.API.Models.Response.Abstract;
 
 namespace BinanceExchange.API.Client.Interfaces
 {
@@ -85,7 +86,7 @@ namespace BinanceExchange.API.Client.Interfaces
         /// </summary>
         /// <param name="request">The <see cref="CreateOrderRequest"/> that is used to define the order</param>
         /// <returns></returns>
-        Task<CreateOrderResponse> CreateOrder(CreateOrderRequest request);
+        Task<BaseCreateOrderResponse> CreateOrder(CreateOrderRequest request);
 
         /// <summary>
         /// Queries an order based on the provided request

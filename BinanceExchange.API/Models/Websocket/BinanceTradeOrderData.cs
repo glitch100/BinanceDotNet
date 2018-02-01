@@ -52,7 +52,7 @@ namespace BinanceExchange.API.Models.WebSocket
 
         [DataMember(Order = 8)]
         [JsonProperty(PropertyName = "p")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         #region Undefined API Result fields
         //TODO: Update when Binance API updated
