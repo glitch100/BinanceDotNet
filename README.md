@@ -39,6 +39,12 @@ _Want to send something else? Just tweet me! @Glitch100_
 
 Or you can help maintain the repository! Donations of time are welcome, just hit me up and we can work on it. From answering issues, to contributing code anyone can assist.
 
+```git
+git clone git@github.com:glitch100/BinanceDotNet.git
+```
+- Navigate to `ExampleProgram.cs`
+- Add your own Private and Secret keys
+- Play around with the API
 
 ## Features
 - Simple, Configurable, Extendable
@@ -59,15 +65,6 @@ Work will continue on this API wrapper over the coming months adding and extendi
 - Start building out Unit Test support - >~2.1.0
 - Provide Builder support for queries - 2.5.0~
 - Abstract out the HttpClient - 3.0.0~
-
-## Contributing to `BinanceDotNet`
-```git
-git clone git@github.com:glitch100/BinanceDotNet.git
-```
-- Navigate to `ExampleProgram.cs`
-- Add your own Private and Secret keys
-- Play around with the API
-
 
 ## Usage
 Code examples below, or clone the repository and run the `BinanceExchange.Console` project.
