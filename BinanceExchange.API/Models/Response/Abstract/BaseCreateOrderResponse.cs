@@ -1,16 +1,14 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text;
 using BinanceExchange.API.Converter;
 using BinanceExchange.API.Models.Response.Interfaces;
 using Newtonsoft.Json;
 
-namespace BinanceExchange.API.Models.Response
+namespace BinanceExchange.API.Models.Response.Abstract
 {
-    /// <summary>
-    /// Response following a call to the Create Order endpoint
-    /// </summary>
-    [DataContract]
-    public class CreateOrderResponse : IResponse
+    public abstract class BaseCreateOrderResponse : IResponse
     {
         [DataMember(Order = 1)]
         public string Symbol { get; set; }
@@ -27,5 +25,3 @@ namespace BinanceExchange.API.Models.Response
         public DateTime TransactionTime { get; set; }
     }
 }
-
-    

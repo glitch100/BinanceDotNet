@@ -82,7 +82,7 @@ namespace BinanceExchange.API
             if (errorObject == null) throw new BinanceException("Unexpected Error whilst handling the response", null);
             errorObject.RequestMessage = requestMessage;
             var exception = CreateBinanceException(message.StatusCode, errorObject);
-            _logger.Error($"Error Message Received:", exception);
+            _logger.Error($"Error Message Received:{errorJson}", exception);
             throw exception;
         }
 

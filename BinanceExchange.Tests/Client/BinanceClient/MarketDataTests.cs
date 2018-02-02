@@ -32,7 +32,7 @@ namespace BinanceExchange.Tests.Client.BinanceClient
             // Act
 
             // Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => ConcreteBinanceClient.GetOrderBook(TradingPairSymbols.BNBPairs.BNB_BTC, false, 9999));
+            await Assert.ThrowsAsync<ArgumentException>(() => ConcreteBinanceClient.GetOrderBook(TradingPairSymbols.BNBPairs.NEO_BNB, false, 9999));
         }
 
         [Fact]
@@ -41,11 +41,11 @@ namespace BinanceExchange.Tests.Client.BinanceClient
             // Arrange
 
             // Act
-            await ConcreteBinanceClient.GetOrderBook(TradingPairSymbols.BNBPairs.BNB_BTC);
+            await ConcreteBinanceClient.GetOrderBook(TradingPairSymbols.BNBPairs.NEO_BNB);
 
             // Assert
             MockAPIProcessor.Verify(a => a.ProcessGetRequest<OrderBookResponse>(
-                    It.Is<BinanceEndpointData>(u => u.Uri.Equals(Endpoints.MarketData.OrderBook(TradingPairSymbols.BNBPairs.BNB_BTC, 100, false).Uri)),
+                    It.Is<BinanceEndpointData>(u => u.Uri.Equals(Endpoints.MarketData.OrderBook(TradingPairSymbols.BNBPairs.NEO_BNB, 100, false).Uri)),
                     5000),
                 Times.Once()
             );
