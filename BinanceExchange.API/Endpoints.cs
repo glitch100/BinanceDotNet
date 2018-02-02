@@ -17,6 +17,7 @@ namespace BinanceExchange.API
             Formatting = Formatting.Indented,
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             NullValueHandling = NullValueHandling.Ignore,
+            FloatParseHandling = FloatParseHandling.Decimal
         };
 
 
@@ -208,7 +209,7 @@ namespace BinanceExchange.API
                 throw new Exception("No request data provided - query string can't be created");
             }
             //TODO: Refactor to not require double JSON loop
-            var obj = (JObject)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(request, _settings));
+            var obj = (JObject)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(request, _settings), _settings);
 
             return String.Join("&", obj.Children()
                 .Cast<JProperty>()
