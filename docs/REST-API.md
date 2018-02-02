@@ -78,7 +78,7 @@ IBinanceClient.GetSymbolOrderBookTicker()
 ## Account Endpoints
 [Binance Documentation](https://www.binance.com/restapipub.html#user-content-account-endpoints)
 
-### `CreateOrder:CreateOrderResponse`
+### `CreateOrder:BaseCreateOrderResponse`
 Send in a new order.
 ```c#
 IBinanceClient.CreateOrder(CreateOrderRequest request)

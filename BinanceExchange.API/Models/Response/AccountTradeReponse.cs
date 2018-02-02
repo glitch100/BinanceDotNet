@@ -19,7 +19,7 @@ namespace BinanceExchange.API.Models.Response
 
         [DataMember(Order = 3)]
         [JsonProperty(PropertyName = "qty")]
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [DataMember(Order = 4)]
         public decimal Commission { get; set; }

@@ -1,5 +1,14 @@
 # BinanceDotNet Changelog
 
+**Release Date: 2/2/2018**
+## 4.2.0
+- Adjusted `CreateOrder` request to allow you to specify what type of response you want
+- Removed `TimeInForce` as required param from New order and Test order
+- Changed `Quantity` to be `decimal`
+- Added additional Symbol pairs to static class
+- Expanded the number of order types available
+- Added exchange info endpoint
+
 **Release Date: 1/23/2018**
 ## 4.0.1
 - Fixed bug around QueryOrder Http method

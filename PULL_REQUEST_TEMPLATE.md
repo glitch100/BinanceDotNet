@@ -7,6 +7,6 @@ N/A
 N/A
 
 ## Acceptance and Testing Steps
-- [] Is it compatible for all target frameworks?
+- [ ] Is it compatible for all target frameworks?
 
 ## Other Notes
