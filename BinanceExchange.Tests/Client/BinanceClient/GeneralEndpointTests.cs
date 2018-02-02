@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using BinanceExchange.API;
+using BinanceExchange.API.Enums;
+using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
 using Moq;
 using Xunit;
