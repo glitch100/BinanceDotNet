@@ -79,6 +79,12 @@ namespace BinanceExchange.API
             /// Test connectivity to the Rest API and get the current server time.
             /// </summary>
             public static BinanceEndpointData ServerTime => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/time"), EndpointSecurityType.None);
+
+            /// <summary>
+            /// Current exchange trading rules and symbol information.
+            /// </summary>
+            public static BinanceEndpointData ExchangeInfo => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/exchangeInfo"), EndpointSecurityType.None);
+
         }
 
         public static class MarketData

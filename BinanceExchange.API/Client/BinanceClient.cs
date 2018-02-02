@@ -115,6 +115,16 @@ namespace BinanceExchange.API.Client
         {
             return await _apiProcessor.ProcessGetRequest<ServerTimeResponse>(Endpoints.General.ServerTime);
         }
+
+        /// <summary>
+        /// Current exchange trading rules and symbol information
+        /// </summary>
+        /// <returns><see cref="ExchangeInfoResponse"/></returns>
+        public async Task<ExchangeInfoResponse> GetExchangeInfo()
+        {
+            return await _apiProcessor.ProcessGetRequest<ExchangeInfoResponse>(Endpoints.General.ExchangeInfo);
+        }
+
         #endregion
 
         #region Market Data
