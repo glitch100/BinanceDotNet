@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BinanceExchange.API.Caching;
 using BinanceExchange.API.Client.Interfaces;
+using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Response;
+using BinanceExchange.API.Models.Response.Abstract;
 using BinanceExchange.API.Utility;
 using log4net;
 
@@ -113,6 +115,16 @@ namespace BinanceExchange.API.Client
         {
             return await _apiProcessor.ProcessGetRequest<ServerTimeResponse>(Endpoints.General.ServerTime);
         }
+
+        /// <summary>
+        /// Current exchange trading rules and symbol information
+        /// </summary>
+        /// <returns><see cref="ExchangeInfoResponse"/></returns>
+        public async Task<ExchangeInfoResponse> GetExchangeInfo()
+        {
+            return await _apiProcessor.ProcessGetRequest<ExchangeInfoResponse>(Endpoints.General.ExchangeInfo);
+        }
+
         #endregion
 
         #region Market Data
@@ -206,17 +218,26 @@ namespace BinanceExchange.API.Client
         /// Creates an order based on the provided request
         /// </summary>
         /// <param name="request">The <see cref="CreateOrderRequest"/> that is used to define the order</param>
-        /// <returns></returns>
-        public async Task<CreateOrderResponse> CreateOrder(CreateOrderRequest request)
+        /// <returns>This method can return <see cref="AcknowledgeCreateOrderResponse"/>, <see cref="FullCreateOrderResponse"/> 
+        /// or <see cref="ResultCreateOrderResponse"/> based on the provided NewOrderResponseType enum in the request.
+        /// </returns>
+        public async Task<BaseCreateOrderResponse> CreateOrder(CreateOrderRequest request)
         {
             Guard.AgainstNull(request.Symbol);
             Guard.AgainstNull(request.Side);
             Guard.AgainstNull(request.Type);
-            Guard.AgainstNull(request.TimeInForce);
             Guard.AgainstNull(request.Quantity);
-            Guard.AgainstNull(request.Price);
 
-            return await _apiProcessor.ProcessPostRequest<CreateOrderResponse>(Endpoints.Account.NewOrder(request));
+            switch (request.NewOrderResponseType)
+            {
+                case NewOrderResponseType.Acknowledge:
+                    return await _apiProcessor.ProcessPostRequest<AcknowledgeCreateOrderResponse>(Endpoints.Account.NewOrder(request));
+                case NewOrderResponseType.Full:
+                    return await _apiProcessor.ProcessPostRequest<FullCreateOrderResponse>(Endpoints.Account.NewOrder(request));
+                default:
+                    return await _apiProcessor.ProcessPostRequest<ResultCreateOrderResponse>(Endpoints.Account.NewOrder(request));
+            }
+
         }
 
         /// <summary>
@@ -229,9 +250,7 @@ namespace BinanceExchange.API.Client
             Guard.AgainstNull(request.Symbol);
             Guard.AgainstNull(request.Side);
             Guard.AgainstNull(request.Type);
-            Guard.AgainstNull(request.TimeInForce);
             Guard.AgainstNull(request.Quantity);
-            Guard.AgainstNull(request.Price);
 
             return await _apiProcessor.ProcessPostRequest<EmptyResponse>(Endpoints.Account.NewOrderTest(request));
         }
