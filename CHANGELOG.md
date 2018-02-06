@@ -1,5 +1,10 @@
 # BinanceDotNet Changelog
 
+**Release Date: 2/6/2018**
+## 4.2.1
+- Fixed inaccurate websocket endpoint for agg trades
+- Removed unnecessary guards
+
 **Release Date: 2/2/2018**
 ## 4.2.0
 - Adjusted `CreateOrder` request to allow you to specify what type of response you want

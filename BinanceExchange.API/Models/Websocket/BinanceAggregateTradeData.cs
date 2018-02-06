@@ -46,12 +46,16 @@ namespace BinanceExchange.API.Models.WebSocket
         public long LastTradeId { get; set; }
 
         [DataMember(Order = 6)]
-        [JsonProperty("T")]
+        [JsonProperty(PropertyName = "T")]
         [JsonConverter(typeof(EpochTimeConverter))]
         public DateTime TradeTime { get; set; }
 
         [DataMember(Order = 7)]
-        [JsonProperty("m")]
+        [JsonProperty(PropertyName = "m")]
         public bool WasBuyerMaker { get; set; }
+
+        [DataMember(Order = 7)]
+        [JsonProperty(PropertyName = "M")]
+        public bool WasBestPriceMatch { get; set; }
     }
 }

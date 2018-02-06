@@ -80,12 +80,12 @@ namespace BinanceExchange.API.Websockets
         /// </summary>
         /// <param name="symbol"></param>
         /// <param name="messageEventHandler"></param>
-        /// <returns></returns>
+        /// <returns></returns>https://github.com/glitch100/BinanceDotNet/issues
         public Guid ConnectToTradesWebSocket(string symbol, BinanceWebSocketMessageHandler<BinanceAggregateTradeData> messageEventHandler)
         {
             Guard.AgainstNullOrEmpty(symbol, nameof(symbol));
             Logger.Debug("Connecting to Trades Web Socket");
-            var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@aggTrades");
+            var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@aggTrade");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
 
