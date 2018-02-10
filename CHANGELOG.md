@@ -1,5 +1,11 @@
 # BinanceDotNet Changelog
 
+**Release Date: 2/10/2018**
+## 4.2.2
+- Changed URL to match new API spec
+- Removed unnecessary guards
+- Added System Status API endpoint and reponse type
+
 **Release Date: 2/6/2018**
 ## 4.2.1
 - Fixed inaccurate websocket endpoint for agg trades
