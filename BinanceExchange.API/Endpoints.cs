@@ -20,7 +20,6 @@ namespace BinanceExchange.API
             FloatParseHandling = FloatParseHandling.Decimal
         };
 
-
         /// <summary>
         /// Defaults to V1
         /// </summary>
@@ -28,12 +27,12 @@ namespace BinanceExchange.API
         /// <summary>
         /// Defaults to API binance domain (https)
         /// </summary>
-        internal static string APIBaseUrl = "https://www.binance.com/api";
+        internal static string APIBaseUrl = "https://api.binance.com/api";
 
         /// <summary>
         /// Defaults to WAPI binance domain (https)
         /// </summary>
-        internal static string WAPIBaseUrl = "https://www.binance.com/wapi";
+        internal static string WAPIBaseUrl = "https://api.binance.com/wapi ";
 
         private static string APIPrefix { get; } = $"{APIBaseUrl}";
         private static string WAPIPrefix { get; } = $"{WAPIBaseUrl}";
@@ -201,10 +200,16 @@ namespace BinanceExchange.API
                 var queryString = GenerateQueryStringFromData(request);
                 return new BinanceEndpointData(new Uri($"{WAPIPrefix}/{ApiVersion}/withdrawHistory.html?{queryString}"), EndpointSecurityType.Signed);
             }
+
             public static BinanceEndpointData DepositAddress(DepositAddressRequest request)
             {
                 var queryString = GenerateQueryStringFromData(request);
                 return new BinanceEndpointData(new Uri($"{WAPIPrefix}/{ApiVersion}/depositAddress.html?{queryString}"), EndpointSecurityType.Signed);
+            }
+
+            public static BinanceEndpointData SystemStatus()
+            {
+                return new BinanceEndpointData(new Uri($"{WAPIPrefix}/{ApiVersion}/systemStatus.html"), EndpointSecurityType.None);
             }
         }
 

@@ -154,9 +154,7 @@ namespace BinanceExchange.API.Client
         {
             Guard.AgainstNull(request);
             Guard.AgainstNull(request.Symbol);
-            Guard.AgainstDateTimeMin(request.StartTime);
-            Guard.AgainstDateTimeMin(request.EndTime);
-            if (request.Limit <= 0 || request.Limit > 500) 
+            if (request.Limit == null || (request.Limit <= 0 || request.Limit > 500)) 
             {
                 request.Limit = 500;
             }
@@ -172,8 +170,8 @@ namespace BinanceExchange.API.Client
         public async Task<List<KlineCandleStickResponse>> GetKlinesCandlesticks(GetKlinesCandlesticksRequest request)
         {
             Guard.AgainstNull(request.Symbol);
-            Guard.AgainstDateTimeMin(request.StartTime);
-            Guard.AgainstDateTimeMin(request.EndTime);
+            Guard.AgainstNull(request.Interval);
+
             if (request.Limit == 0 || request.Limit > 500) 
             {
                 request.Limit = 500;
@@ -289,8 +287,6 @@ namespace BinanceExchange.API.Client
         /// <returns></returns>
         public async Task<List<OrderResponse>> GetCurrentOpenOrders(CurrentOpenOrdersRequest request, int receiveWindow = 5000)
         {
-            Guard.AgainstNull(request.Symbol);
-      
             return await _apiProcessor.ProcessGetRequest<List<OrderResponse>>(Endpoints.Account.CurrentOpenOrders(request), receiveWindow);
         }
 
@@ -379,6 +375,17 @@ namespace BinanceExchange.API.Client
             Guard.AgainstNullOrEmpty(request.Asset);
 
             return await _apiProcessor.ProcessGetRequest<DepositAddressResponse>(Endpoints.Account.DepositAddress(request), receiveWindow);
+        }
+
+        /// <summary>
+        /// Returns the current Binance API System Status
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="receiveWindow"></param>
+        /// <returns></returns>
+        public async Task<DepositAddressResponse> GetSystemStatus(int receiveWindow = 5000)
+        {
+            return await _apiProcessor.ProcessGetRequest<DepositAddressResponse>(Endpoints.Account.SystemStatus(), receiveWindow);
         }
         #endregion
 
