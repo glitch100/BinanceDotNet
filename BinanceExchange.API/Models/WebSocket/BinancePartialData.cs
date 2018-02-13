@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace BinanceExchange.API.Models.WebSocket
 {
+    [DataContract]
     public class BinancePartialData
     {
         [DataMember(Order = 1)]
