@@ -9,9 +9,8 @@
             {
                 allPairsArray[i] = allPairsArray[i].ToLower() + "@depth" + depth + "/";
             }
-            allPairs = string.Join("", allPairsArray);
-
-            return allPairs;
+            
+            return allPairs = string.Join("", allPairsArray);
         }
 
         public static string CombinedDepth(string allPairs)
@@ -21,9 +20,8 @@
             {
                 allPairsArray[i] = allPairsArray[i].ToLower() + "@depth" + "/";
             }
-            allPairs = string.Join("", allPairsArray);
-
-            return allPairs;
+            
+            return allPairs = string.Join("", allPairsArray);
         }
     }
 }
