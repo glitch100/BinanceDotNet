@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 using BinanceExchange.API.Converter;
 using BinanceExchange.API.Models.Response.Interfaces;
 using Newtonsoft.Json;
 
 namespace BinanceExchange.API.Models.Response.Abstract
 {
+    [DataContract]
     public abstract class BaseCreateOrderResponse : IResponse
     {
         [DataMember(Order = 1)]

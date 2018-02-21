@@ -1,5 +1,10 @@
 # BinanceDotNet Changelog
 
+**Release Date: 2/21/2018**
+## 4.2.3
+- Fixed bugs around deserialized properties failing
+- Fixed User data web socket issue
+
 **Release Date: 2/10/2018**
 ## 4.2.2
 - Changed URL to match new API spec

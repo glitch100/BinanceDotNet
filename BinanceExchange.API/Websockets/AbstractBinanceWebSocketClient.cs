@@ -98,9 +98,9 @@ namespace BinanceExchange.API.Websockets
         {
             Guard.AgainstNull(BinanceClient, nameof(BinanceClient));
             Logger.Debug("Connecting to User Data Web Socket");
-            var listenKey = await BinanceClient.StartUserDataStream();
+            var streamResponse = await BinanceClient.StartUserDataStream();
 
-            var endpoint = new Uri($"{BaseWebsocketUri}/{listenKey}");
+            var endpoint = new Uri($"{BaseWebsocketUri}/{streamResponse.ListenKey}");
             return CreateUserDataBinanceWebSocket(endpoint, userDataMessageHandlers);
         }
 
