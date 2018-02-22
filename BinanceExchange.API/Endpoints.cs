@@ -221,8 +221,6 @@ namespace BinanceExchange.API
                 throw new Exception("No request data provided - query string can't be created");
             }
 
-            _settings.Converters.Add(new StringDecimalConverter());
-
             //TODO: Refactor to not require double JSON loop
             var obj = (JObject)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(request, _settings), _settings);
 
