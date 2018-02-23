@@ -1,5 +1,11 @@
 # BinanceDotNet Changelog
 
+**Release Date: 2/23/2018**
+## 4.2.4
+- Fixed data model issues around `AbstractBinanceWebSocketClient`
+- Fixes for `string` -> `decimal`
+- Added Combined and Partial WebSocket methods
+
 **Release Date: 2/21/2018**
 ## 4.2.3
 - Fixed bugs around deserialized properties failing

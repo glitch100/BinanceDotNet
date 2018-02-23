@@ -149,7 +149,7 @@ namespace BinanceExchange.API.Websockets
             websocket.OnMessage += (sender, e) =>
             {
                 Logger.Debug($"WebSocket Message Received on Endpoint: {endpoint.AbsoluteUri}");
-                var primitive = JsonConvert.DeserializeObject<IWebSocketResponse>(e.Data);
+                var primitive = JsonConvert.DeserializeObject<BinanceWebSocketResponse>(e.Data);
                 switch (primitive.EventType)
                 {
                     case AccountEventType:

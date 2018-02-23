@@ -6,7 +6,7 @@ namespace BinanceExchange.API.Enums
     {
         [EnumMember(Value = "NEW")]
         New,
-        [EnumMember(Value = "CANCELLED")]
+        [EnumMember(Value = "CANCELED")]
         Cancelled,
         [EnumMember(Value = "REPLACED")]
         Replaced,
