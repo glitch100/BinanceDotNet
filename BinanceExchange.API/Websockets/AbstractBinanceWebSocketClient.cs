@@ -27,6 +27,11 @@ namespace BinanceExchange.API.Websockets
         protected string BaseWebsocketUri = "wss://stream.binance.com:9443/ws";
 
         /// <summary>
+        /// Combined WebSocket URI for Binance API
+        /// </summary>
+        protected string CombinedWebsocketUri = "wss://stream.binance.com:9443/stream?streams";
+
+        /// <summary>
         /// Used for deletion on the fly
         /// </summary>
         protected Dictionary<Guid, BinanceWebSocket> ActiveWebSockets;
@@ -74,6 +79,36 @@ namespace BinanceExchange.API.Websockets
             var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@depth");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
+        /// <summary>
+        /// Connect to the Combined Depth WebSocket
+        /// </summary>
+        /// <param name="symbols"></param>
+        /// <param name="messageEventHandler"></param>
+        /// <returns></returns>
+        public Guid ConnectToDepthWebSocketCombined(string symbols, BinanceWebSocketMessageHandler<BinanceCombinedDepthData> messageEventHandler)
+        {
+            Guard.AgainstNullOrEmpty(symbols, nameof(symbols));
+            symbols = PrepareCombinedSymbols.CombinedDepth(symbols);
+            Logger.Debug("Connecting to Combined Depth Web Socket");
+            var endpoint = new Uri($"{CombinedWebsocketUri}={symbols}");
+            return CreateBinanceWebSocket(endpoint, messageEventHandler);
+        }
+        /// <summary>
+        /// Connect to the Combined Partial Depth WebSocket
+        /// </summary>
+        /// <param name="symbols"></param>
+        /// <param name="depth"></param>
+        /// <param name="messageEventHandler"></param>
+        /// <returns></returns>
+        public Guid ConnectToDepthWebSocketCombinedPartial(string symbols, string depth, BinanceWebSocketMessageHandler<BinancePartialDepthData> messageEventHandler)
+        {
+            Guard.AgainstNullOrEmpty(symbols, nameof(symbols));
+            Guard.AgainstNullOrEmpty(depth, nameof(depth));
+            symbols = PrepareCombinedSymbols.CombinedPartialDepth(symbols, depth);
+            Logger.Debug("Connecting to Combined Partial Depth Web Socket");
+            var endpoint = new Uri($"{CombinedWebsocketUri}={symbols}");
+            return CreateBinanceWebSocket(endpoint, messageEventHandler);
+        }
 
         /// <summary>
         /// Connect to the Trades WebSocket
@@ -98,9 +133,9 @@ namespace BinanceExchange.API.Websockets
         {
             Guard.AgainstNull(BinanceClient, nameof(BinanceClient));
             Logger.Debug("Connecting to User Data Web Socket");
-            var listenKey = await BinanceClient.StartUserDataStream();
+            var streamResponse = await BinanceClient.StartUserDataStream();
 
-            var endpoint = new Uri($"{BaseWebsocketUri}/{listenKey}");
+            var endpoint = new Uri($"{BaseWebsocketUri}/{streamResponse.ListenKey}");
             return CreateUserDataBinanceWebSocket(endpoint, userDataMessageHandlers);
         }
 
@@ -114,7 +149,7 @@ namespace BinanceExchange.API.Websockets
             websocket.OnMessage += (sender, e) =>
             {
                 Logger.Debug($"WebSocket Message Received on Endpoint: {endpoint.AbsoluteUri}");
-                var primitive = JsonConvert.DeserializeObject<IWebSocketResponse>(e.Data);
+                var primitive = JsonConvert.DeserializeObject<BinanceWebSocketResponse>(e.Data);
                 switch (primitive.EventType)
                 {
                     case AccountEventType:

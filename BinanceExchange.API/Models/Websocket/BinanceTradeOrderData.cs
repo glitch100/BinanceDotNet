@@ -12,7 +12,7 @@ namespace BinanceExchange.API.Models.WebSocket
     /// Shared class that represents either a trade or an order, and the data returned from the WebSocket endpoint
     /// </summary>
     [DataContract]
-    public abstract class BinanceTradeOrderData: ISymbolWebSocketResponse
+    public class BinanceTradeOrderData: ISymbolWebSocketResponse
     {
         [DataMember(Order = 1)]
         [JsonProperty(PropertyName = "e")]
@@ -128,14 +128,9 @@ namespace BinanceExchange.API.Models.WebSocket
 
         [DataMember(Order = 23)]
         [JsonProperty(PropertyName = "t")]
-        [JsonConverter(typeof(EpochTimeConverter))]
         public long TradeId { get; set; }
 
         #region Undefined API Result fields
-        //TODO: Update when Binance API updated
-        [DataMember(Order = 25)]
-        [JsonProperty(PropertyName = "l")]
-        public long l { get; set; }
 
         [DataMember(Order = 26)]
         [JsonProperty(PropertyName = "w")]
