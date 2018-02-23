@@ -1,5 +1,7 @@
 ﻿using System.Runtime.Serialization;
+using BinanceExchange.API.Converter;
 using BinanceExchange.API.Models.Request.Interfaces;
+using Newtonsoft.Json;
 
 namespace BinanceExchange.API.Models.Request
 {
@@ -19,6 +21,7 @@ namespace BinanceExchange.API.Models.Request
         public string AddressTag { get; set; }
 
         [DataMember(Order = 4)]
+        [JsonConverter(typeof(StringDecimalConverter))]
         public decimal Amount { get; set; }
 
         /// <summary>
