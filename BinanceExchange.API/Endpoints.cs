@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using BinanceExchange.API.Converter;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Request;
 using BinanceExchange.API.Models.Request.Interfaces;
@@ -219,6 +220,7 @@ namespace BinanceExchange.API
             {
                 throw new Exception("No request data provided - query string can't be created");
             }
+
             //TODO: Refactor to not require double JSON loop
             var obj = (JObject)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(request, _settings), _settings);
 
