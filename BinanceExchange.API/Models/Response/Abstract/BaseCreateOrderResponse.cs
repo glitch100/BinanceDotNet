@@ -6,20 +6,19 @@ using Newtonsoft.Json;
 
 namespace BinanceExchange.API.Models.Response.Abstract
 {
-    [DataContract]
+
     public abstract class BaseCreateOrderResponse : IResponse
     {
-        [DataMember(Order = 1)]
+        [JsonProperty(PropertyName = "symbol")]
         public string Symbol { get; set; }
 
-        [DataMember(Order = 2)]
+        [JsonProperty(PropertyName = "orderId")]
         public long OrderId { get; set; }
 
-        [DataMember(Order = 3)]
+        [JsonProperty(PropertyName = "clientOrderId")]
         public string ClientOrderId { get; set; }
-
-        [DataMember(Order = 4)]
-        [JsonProperty("transactTime")]
+         
+        [JsonProperty(PropertyName = "transactTime")]
         [JsonConverter(typeof(EpochTimeConverter))]
         public DateTime TransactionTime { get; set; }
     }

@@ -12,32 +12,33 @@ namespace BinanceExchange.API.Models.Response
     [DataContract]
     public partial class ResultCreateOrderResponse : BaseCreateOrderResponse
     {
-        [DataMember(Order = 4)]
+        [JsonProperty(PropertyName = "price")]
         public decimal Price { get; set; }
-
-        [DataMember(Order = 5)]
+         
         [JsonProperty(PropertyName = "origQty")]
         public decimal OriginalQuantity { get; set; }
 
-        [DataMember(Order = 6)]
+
         [JsonProperty(PropertyName = "executedQty")]
         public decimal ExecutedQuantity { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
-        [DataMember(Order = 7)]
+        [JsonProperty(PropertyName = "status")]
+        [JsonConverter(typeof(StringEnumConverter))] 
         public OrderStatus Status { get; set; }
 
-        [DataMember(Order = 8)]
+        [JsonProperty(PropertyName = "timeInForce")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public TimeInForce? TimeInForce { get; set; }
+
+        [JsonProperty(PropertyName = "side")]
         [JsonConverter(typeof(StringEnumConverter))]
         public OrderSide Side { get; set; }
 
-        [DataMember(Order = 9)]
+        [JsonProperty(PropertyName = "type")]
         [JsonConverter(typeof(StringEnumConverter))]
         public OrderType Type { get; set; }
 
-        [DataMember(Order = 10)]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public TimeInForce? TimeInForce { get; set; }
+
 
     }
 }
