@@ -79,6 +79,22 @@ namespace BinanceExchange.API.Websockets
             var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@depth");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
+
+        /// <summary>
+        /// Connect to thePartial Book Depth Streams
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="messageEventHandler"></param>
+        /// <returns></returns>
+        public Guid ConnectToPartialDepthWebSocket(string symbol,int levels, BinanceWebSocketMessageHandler<BinancePartialData> messageEventHandler)
+        {
+            Guard.AgainstNullOrEmpty(symbol, nameof(symbol));
+            if (levels != 5 && levels != 10 && levels != 20)
+                throw new ArgumentException("Valid levels are 5,10 or 20.");
+            Logger.Debug("Connecting to Partial Depth Web Socket");
+            var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@depth{levels}");
+            return CreateBinanceWebSocket(endpoint, messageEventHandler);
+        }
         /// <summary>
         /// Connect to the Combined Depth WebSocket
         /// </summary>

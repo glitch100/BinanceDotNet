@@ -15,29 +15,32 @@ namespace BinanceExchange.API.Models.Response
         public long Id { get; set; }
 
         [DataMember(Order = 2)]
-        public decimal Price { get; set; }
+        public long OrderId { get; set; }
 
         [DataMember(Order = 3)]
+        public decimal Price { get; set; }
+
+        [DataMember(Order = 4)]
         [JsonProperty(PropertyName = "qty")]
         public decimal Quantity { get; set; }
 
-        [DataMember(Order = 4)]
+        [DataMember(Order = 5)]
         public decimal Commission { get; set; }
 
-        [DataMember(Order = 5)]
+        [DataMember(Order = 6)]
         public string CommissionAsset { get; set; }
 
-        [DataMember(Order = 5)]
+        [DataMember(Order = 7)]
         [JsonConverter(typeof(EpochTimeConverter))]
         public DateTime Time { get; set; }
 
-        [DataMember(Order = 6)]
+        [DataMember(Order = 8)]
         public bool IsBuyer { get; set; }
 
-        [DataMember(Order = 7)]
+        [DataMember(Order = 9)]
         public bool IsMaker { get; set; }
 
-        [DataMember(Order = 8)]
+        [DataMember(Order = 10)]
         public bool IsBestMatch { get; set; }
     }
 }
