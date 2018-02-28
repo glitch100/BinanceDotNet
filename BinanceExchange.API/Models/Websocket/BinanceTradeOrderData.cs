@@ -45,13 +45,15 @@ namespace BinanceExchange.API.Models.WebSocket
         [JsonProperty(PropertyName = "p")]
         public decimal Price { get; set; }
 
-        #region Undefined API Result fields
-        //TODO: Update when Binance API updated 
         [JsonProperty(PropertyName = "P")]
         public double StopPrice { get; set; }
 
         [JsonProperty(PropertyName = "F")]
         public double IcebergQuantity { get; set; }
+
+        #region Undefined API Result fields
+        //TODO: Update when Binance API updated 
+
 
         [JsonProperty(PropertyName = "g")]
         public string g { get; set; }
@@ -92,19 +94,18 @@ namespace BinanceExchange.API.Models.WebSocket
         /// </summary>
         [JsonProperty(PropertyName = "N")]
         public string AssetCommissionTakenFrom { get; set; }
-         
-        /// <summary>
-        /// Represents Order or Trade time
-        /// </summary>
 
         [JsonProperty(PropertyName = "T")]
         [JsonConverter(typeof(EpochTimeConverter))]
         public DateTime TimeStamp { get; set; }
 
-        
+
         [JsonProperty(PropertyName = "t")]
         public long TradeId { get; set; }
-         
+
+        /// <summary>
+        /// Represents Order or Trade time
+        /// </summary> 
         #region Undefined API Result fields
         [JsonProperty(PropertyName = "I")]
         public long I { get; set; }
@@ -121,6 +122,12 @@ namespace BinanceExchange.API.Models.WebSocket
         //TODO: Update when Binance API updated
         [JsonProperty(PropertyName = "M")]
         public bool M { get; set; }
+
+        [JsonProperty(PropertyName = "O")]
+        public int O { get; set; }
+
+        [JsonProperty(PropertyName = "Z")]
+        public decimal Z { get; set; }
         #endregion
     }
 }

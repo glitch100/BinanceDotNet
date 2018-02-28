@@ -8,8 +8,7 @@ namespace BinanceExchange.API.Models.Response
 {
     /// <summary>
     /// Result Response following a call to the Create Order endpoint
-    /// </summary>
-    [DataContract]
+    /// </summary> 
     public partial class ResultCreateOrderResponse : BaseCreateOrderResponse
     {
         [JsonProperty(PropertyName = "price")]
