@@ -103,7 +103,7 @@ namespace BinanceExchange.API.Websockets
         public Guid ConnectToDepthWebSocketCombinedPartial(string symbols, string depth, BinanceWebSocketMessageHandler<BinancePartialDepthData> messageEventHandler)
         {
             Guard.AgainstNullOrEmpty(symbols, nameof(symbols));
-            Guard.AgainstNullOrEmpty(depth, nameof(depth));
+            Guard.AgainstInvalidDepthLevel(depth);
             symbols = PrepareCombinedSymbols.CombinedPartialDepth(symbols, depth);
             Logger.Debug("Connecting to Combined Partial Depth Web Socket");
             var endpoint = new Uri($"{CombinedWebsocketUri}={symbols}");
