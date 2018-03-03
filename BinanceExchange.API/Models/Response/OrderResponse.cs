@@ -38,6 +38,7 @@ namespace BinanceExchange.API.Models.Response
         [DataMember(Order = 7)]
         public TimeInForce TimeInForce { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         [DataMember(Order = 8)]
         public OrderType Type { get; set; }
 

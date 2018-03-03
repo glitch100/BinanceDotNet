@@ -133,9 +133,9 @@ namespace BinanceExchange.API.Websockets
         {
             Guard.AgainstNull(BinanceClient, nameof(BinanceClient));
             Logger.Debug("Connecting to User Data Web Socket");
-            var listenKey = await BinanceClient.StartUserDataStream();
+            var streamResponse = await BinanceClient.StartUserDataStream();
 
-            var endpoint = new Uri($"{BaseWebsocketUri}/{listenKey}");
+            var endpoint = new Uri($"{BaseWebsocketUri}/{streamResponse.ListenKey}");
             return CreateUserDataBinanceWebSocket(endpoint, userDataMessageHandlers);
         }
 
@@ -149,7 +149,7 @@ namespace BinanceExchange.API.Websockets
             websocket.OnMessage += (sender, e) =>
             {
                 Logger.Debug($"WebSocket Message Received on Endpoint: {endpoint.AbsoluteUri}");
-                var primitive = JsonConvert.DeserializeObject<IWebSocketResponse>(e.Data);
+                var primitive = JsonConvert.DeserializeObject<BinanceWebSocketResponse>(e.Data);
                 switch (primitive.EventType)
                 {
                     case AccountEventType:

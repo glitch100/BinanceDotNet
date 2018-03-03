@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 using BinanceExchange.API.Models.Request.Interfaces;
+using BinanceExchange.API.Converter;
 
 namespace BinanceExchange.API.Models.Request
 {
@@ -28,19 +29,23 @@ namespace BinanceExchange.API.Models.Request
         public TimeInForce? TimeInForce { get; set; }
 
         [DataMember(Order = 5)]
+        [JsonConverter(typeof(StringDecimalConverter))]
         public decimal Quantity { get; set; }
 
         [DataMember(Order = 6)]
+        [JsonConverter(typeof(StringDecimalConverter))]
         public decimal? Price { get; set; }
 
         [DataMember(Order = 7)]
         public string NewClientOrderId { get; set; }
 
         [DataMember(Order = 8)]
+        [JsonConverter(typeof(StringDecimalConverter))]
         public decimal? StopPrice { get; set; }
 
         [DataMember(Order = 9)]
         [JsonProperty("icebergQty")]
+        [JsonConverter(typeof(StringDecimalConverter))]
         public decimal? IcebergQuantity { get; set; }
 
         [DataMember(Order = 10)]
