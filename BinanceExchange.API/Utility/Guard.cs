@@ -1,9 +1,17 @@
 ﻿using System;
+using System.Linq;
 
 namespace BinanceExchange.API.Utility
 {
     public class Guard
     {
+        static Guard()
+        {
+            string[] _depthArray = { "5", "10", "20" };
+        }
+
+        private static readonly string[] _depthArray;
+
         public static void AgainstNullOrEmpty(string param, string name = null)
         {
             if (string.IsNullOrEmpty(param))
@@ -27,12 +35,13 @@ namespace BinanceExchange.API.Utility
                 throw new ArgumentNullException(name ?? "The Guarded argument was DateTime min.");
             }
         }
+
         public static void AgainstInvalidDepthLevel(string depth)
         {
             AgainstNullOrEmpty(depth, nameof(depth));
-            if (depth != "5" && depth != "10" && depth != "20")
+            if (!_depthArray.Contains(depth))
             {
-                throw new ArgumentException("Valid levels are 5,10 or 20.");
+                throw new ArgumentException($"Valid levels are {string.Join(", ", _depthArray)}.");
             }
         }
     }
