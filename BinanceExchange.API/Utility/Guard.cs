@@ -7,10 +7,10 @@ namespace BinanceExchange.API.Utility
     {
         static Guard()
         {
-            string[] _depthArray = { "5", "10", "20" };
+            string[] DepthArray = { "5", "10", "20" };
         }
 
-        private static readonly string[] _depthArray;
+        private static readonly string[] DepthArray;
 
         public static void AgainstNullOrEmpty(string param, string name = null)
         {
@@ -39,9 +39,9 @@ namespace BinanceExchange.API.Utility
         public static void AgainstInvalidDepthLevel(string depth)
         {
             AgainstNullOrEmpty(depth, nameof(depth));
-            if (!_depthArray.Contains(depth))
+            if (!DepthArray.Contains(depth))
             {
-                throw new ArgumentException($"Valid levels are {string.Join(", ", _depthArray)}.");
+                throw new ArgumentException($"Valid levels are {string.Join(", ", DepthArray)}.");
             }
         }
     }
