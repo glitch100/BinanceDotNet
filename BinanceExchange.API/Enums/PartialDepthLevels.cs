@@ -6,8 +6,8 @@ namespace BinanceExchange.API.Enums
 {
     public enum PartialDepthLevels
     {
-        Five,
-        Ten,
-        Twenty
+        Five = 5,
+        Ten = 10,
+        Twenty = 20,
     }
 }
