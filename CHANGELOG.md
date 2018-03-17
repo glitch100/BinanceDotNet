@@ -1,5 +1,13 @@
 # BinanceDotNet Changelog
 
+**Release Date: 3/17/2018**
+## 4.4.0
+- Added `DefaultReceiveWindow` to `ClientConfiguration`. Defaults to `5000`
+
+**Release Date: 3/17/2018**
+## 4.3.0
+- Added fix for WAPI Url with extra trailing space
+
 **Release Date: 2/23/2018**
 ## 4.2.4
 - Fixed data model issues around `AbstractBinanceWebSocketClient`
