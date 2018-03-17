@@ -33,7 +33,7 @@ namespace BinanceExchange.API
         /// <summary>
         /// Defaults to WAPI binance domain (https)
         /// </summary>
-        internal static string WAPIBaseUrl = "https://api.binance.com/wapi ";
+        internal static string WAPIBaseUrl = "https://api.binance.com/wapi";
 
         private static string APIPrefix { get; } = $"{APIBaseUrl}";
         private static string WAPIPrefix { get; } = $"{WAPIBaseUrl}";
