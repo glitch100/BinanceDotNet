@@ -23,7 +23,7 @@ namespace BinanceExchange.API.Client
             set
             {
                 _timestampOffset = value;
-                RequestClient.SetTimestampOffset(_timestampOffset);
+                _requestClient.SetTimestampOffset(_timestampOffset);
             }
         }
         private TimeSpan _timestampOffset;
@@ -31,6 +31,7 @@ namespace BinanceExchange.API.Client
         private readonly string _secretKey;
         private readonly IAPIProcessor _apiProcessor;
         private readonly int _defaultReceiveWindow;
+        private RequestClient _requestClient;
         private readonly ILog _logger;
 
         /// <summary>
@@ -44,16 +45,17 @@ namespace BinanceExchange.API.Client
             Guard.AgainstNull(configuration);
             Guard.AgainstNullOrEmpty(configuration.ApiKey);
             Guard.AgainstNull(configuration.SecretKey);
+            _requestClient = new RequestClient();
 
             _defaultReceiveWindow = configuration.DefaultReceiveWindow;
             _apiKey = configuration.ApiKey;
             _secretKey = configuration.SecretKey;
-            RequestClient.SetTimestampOffset(configuration.TimestampOffset);
-            RequestClient.SetRateLimiting(configuration.EnableRateLimiting);
-            RequestClient.SetAPIKey(_apiKey);
+            _requestClient.SetTimestampOffset(configuration.TimestampOffset);
+            _requestClient.SetRateLimiting(configuration.EnableRateLimiting);
+            _requestClient.SetAPIKey(_apiKey);
             if (apiProcessor == null)
             {
-                _apiProcessor = new APIProcessor(_apiKey, _secretKey, new APICacheManager());
+                _apiProcessor = new APIProcessor(_apiKey, _secretKey, new APICacheManager(), _requestClient);
                 _apiProcessor.SetCacheTime(configuration.CacheTime);
             }
             else
