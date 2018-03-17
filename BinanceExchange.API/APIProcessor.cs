@@ -21,8 +21,9 @@ namespace BinanceExchange.API
         private ILog _logger;
         private bool _cacheEnabled;
         private TimeSpan _cacheTime;
+        private readonly RequestClient _requestClient;
 
-        public APIProcessor(string apiKey, string secretKey, IAPICacheManager apiCache)
+        public APIProcessor(string apiKey, string secretKey, IAPICacheManager apiCache, RequestClient requestClient)
         {
             _apiKey = apiKey;
             _secretKey = secretKey;
@@ -31,6 +32,8 @@ namespace BinanceExchange.API
                 _apiCache = apiCache;
                 _cacheEnabled = true;
             }
+
+            _requestClient = requestClient;
             _logger = LogManager.GetLogger(typeof(APIProcessor));
             _logger.Debug( $"API Processor set up. Cache Enabled={_cacheEnabled}");
         }
@@ -138,10 +141,10 @@ namespace BinanceExchange.API
             switch (endpoint.SecurityType) { 
                 case EndpointSecurityType.ApiKey:
                 case EndpointSecurityType.None:
-                    message = await RequestClient.GetRequest(endpoint.Uri);
+                    message = await _requestClient.GetRequest(endpoint.Uri);
                     break;
                 case EndpointSecurityType.Signed:
-                    message = await RequestClient.SignedGetRequest(endpoint.Uri, _apiKey, _secretKey, endpoint.Uri.Query, receiveWindow);
+                    message = await _requestClient.SignedGetRequest(endpoint.Uri, _apiKey, _secretKey, endpoint.Uri.Query, receiveWindow);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -170,10 +173,10 @@ namespace BinanceExchange.API
             HttpResponseMessage message;
             switch (endpoint.SecurityType) { 
                 case EndpointSecurityType.ApiKey:
-                    message = await RequestClient.DeleteRequest(endpoint.Uri);
+                    message = await _requestClient.DeleteRequest(endpoint.Uri);
                     break;
                 case EndpointSecurityType.Signed:
-                    message = await RequestClient.SignedDeleteRequest(endpoint.Uri, _apiKey, _secretKey, endpoint.Uri.Query, receiveWindow);
+                    message = await _requestClient.SignedDeleteRequest(endpoint.Uri, _apiKey, _secretKey, endpoint.Uri.Query, receiveWindow);
                     break;
                 case EndpointSecurityType.None:
                 default:
@@ -203,12 +206,12 @@ namespace BinanceExchange.API
             HttpResponseMessage message;
             switch (endpoint.SecurityType) { 
                 case EndpointSecurityType.ApiKey:
-                    message = await RequestClient.PostRequest(endpoint.Uri);
+                    message = await _requestClient.PostRequest(endpoint.Uri);
                     break;
                 case EndpointSecurityType.None:
                     throw new ArgumentOutOfRangeException();
                 case EndpointSecurityType.Signed:
-                    message = await RequestClient.SignedPostRequest(endpoint.Uri, _apiKey, _secretKey, endpoint.Uri.Query, receiveWindow);
+                    message = await _requestClient.SignedPostRequest(endpoint.Uri, _apiKey, _secretKey, endpoint.Uri.Query, receiveWindow);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -237,7 +240,7 @@ namespace BinanceExchange.API
             HttpResponseMessage message;
             switch (endpoint.SecurityType) { 
                 case EndpointSecurityType.ApiKey:
-                    message = await RequestClient.PutRequest(endpoint.Uri);
+                    message = await _requestClient.PutRequest(endpoint.Uri);
                     break;
                 case EndpointSecurityType.None:
                 case EndpointSecurityType.Signed:
