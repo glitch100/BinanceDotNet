@@ -9,6 +9,7 @@ namespace BinanceExchange.API.Models.Response
     [DataContract]
     public class FullCreateOrderResponse : ResultCreateOrderResponse
     {
+        [DataMember(Name = "fills")]
         public List<Fill> Fills { get;set; }
     }
 }
