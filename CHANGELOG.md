@@ -1,5 +1,10 @@
 # BinanceDotNet Changelog
 
+## 4.5.0
+**Release Date: 5/2/2018**
+- Added `IsAlive` for WebSockets
+- Adjusted SSL Security Types
+
 **Release Date: 3/17/2018**
 ## 4.4.0
 - Added `DefaultReceiveWindow` to `ClientConfiguration`. Defaults to `5000`

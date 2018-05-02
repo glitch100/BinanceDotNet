@@ -19,9 +19,9 @@ namespace BinanceExchange.API.Websockets
     /// </summary>
     public class AbstractBinanceWebSocketClient
     {
-        protected SslProtocols SupportedProtocols { get; } = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
+        protected SslProtocols SupportedProtocols { get; } = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls | SslProtocols.Ssl3;
 
-        /// <summary>
+        /// <summary> 
         /// Base WebSocket URI for Binance API
         /// </summary>
         protected string BaseWebsocketUri = "wss://stream.binance.com:9443/ws";
@@ -262,8 +262,24 @@ namespace BinanceExchange.API.Websockets
                 ActiveWebSockets.Remove(id);
                 if (!fromError)
                 {
-                    ws.CloseAsync(CloseStatusCode.PolicyViolation);
+                    ws.Close(CloseStatusCode.PolicyViolation);
                 }
+            }
+            else
+            {
+                throw new Exception($"No Websocket exists with the Id {id.ToString()}");
+            }
+        }
+
+        /// <summary>
+        /// Checks whether a specific WebSocket instance is active or not using the Guid provided on creation
+        /// </summary>
+        public bool IsAlive(Guid id)
+        {
+            if (ActiveWebSockets.ContainsKey(id))
+            {
+                var ws = ActiveWebSockets[id];
+                return ws.IsAlive;
             }
             else
             {
