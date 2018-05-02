@@ -1,5 +1,18 @@
 # BinanceDotNet Changelog
 
+## 4.5.0
+**Release Date: 5/2/2018**
+- Added `IsAlive` for WebSockets
+- Adjusted SSL Security Types
+
+**Release Date: 3/17/2018**
+## 4.4.0
+- Added `DefaultReceiveWindow` to `ClientConfiguration`. Defaults to `5000`
+
+**Release Date: 3/17/2018**
+## 4.3.0
+- Added fix for WAPI Url with extra trailing space
+
 **Release Date: 2/23/2018**
 ## 4.2.4
 - Fixed data model issues around `AbstractBinanceWebSocketClient`

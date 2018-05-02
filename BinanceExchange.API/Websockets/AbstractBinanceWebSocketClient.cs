@@ -19,9 +19,9 @@ namespace BinanceExchange.API.Websockets
     /// </summary>
     public class AbstractBinanceWebSocketClient
     {
-        protected SslProtocols SupportedProtocols { get; } = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
+        protected SslProtocols SupportedProtocols { get; } = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls | SslProtocols.Ssl3;
 
-        /// <summary>
+        /// <summary> 
         /// Base WebSocket URI for Binance API
         /// </summary>
         protected string BaseWebsocketUri = "wss://stream.binance.com:9443/ws";
@@ -77,6 +77,20 @@ namespace BinanceExchange.API.Websockets
             Guard.AgainstNullOrEmpty(symbol, nameof(symbol));
             Logger.Debug("Connecting to Depth Web Socket");
             var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@depth");
+            return CreateBinanceWebSocket(endpoint, messageEventHandler);
+        }
+
+        /// <summary>
+        /// Connect to thePartial Book Depth Streams
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="messageEventHandler"></param>
+        /// <returns></returns>
+        public Guid ConnectToPartialDepthWebSocket(string symbol, PartialDepthLevels levels, BinanceWebSocketMessageHandler<BinancePartialData> messageEventHandler)
+        {
+            Guard.AgainstNullOrEmpty(symbol, nameof(symbol)); 
+            Logger.Debug("Connecting to Partial Depth Web Socket");
+            var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@depth{(int)levels}");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
         /// <summary>
@@ -248,8 +262,24 @@ namespace BinanceExchange.API.Websockets
                 ActiveWebSockets.Remove(id);
                 if (!fromError)
                 {
-                    ws.CloseAsync(CloseStatusCode.PolicyViolation);
+                    ws.Close(CloseStatusCode.PolicyViolation);
                 }
+            }
+            else
+            {
+                throw new Exception($"No Websocket exists with the Id {id.ToString()}");
+            }
+        }
+
+        /// <summary>
+        /// Checks whether a specific WebSocket instance is active or not using the Guid provided on creation
+        /// </summary>
+        public bool IsAlive(Guid id)
+        {
+            if (ActiveWebSockets.ContainsKey(id))
+            {
+                var ws = ActiveWebSockets[id];
+                return ws.IsAlive;
             }
             else
             {

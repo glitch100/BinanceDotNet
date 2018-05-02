@@ -11,5 +11,6 @@ namespace BinanceExchange.API.Client
         public TimeSpan CacheTime { get; set; } = TimeSpan.FromMinutes(30);
         public TimeSpan TimestampOffset { get; set; } = TimeSpan.FromMilliseconds(0);
         public ILog Logger { get; set; }
+        public int DefaultReceiveWindow { get; set; } = 5000;
     }
 }
