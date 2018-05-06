@@ -19,9 +19,9 @@ namespace BinanceExchange.API.Websockets
     /// </summary>
     public class AbstractBinanceWebSocketClient
     {
-        protected SslProtocols SupportedProtocols { get; } = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
+        protected SslProtocols SupportedProtocols { get; } = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls | SslProtocols.Ssl3;
 
-        /// <summary>
+        /// <summary> 
         /// Base WebSocket URI for Binance API
         /// </summary>
         protected string BaseWebsocketUri = "wss://stream.binance.com:9443/ws";
