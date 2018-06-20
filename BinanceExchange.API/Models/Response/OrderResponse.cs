@@ -21,39 +21,45 @@ namespace BinanceExchange.API.Models.Response
         public long OrderId { get; set; }
 
         [DataMember(Order = 3)]
-        public decimal Price { get; set; }
+        public string ClientOrderId { get; set; }
 
         [DataMember(Order = 4)]
+        public decimal Price { get; set; }
+
+        [DataMember(Order = 5)]
         [JsonProperty(PropertyName = "origQty")]
         public decimal OriginalQuantity { get; set; }
 
-        [DataMember(Order = 5)]
+        [DataMember(Order = 6)]
         [JsonProperty(PropertyName = "executedQty")]
         public decimal ExecutedQuantity { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        [DataMember(Order = 6)]
+        [DataMember(Order = 7)]
         public OrderStatus Status { get; set; }
 
-        [DataMember(Order = 7)]
+        [DataMember(Order = 8)]
         public TimeInForce TimeInForce { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        [DataMember(Order = 8)]
+        [DataMember(Order = 9)]
         public OrderType Type { get; set; }
 
-        [DataMember(Order = 9)]
+        [DataMember(Order = 10)]
         public OrderSide Side { get; set; }
 
-        [DataMember(Order = 10)]
+        [DataMember(Order = 11)]
         public decimal StopPrice { get; set; }
 
-        [DataMember(Order = 11)]
+        [DataMember(Order = 12)]
         [JsonProperty(PropertyName = "icebergQty")]
         public decimal IcebergQuantity { get; set; }
 
-        [DataMember(Order = 12)]
+        [DataMember(Order = 13)]
         [JsonConverter(typeof(EpochTimeConverter))]
         public DateTime Time { get; set; }
+
+        [DataMember(Order = 14)]
+        public bool IsWorking { get; set; }
     }
 }

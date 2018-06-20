@@ -1,5 +1,10 @@
 # BinanceDotNet Changelog
 
+## 4.6.0
+**Release Date: 6/20/2018**
+- Fixed SSL Issues
+- More type corrections
+
 ## 4.5.0
 **Release Date: 5/2/2018**
 - Added `IsAlive` for WebSockets
