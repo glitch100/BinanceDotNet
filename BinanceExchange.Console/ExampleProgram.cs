@@ -309,9 +309,10 @@ namespace BinanceExchange.Console
                 cacheObject.Add(symbol, klineCacheObject);
                 cacheObject[symbol].KlineInterDictionary.Add(interval, new KlineIntervalCacheObject());
             }
-            
+
             // Get Kline Results, and use Cache
-            var startTimeKeyTime = (klinesCandlesticksRequest.StartTime.Ticks - epochTicks) / TimeSpan.TicksPerSecond;
+            long ticks = klinesCandlesticksRequest.StartTime.Value.Ticks;
+            var startTimeKeyTime = (ticks - epochTicks) / TimeSpan.TicksPerSecond;
             var klineResults = await binanceClient.GetKlinesCandlesticks(klinesCandlesticksRequest);
 
             var oneMinKlineCache = cacheObject[symbol].KlineInterDictionary[interval];
