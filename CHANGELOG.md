@@ -1,5 +1,9 @@
 # BinanceDotNet Changelog
 
+## 4.6.2
+**Release Date: 7/20/2018**
+- Additional changes with last release
+
 ## 4.6.1
 **Release Date: 7/20/2018**
 - Added two new WebSocket endpoints:
