@@ -1,5 +1,12 @@
 # BinanceDotNet Changelog
 
+## 4.6.1
+**Release Date: 7/20/2018**
+- Added two new WebSocket endpoints:
+   - Individual Symbol Ticker
+   - All Market Symbol Ticker
+- Fix Filter Type for Symbols
+
 ## 4.6.0
 **Release Date: 6/20/2018**
 - Fixed SSL Issues
