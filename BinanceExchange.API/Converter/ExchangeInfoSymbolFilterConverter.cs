@@ -34,7 +34,7 @@ namespace BinanceExchange.API.Converter
                     item = new ExchangeInfoSymbolFilterMinNotional();
                     break;
                 case ExchangeInfoSymbolFilterType.MaxNumAlgoOrders:
-                    item = new ExchangeInfoSymbolFilterMinNotional();
+                    item = new ExchangeInfoSymbolFilterMaxNumAlgoOrders();
                     break;
             }
 
