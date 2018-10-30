@@ -36,6 +36,9 @@ namespace BinanceExchange.API.Converter
                 case ExchangeInfoSymbolFilterType.MaxNumAlgoOrders:
                     item = new ExchangeInfoSymbolFilterMaxNumAlgoOrders();
                     break;
+                case ExchangeInfoSymbolFilterType.IcebergParts:
+                    item = new ExchangeInfoSymbolFilterIcebergParts();
+                    break;
             }
 
             serializer.Populate(jObject.CreateReader(), item);
