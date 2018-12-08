@@ -12,5 +12,7 @@ namespace BinanceExchange.API.Enums
         MinNotional,
         [EnumMember(Value = "MAX_NUM_ALGO_ORDERS")]
         MaxNumAlgoOrders,
+        [EnumMember(Value = "PERCENT_PRICE")]
+        PercentagePrice
     }
 }
