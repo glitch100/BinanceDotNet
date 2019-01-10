@@ -35,7 +35,6 @@ You can donate cryptocurrency of any amount to the following wallets:
 
 ```
 ETH: 0xd5775e2dee4b9fa9a3be5222970c04ac574e8412
-TRX: 0xd5775e2dee4b9fa9a3be5222970c04ac574e8412
 ```
 _Want to send something else? Just tweet me! @Glitch100_
 
