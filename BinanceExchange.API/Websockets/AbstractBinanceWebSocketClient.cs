@@ -19,7 +19,7 @@ namespace BinanceExchange.API.Websockets
     /// </summary>
     public class AbstractBinanceWebSocketClient
     {
-        protected SslProtocols SupportedProtocols { get; } = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls | SslProtocols.Ssl3;
+        protected SslProtocols SupportedProtocols { get; } = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
 
         /// <summary> 
         /// Base WebSocket URI for Binance API
@@ -129,12 +129,38 @@ namespace BinanceExchange.API.Websockets
         /// </summary>
         /// <param name="symbol"></param>
         /// <param name="messageEventHandler"></param>
-        /// <returns></returns>https://github.com/glitch100/BinanceDotNet/issues
+        /// <returns></returns>
         public Guid ConnectToTradesWebSocket(string symbol, BinanceWebSocketMessageHandler<BinanceAggregateTradeData> messageEventHandler)
         {
             Guard.AgainstNullOrEmpty(symbol, nameof(symbol));
             Logger.Debug("Connecting to Trades Web Socket");
             var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@aggTrade");
+            return CreateBinanceWebSocket(endpoint, messageEventHandler);
+        }
+
+        /// <summary>
+        /// Connect to the Individual Symbol Ticker WebSocket
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="messageEventHandler"></param>
+        /// <returns></returns>
+        public Guid ConnectToIndividualSymbolTickerWebSocket(string symbol, BinanceWebSocketMessageHandler<BinanceAggregateTradeData> messageEventHandler)
+        {
+            Guard.AgainstNullOrEmpty(symbol, nameof(symbol));
+            Logger.Debug("Connecting to Individual Symbol Ticker Web Socket");
+            var endpoint = new Uri($"{BaseWebsocketUri}/{symbol.ToLower()}@ticker");
+            return CreateBinanceWebSocket(endpoint, messageEventHandler);
+        }
+
+        /// <summary>
+        /// Connect to the All Market Symbol Ticker WebSocket
+        /// </summary>
+        /// <param name="messageEventHandler"></param>
+        /// <returns></returns>
+        public Guid ConnectToIndividualSymbolTickerWebSocket(BinanceWebSocketMessageHandler<BinanceAggregateTradeData> messageEventHandler)
+        {
+            Logger.Debug("Connecting to All Market Symbol Ticker Web Socket");
+            var endpoint = new Uri($"{BaseWebsocketUri}/!ticker@arr");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
         }
 

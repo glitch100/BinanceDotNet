@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
 namespace BinanceExchange.API.Enums
@@ -11,6 +9,12 @@ namespace BinanceExchange.API.Enums
         [EnumMember(Value = "LOT_SIZE")]
         LotSize,
         [EnumMember(Value = "MIN_NOTIONAL")]
-        MinNotional
+        MinNotional,
+        [EnumMember(Value = "MAX_NUM_ORDERS")]
+        MaxNumOrders,
+        [EnumMember(Value = "MAX_NUM_ALGO_ORDERS")]
+        MaxNumAlgoOrders,
+        [EnumMember(Value = "ICEBERG_PARTS")]
+        IcebergParts,
     }
 }

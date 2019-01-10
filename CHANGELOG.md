@@ -1,5 +1,25 @@
 # BinanceDotNet Changelog
 
+## 4.7.0
+**Release Date: 10/01/2019**
+- Add MAX_NUM_ORDERS, ICEBERG_PARTS to `ExchangeInfoSymbolFilterType`
+
+## 4.6.2
+**Release Date: 7/20/2018**
+- Additional changes with last release
+
+## 4.6.1
+**Release Date: 7/20/2018**
+- Added two new WebSocket endpoints:
+   - Individual Symbol Ticker
+   - All Market Symbol Ticker
+- Fix Filter Type for Symbols
+
+## 4.6.0
+**Release Date: 6/20/2018**
+- Fixed SSL Issues
+- More type corrections
+
 ## 4.5.0
 **Release Date: 5/2/2018**
 - Added `IsAlive` for WebSockets
