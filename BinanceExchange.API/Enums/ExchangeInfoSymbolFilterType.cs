@@ -10,9 +10,13 @@ namespace BinanceExchange.API.Enums
         LotSize,
         [EnumMember(Value = "MIN_NOTIONAL")]
         MinNotional,
+        [EnumMember(Value = "MAX_NUM_ORDERS")]
+        MaxNumOrders,
         [EnumMember(Value = "MAX_NUM_ALGO_ORDERS")]
         MaxNumAlgoOrders,
         [EnumMember(Value = "PERCENT_PRICE")]
         PercentagePrice
+        [EnumMember(Value = "ICEBERG_PARTS")]
+        IcebergParts,
     }
 }
