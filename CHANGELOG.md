@@ -1,5 +1,9 @@
 # BinanceDotNet Changelog
 
+## 4.8.0
+**Release Date: 21/01/2019**
+- Additional `ExchangeInfoSymbolFilterType` to fix API issues
+
 ## 4.7.0
 **Release Date: 10/01/2019**
 - Add MAX_NUM_ORDERS, ICEBERG_PARTS to `ExchangeInfoSymbolFilterType`
