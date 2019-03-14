@@ -194,17 +194,17 @@ namespace BinanceExchange.API.Websockets
                 {
                     case AccountEventType:
                         var userData = JsonConvert.DeserializeObject<BinanceAccountUpdateData>(e.Data);
-                        userDataWebSocketMessages.AccountUpdateMessageHandler(userData);
+                        userDataWebSocketMessages.AccountUpdateMessageHandler?.Invoke(userData);
                         break;
                     case OrderTradeEventType:
                         var orderTradeData = JsonConvert.DeserializeObject<BinanceTradeOrderData>(e.Data);
                         if (orderTradeData.ExecutionType == ExecutionType.Trade)
                         {
-                            userDataWebSocketMessages.TradeUpdateMessageHandler(orderTradeData);
+                            userDataWebSocketMessages.TradeUpdateMessageHandler?.Invoke(orderTradeData);
                         }
                         else
                         {
-                            userDataWebSocketMessages.OrderUpdateMessageHandler(orderTradeData);
+                            userDataWebSocketMessages.OrderUpdateMessageHandler?.Invoke(orderTradeData);
                         }
                         break;
                     default:
