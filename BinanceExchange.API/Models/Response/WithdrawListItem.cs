@@ -14,7 +14,7 @@ namespace BinanceExchange.API.Models.Response
         public string Id { get; set; }
 
         [DataMember(Order = 2)]
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [DataMember(Order = 3)]
         public string Address { get; set; }

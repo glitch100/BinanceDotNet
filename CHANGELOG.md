@@ -1,5 +1,8 @@
 # BinanceDotNet Changelog
 
+## 4.9.0
+- Do not require handlers in websocket client
+
 ## 4.8.0
 **Release Date: 21/01/2019**
 - Additional `ExchangeInfoSymbolFilterType` to fix API issues
