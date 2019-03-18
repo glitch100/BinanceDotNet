@@ -1,5 +1,16 @@
 # BinanceDotNet Changelog
 
+## 4.9.0
+- Do not require handlers in websocket client
+
+## 4.8.0
+**Release Date: 21/01/2019**
+- Additional `ExchangeInfoSymbolFilterType` to fix API issues
+
+## 4.7.0
+**Release Date: 10/01/2019**
+- Add MAX_NUM_ORDERS, ICEBERG_PARTS to `ExchangeInfoSymbolFilterType`
+
 ## 4.6.2
 **Release Date: 7/20/2018**
 - Additional changes with last release

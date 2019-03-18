@@ -42,9 +42,6 @@ namespace BinanceExchange.API.Converter
                 case ExchangeInfoSymbolFilterType.MaxNumAlgoOrders:
                     item = new ExchangeInfoSymbolFilterMaxNumAlgoOrders();
                     break;
-                case ExchangeInfoSymbolFilterType.IcebergParts:
-                    item = new ExchangeInfoSymbolFilterIcebergParts();
-                    break;
                 case ExchangeInfoSymbolFilterType.MarketLotSize:
                     item = new ExchangeInfoSymbolFilterMarketLotSize();
                     break;
@@ -56,6 +53,12 @@ namespace BinanceExchange.API.Converter
                     break;
                 case ExchangeInfoSymbolFilterType.MaxNumIcebergOrders:
                     item = new ExchangeInfoSymbolFilterMaxNumIcebergOrders();
+                    break;
+                case ExchangeInfoSymbolFilterType.PercentagePrice:
+                    item = new ExchangeInfoSymbolFilterPercentagePrice();
+                    break;
+                case ExchangeInfoSymbolFilterType.IcebergParts:
+                    item = new ExchangeInfoSymbolFilterIcebergParts();
                     break;
             }
 
