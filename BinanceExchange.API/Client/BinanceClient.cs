@@ -45,7 +45,7 @@ namespace BinanceExchange.API.Client
             Guard.AgainstNull(configuration);
             Guard.AgainstNullOrEmpty(configuration.ApiKey);
             Guard.AgainstNull(configuration.SecretKey);
-            _requestClient = new RequestClient();
+            _requestClient = RequestClient.GetRequestClient();
 
             _defaultReceiveWindow = configuration.DefaultReceiveWindow;
             _apiKey = configuration.ApiKey;
