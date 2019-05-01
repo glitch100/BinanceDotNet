@@ -15,13 +15,13 @@ namespace BinanceExchange.API
 {
     public class RequestClient
     {
-        private static readonly HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
         private SemaphoreSlim _rateSemaphore;
         private int _limit = 10;
         /// <summary>
         /// Number of seconds the for the Limit of requests (10 seconds for 10 requests etc)
         /// </summary>
-        public static int SecondsLimit = 10;
+        public int SecondsLimit = 10;
         private bool RateLimitingEnabled = false;
         private const string APIHeader = "X-MBX-APIKEY";
         private readonly Stopwatch Stopwatch;
@@ -30,21 +30,22 @@ namespace BinanceExchange.API
         private ILog _logger;
         private readonly object LockObject = new object();
 
-        static RequestClient()
+        public static RequestClient GetRequestClient()
         {
+            return new RequestClient();
+        }
+
+        private RequestClient()
+        {
+            _rateSemaphore = new SemaphoreSlim(_limit, _limit);
+            Stopwatch = new Stopwatch();
+            _logger = LogManager.GetLogger(typeof(RequestClient));
             var httpClientHandler = new HttpClientHandler
             {
                 AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
             };
             _httpClient = new HttpClient(httpClientHandler);
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
-        public RequestClient()
-        {
-            _rateSemaphore = new SemaphoreSlim(_limit, _limit);
-            Stopwatch = new Stopwatch();
-            _logger = LogManager.GetLogger(typeof(RequestClient));
         }
 
 
