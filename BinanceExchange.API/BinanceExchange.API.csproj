@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net451;net452;net461;</TargetFrameworks>
-    <Version>4.9.0</Version>
+    <Version>5.0.0</Version>
     <Description>The Binance CryptoCurrency exchange C# wrapper of the API. It is built in dotnet core, supports all REST and WebSocket endpoints, has full logging capabilities, a built in Cache for selected endpoints, a Rate limiter and more. Enjoy Binance API data, fast and reliably.</Description>
     <Title>Binance Cryptocurrency Exchange - C# API in .NET</Title>
     <PackageId>BinanceDotNet</PackageId>
@@ -9,15 +9,15 @@
     <Company />
     <Product>BinanceDotNet</Product>
     <PackageProjectUrl>https://github.com/glitch100/BinanceDotNet</PackageProjectUrl>
-    <PackageTags>binance, csharp, binance-api, binancedotnet, binance exchange, crypto_exchange</PackageTags>
+    <PackageTags>binance, csharp, binance-api, binancedotnet, binance exchange</PackageTags>
     <AssemblyName>BinanceExchange.API</AssemblyName>
     <PackageLicenseUrl>https://github.com/glitch100/BinanceDotNet/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/glitch100/BinanceDotNet</RepositoryUrl>
     <PackageIconUrl>https://i.imgur.com/x2YPVe6.png</PackageIconUrl>
-    <PackageReleaseNotes>AbsractBinanceWebSocketClient does not require handlers</PackageReleaseNotes>
-    <AssemblyVersion>4.9.0.0</AssemblyVersion>
-    <FileVersion>4.9.0.0</FileVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>Changes RequestClient to use a static HttpClient, but be instance based</PackageReleaseNotes>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <FileVersion>5.0.0.0</FileVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7.1</LangVersion>

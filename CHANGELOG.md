@@ -33,6 +33,10 @@
 - Adjusted SSL Security Types
 
 **Release Date: 3/17/2018**
+## 5.0.0
+- Made `RequestClient` non-static and changed `HttpClient` to static for `RequestClient`
+
+**Release Date: 3/17/2018**
 ## 4.4.0
 - Added `DefaultReceiveWindow` to `ClientConfiguration`. Defaults to `5000`
 
