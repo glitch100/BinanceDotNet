@@ -61,5 +61,9 @@ namespace BinanceExchange.API.Models.Response
 
         [DataMember(Order = 14)]
         public bool IsWorking { get; set; }
+
+        [DataMember(Order = 15)]
+        [JsonProperty(PropertyName = "cummulativeQuoteQty")]
+        public decimal CummulativeQuoteQuantity { get; set; }
     }
 }
