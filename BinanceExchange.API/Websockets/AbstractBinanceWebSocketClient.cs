@@ -41,6 +41,7 @@ namespace BinanceExchange.API.Websockets
 
         protected const string AccountEventType = "outboundAccountInfo";
         protected const string OrderTradeEventType = "executionReport";
+        public string ListenKey { get; private set; }
 
         public AbstractBinanceWebSocketClient(IBinanceClient binanceClient, ILog logger = null)
         {
@@ -48,6 +49,23 @@ namespace BinanceExchange.API.Websockets
             ActiveWebSockets = new Dictionary<Guid, BinanceWebSocket>();
             AllSockets = new List<BinanceWebSocket>();
             Logger = logger ?? LogManager.GetLogger(typeof(AbstractBinanceWebSocketClient));
+        }
+
+        // Expose the listenKey that gets returned by Binance REST request "POST /api/v1/userDataStream" to start a user data stream
+        /// <summary>
+        /// Connect to the UserData WebSocket
+        /// </summary>
+        /// <param name="userDataMessageHandlers"></param>
+        /// <returns>Guid of connection.</returns>
+        /// sets the Binance Listen Key (binanceListenKey)
+        public async Task<Guid> ConnectToUserDataWebSocket(UserDataWebSocketMessages userDataMessageHandlers)
+        {
+            Guard.AgainstNull(BinanceClient, nameof(BinanceClient));
+            Logger.Debug("Connecting to User Data Web Socket");
+            var streamResponse = await BinanceClient.StartUserDataStream();
+            ListenKey = streamResponse.ListenKey;
+            var endpoint = new Uri($"{BaseWebsocketUri}/{ListenKey}");
+            return CreateUserDataBinanceWebSocket(endpoint, userDataMessageHandlers);
         }
 
 
@@ -162,21 +180,6 @@ namespace BinanceExchange.API.Websockets
             Logger.Debug("Connecting to All Market Symbol Ticker Web Socket");
             var endpoint = new Uri($"{BaseWebsocketUri}/!ticker@arr");
             return CreateBinanceWebSocket(endpoint, messageEventHandler);
-        }
-
-        /// <summary>
-        /// Connect to the UserData WebSocket
-        /// </summary>
-        /// <param name="userDataMessageHandlers"></param>
-        /// <returns></returns>
-        public async Task<Guid> ConnectToUserDataWebSocket(UserDataWebSocketMessages userDataMessageHandlers)
-        {
-            Guard.AgainstNull(BinanceClient, nameof(BinanceClient));
-            Logger.Debug("Connecting to User Data Web Socket");
-            var streamResponse = await BinanceClient.StartUserDataStream();
-
-            var endpoint = new Uri($"{BaseWebsocketUri}/{streamResponse.ListenKey}");
-            return CreateUserDataBinanceWebSocket(endpoint, userDataMessageHandlers);
         }
 
         private Guid CreateUserDataBinanceWebSocket(Uri endpoint, UserDataWebSocketMessages userDataWebSocketMessages)

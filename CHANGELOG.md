@@ -1,5 +1,9 @@
 # BinanceDotNet Changelog
 
+## 4.11.0
+
+- Expose `ListenKey` on Client. It is set (privately) by the Connection call to the User data web socket
+
 ## 4.10.0
 
 - Props to `yetkinsari` for various fixes on deserialization attributes
