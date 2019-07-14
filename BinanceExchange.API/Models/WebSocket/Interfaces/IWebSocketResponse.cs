@@ -2,7 +2,7 @@
 
 namespace BinanceExchange.API.Models.WebSocket.Interfaces
 {
-    public interface IWebSocketResponse
+    public interface IWebSocketResponse : ISocketResponse
     {
         string EventType { get; set; }
 
