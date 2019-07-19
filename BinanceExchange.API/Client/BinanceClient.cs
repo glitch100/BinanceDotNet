@@ -208,6 +208,42 @@ namespace BinanceExchange.API.Client
         {
              return await _apiProcessor.ProcessGetRequest<List<SymbolOrderBookResponse>>(Endpoints.MarketData.SymbolsOrderBookTicker);
         }
+
+        #region Market v3
+        /// <summary>
+        /// Gets the best and quantity on the order book for the provided symbol
+        /// </summary>
+        /// <returns></returns>
+        public async Task<SymbolOrderBookResponse> GetSymbolOrderBookTicker(string symbol)
+        {
+            Guard.AgainstNull(symbol);
+
+            return await _apiProcessor.ProcessGetRequest<SymbolOrderBookResponse>(Endpoints.MarketData_v3.BookTicker(symbol));
+        }
+
+        /// <summary>
+        /// Gets the price for the provided symbol.  This is lighter weight than the daily ticker
+        /// data.
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        public async Task<SymbolPriceResponse> GetPrice(string symbol)
+        {
+            Guard.AgainstNull(symbol);
+
+            return await _apiProcessor.ProcessGetRequest<SymbolPriceResponse>(Endpoints.MarketData_v3.CurrentPrice(symbol));
+        }
+
+        /// <summary>
+        /// Gets the current price for all symbols
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<SymbolPriceResponse>> GetAllPrices()
+        {
+            return await _apiProcessor.ProcessGetRequest<List<SymbolPriceResponse>>(Endpoints.MarketData_v3.AllPrices);
+        }
+
+        #endregion
         #endregion
 
         #region Account and Market
