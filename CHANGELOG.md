@@ -1,5 +1,10 @@
 # BinanceDotNet Changelog
 
+## 4.12.0
+
+- V3 market endpoints
+- Kudos to `PythagDev` for contributing
+
 ## 4.11.0
 
 - Expose `ListenKey` on Client. It is set (privately) by the Connection call to the User data web socket
