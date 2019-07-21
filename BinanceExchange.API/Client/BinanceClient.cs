@@ -218,7 +218,7 @@ namespace BinanceExchange.API.Client
         {
             Guard.AgainstNull(symbol);
 
-            return await _apiProcessor.ProcessGetRequest<SymbolOrderBookResponse>(Endpoints.MarketData_v3.BookTicker(symbol));
+            return await _apiProcessor.ProcessGetRequest<SymbolOrderBookResponse>(Endpoints.MarketDataV3.BookTicker(symbol));
         }
 
         /// <summary>
@@ -231,7 +231,7 @@ namespace BinanceExchange.API.Client
         {
             Guard.AgainstNull(symbol);
 
-            return await _apiProcessor.ProcessGetRequest<SymbolPriceResponse>(Endpoints.MarketData_v3.CurrentPrice(symbol));
+            return await _apiProcessor.ProcessGetRequest<SymbolPriceResponse>(Endpoints.MarketDataV3.CurrentPrice(symbol));
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace BinanceExchange.API.Client
         /// <returns></returns>
         public async Task<List<SymbolPriceResponse>> GetAllPrices()
         {
-            return await _apiProcessor.ProcessGetRequest<List<SymbolPriceResponse>>(Endpoints.MarketData_v3.AllPrices);
+            return await _apiProcessor.ProcessGetRequest<List<SymbolPriceResponse>>(Endpoints.MarketDataV3.AllPrices);
         }
 
         #endregion

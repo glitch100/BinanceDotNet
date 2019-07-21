@@ -137,7 +137,7 @@ namespace BinanceExchange.API
             public static BinanceEndpointData SymbolsOrderBookTicker => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/ticker/allBookTickers"), EndpointSecurityType.ApiKey);
         }
 
-        public static class MarketData_v3
+        public static class MarketDataV3
         {
             internal static string ApiVersion = "v3";
 
