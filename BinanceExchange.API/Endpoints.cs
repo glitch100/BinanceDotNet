@@ -137,6 +137,35 @@ namespace BinanceExchange.API
             public static BinanceEndpointData SymbolsOrderBookTicker => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/ticker/allBookTickers"), EndpointSecurityType.ApiKey);
         }
 
+        public static class MarketDataV3
+        {
+            internal static string ApiVersion = "v3";
+
+            /// <summary>
+            /// Current Price
+            /// </summary>
+            public static BinanceEndpointData CurrentPrice(string symbol)
+            {
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/ticker/price?symbol={symbol}"),
+                    EndpointSecurityType.None);
+            }
+
+            /// <summary>
+            /// Current Price for all symbols.
+            /// </summary>
+            public static BinanceEndpointData AllPrices => new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/ticker/price"), EndpointSecurityType.None);
+
+            /// <summary>
+            /// Book ticker for a single symbol
+            /// </summary>
+            public static BinanceEndpointData BookTicker(string symbol)
+            {
+                return new BinanceEndpointData(new Uri($"{APIPrefix}/{ApiVersion}/ticker/bookTicker?symbol={symbol}"),
+                    EndpointSecurityType.None);
+            }
+
+        }
+
         public static class Account
         {
             internal static string ApiVersion = "v3";

@@ -88,6 +88,25 @@ namespace BinanceExchange.API.Client.Interfaces
         Task<List<SymbolOrderBookResponse>> GetSymbolOrderBookTicker();
 
         /// <summary>
+        /// Gets the best and quantity on the order book for the provided symbol
+        /// </summary>
+        /// <returns></returns>
+        Task<SymbolOrderBookResponse> GetSymbolOrderBookTicker(string symbol);
+
+        /// <summary>
+        /// Gets the current price for the provided symbol
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        Task<SymbolPriceResponse> GetPrice(string symbol);
+
+        /// <summary>
+        /// Gets the current ticker for the all symbols
+        /// </summary>
+        /// <returns></returns>
+        Task<List<SymbolPriceResponse>> GetAllPrices();
+
+        /// <summary>
         /// Creates an order based on the provided request
         /// </summary>
         /// <param name="request">The <see cref="CreateOrderRequest"/> that is used to define the order</param>
