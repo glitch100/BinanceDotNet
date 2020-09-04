@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace BinanceExchange.API.Models.Response
 {
@@ -6,6 +7,6 @@ namespace BinanceExchange.API.Models.Response
     public class ExchangeInfoSymbolFilterMaxPosition : ExchangeInfoSymbolFilter
     {
         [DataMember(Order = 1)]
-        public int MaxPosition { get; set; }
+        public Decimal MaxPosition { get; set; }
     }
 }
