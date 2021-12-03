@@ -274,6 +274,61 @@ namespace BinanceExchange.API.Client
         }
 
         /// <summary>
+        /// Creates an Isolated account order based on the provided request
+        /// </summary>
+        /// <param name="request">The <see cref="CreateIsolatedOrderRequest"/> that is used to define the order</param>
+        /// <returns>This method can return <see cref="AcknowledgeCreateOrderResponse"/>, <see cref="FullCreateOrderResponse"/> 
+        /// or <see cref="ResultCreateOrderResponse"/> based on the provided NewOrderResponseType enum in the request.
+        /// </returns>
+        public async Task<BaseCreateOrderResponse> CreateIsolatedOrder(CreateIsolatedOrderRequest request)
+        {
+            Guard.AgainstNull(request.Symbol);
+            Guard.AgainstNull(request.Side);
+            Guard.AgainstNull(request.Type);
+            Guard.AgainstNull(request.Quantity);
+
+            switch (request.NewOrderResponseType)
+            {
+                case NewOrderResponseType.Acknowledge:
+                    return await _apiProcessor.ProcessPostRequest<AcknowledgeCreateOrderResponse>(Endpoints.Account.NewOrder(request));
+                case NewOrderResponseType.Full:
+                    return await _apiProcessor.ProcessPostRequest<FullCreateOrderResponse>(Endpoints.Account.NewOrder(request));
+                default:
+                    return await _apiProcessor.ProcessPostRequest<ResultCreateOrderResponse>(Endpoints.Account.NewOrder(request));
+            }
+
+        }
+
+        /// <summary>
+        /// Query account max possible borrow (coin symbol specific)
+        /// </summary>
+        /// <param name="request">The <see cref="CreateIsolatedOrderRequest"/> that is used to define the order</param>
+        /// <returns>This method can return <see cref="AcknowledgeCreateOrderResponse"/>, <see cref="FullCreateOrderResponse"/> 
+        /// or <see cref="ResultCreateOrderResponse"/> based on the provided NewOrderResponseType enum in the request.
+        /// </returns>
+        public async Task<MaxBorrowResponse> QueryMaxBorrow(MaxBorrowRequest request)
+        {
+            Guard.AgainstNull(request.Asset);
+            Guard.AgainstNull(request.IsolatedSymbol);
+
+            return await _apiProcessor.ProcessGetRequest<MaxBorrowResponse>(Endpoints.Account.NewOrder(request));
+        }
+
+        /// <summary>
+        /// Creates an order based on the provided request
+        /// </summary>
+        /// <param name="request">The <see cref="CreateIsolatedOrderRequest"/> that is used to define the order</param>
+        /// <returns>This method can return <see cref="AcknowledgeCreateOrderResponse"/>, <see cref="FullCreateOrderResponse"/> 
+        /// or <see cref="ResultCreateOrderResponse"/> based on the provided NewOrderResponseType enum in the request.
+        /// </returns>
+        public async Task<dynamic> QueryIsolatedMarginAccountInfo(IsolatedMarginAccountInfoRequest request)
+        {
+            Guard.AgainstNull(request.Symbols);
+
+            return await _apiProcessor.ProcessGetRequest<dynamic>(Endpoints.Account.NewOrder(request));
+        }
+
+        /// <summary>
         /// Creates a test order based on the provided request
         /// </summary>
         /// <param name="request">The <see cref="CreateOrderRequest"/> that is used to define the order</param>

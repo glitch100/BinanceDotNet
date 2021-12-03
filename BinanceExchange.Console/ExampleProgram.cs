@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BinanceExchange.API;
 using BinanceExchange.API.Client;
 using BinanceExchange.API.Client.Interfaces;
+using BinanceExchange.API.Client.Trade;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Market;
 using BinanceExchange.API.Models.Request;
@@ -160,6 +161,17 @@ namespace BinanceExchange.Console
                 {
                     
                 }
+
+                //// Test the client for Isolated commands
+                decimal currentPrice4Sell = 999999m, currentPrice4Buy = 42000m;
+                decimal availableBTC = await MarginTrade.MaxBuyPowerInAsset(client, "BTCUSDT", "BTC");
+                decimal availableUSDT = await MarginTrade.MaxBuyPowerInAsset(client, "BTCUSDT", "USDT");
+
+                await MarginTrade.BuyCommandIso(client, "BTCUSDT", currentPrice4Buy, 0.00002m);
+                await MarginTrade.SellCommandIso(client, "BTCUSDT", currentPrice4Sell, 0.00002m);
+
+                //await BinTrade.CloseSellPosition(client, (decimal)currentPrice4Sell);
+                //await BinTrade.CloseBuyPosition(client, (decimal)currentPrice4Buy);
             }
 
             // Start User Data Stream, ping and close
