@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using BinanceExchange.API.Client;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Models.Request;
-
-//"dynamic" requires a reference to Microsoft.CSharp
+using BinanceExchange.API.Models.Response;
 
 namespace BinanceExchange.API.Client.Trade
 {
@@ -19,27 +18,27 @@ namespace BinanceExchange.API.Client.Trade
         /// <returns></returns>
         public static async Task<decimal> MaxBuyPowerInAsset(BinanceClient client, string symbol, string asset)
         {
-            dynamic accountInfo = await client.QueryIsolatedMarginAccountInfo(new IsolatedMarginAccountInfoRequest()
+            IsolatedMarginAccountInfoResponse accountInfo = await client.QueryIsolatedMarginAccountInfo(new IsolatedMarginAccountInfoRequest()
             {
                 Symbols = symbol,
-                TimeStamp = DateTime.Now.Ticks
+                TimeStamp = DateTime.UtcNow.Ticks
             });
 
-            dynamic x = accountInfo.assets[0];
+            var x = accountInfo.assets[0];
 
             // query the account free asset coins:
             decimal freeCoins = 0m;
-            if(asset == ((dynamic)x).baseAsset.asset.Value)
+            if(asset == x.baseAsset.asset)
             {// the requested asset is the base
-                freeCoins = decimal.Parse(((dynamic)x).baseAsset.free.Value);
+                freeCoins = x.baseAsset.free;
             }
-            else if(asset == ((dynamic)x).quoteAsset.asset.Value)
+            else if(asset == x.quoteAsset.asset)
             {// the requested asset is the one used for quotes
-                freeCoins = decimal.Parse(((dynamic)x).quoteAsset.free.Value);
+                freeCoins = x.quoteAsset.free;
             }
             else
             {
-                throw new Exception("the rquested asset info was not founf under the specified accout");
+                throw new Exception("The requested asset info was not found under the specified accout.");
             }
 
             var maxBorrowAsset = await client.QueryMaxBorrow(new MaxBorrowRequest()
@@ -51,9 +50,9 @@ namespace BinanceExchange.API.Client.Trade
             return maxBorrowAsset.amount + freeCoins;
         }
 
-        private static async Task<bool> _BuySellCommand(BinanceClient client, string symbol, OrderSide buySell, SideEffectType sideEffectType, string isIsolated, decimal price, decimal quant)
+        private static async Task<long> BuySellCommand(BinanceClient client, string symbol, OrderSide buySell, SideEffectType sideEffectType, string isIsolated, decimal price, decimal quant)
         {
-            var createIsolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
+            var isolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
             {
                 Price = price,
                 Quantity = quant,
@@ -67,7 +66,7 @@ namespace BinanceExchange.API.Client.Trade
                 TimeStamp = DateTime.UtcNow.Ticks
             });
 
-            return (true);
+            return isolatedOrder.OrderId;
         }
 
 
@@ -78,16 +77,16 @@ namespace BinanceExchange.API.Client.Trade
         /// <param name="symbol">the trading symbol (BTCUSDT...)</param>
         /// <param name="asset">the trading asset such as BTC, USDT ...</param>
         /// <param name="price"></param>
-        /// <returns></returns>
-        public static async Task<bool> BuyCommandIso(BinanceClient client, string symbol, decimal price, decimal quant)
+        /// <returns>OrderId</returns>
+        public static async Task<long> BuyCommandIso(BinanceClient client, string symbol, decimal price, decimal quant)
         {
-            bool res = _BuySellCommand(client, symbol, OrderSide.Buy, SideEffectType.MarginBuy, "TRUE", price, quant).Result;
-            return res;
+            var orderId = BuySellCommand(client, symbol, OrderSide.Buy, SideEffectType.MarginBuy, "TRUE", price, quant).Result;
+            return orderId;
         }
-        public static async Task<bool> SellCommandIso(BinanceClient client, string symbol, decimal price, decimal quant)
+        public static async Task<long> SellCommandIso(BinanceClient client, string symbol, decimal price, decimal quant)
         {
-            bool res = _BuySellCommand(client, symbol, OrderSide.Sell, SideEffectType.AutoRepay, "TRUE", price, quant).Result;
-            return res;
+            var orderId = BuySellCommand(client, symbol, OrderSide.Sell, SideEffectType.AutoRepay, "TRUE", price, quant).Result;
+            return orderId;
         }
 
 
@@ -99,9 +98,9 @@ namespace BinanceExchange.API.Client.Trade
         /// <param name="asset">the trading asset such as BTC, USDT ...</param>
         /// <param name="price"></param>
         /// <returns></returns>
-        public static async Task<bool> BuyCommandMarket(BinanceClient client, string symbol, decimal quant)
+        public static async Task<long> BuyCommandMarket(BinanceClient client, string symbol, decimal quant)
         {
-            var createIsolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
+            var isolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
             {
                 Quantity = quant,
                 Side = OrderSide.Buy,
@@ -112,28 +111,29 @@ namespace BinanceExchange.API.Client.Trade
                 SideEffectType = SideEffectType.MarginBuy,
             });
 
-            return true;
+            return isolatedOrder.OrderId;
         }
 
 
-        public static async Task<bool> CloseBuyPosition(BinanceClient client, string symbol, decimal lastPrice)
+        public static async Task<long> CloseBuyPosition(BinanceClient client, string symbol, decimal lastPrice)
         {
             var accountInfo = await client.QueryIsolatedMarginAccountInfo(new IsolatedMarginAccountInfoRequest()
             {
                 Symbols = symbol,
-                TimeStamp = DateTime.Now.Ticks
+                TimeStamp = DateTime.UtcNow.Ticks
             });
 
             var x = accountInfo.assets[0];
-            var AssetCoins = decimal.Parse(((dynamic)x).baseAsset.free.Value);
-            var UsdtCoins = decimal.Parse(((dynamic)x).quoteAsset.free.Value);
+            decimal AssetCoins = x.baseAsset.free;
+            decimal UsdtCoins = x.quoteAsset.free;
 
             decimal CloseBuyQuant = Math.Floor(10m * AssetCoins) / 10m;
 
+            long res = -1;
             if (CloseBuyQuant / lastPrice > 10m)
             {
                 // Create an order with varying options
-                var createIsolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
+                var isolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
                 {
                     //Price = 0.5m,
                     Quantity = CloseBuyQuant,
@@ -146,30 +146,30 @@ namespace BinanceExchange.API.Client.Trade
                     SideEffectType = SideEffectType.AutoRepay,
                     //TimeStamp = 1629287214
                 });
+                res = isolatedOrder.OrderId;
             }
-
-            return true;
+            return res;
         }
 
 
-        public static async Task<bool> CloseSellPosition(BinanceClient client, string symbol, decimal lastPrice)
+        public static async Task<long> CloseSellPosition(BinanceClient client, string symbol, decimal lastPrice)
         {
             var accountInfo = await client.QueryIsolatedMarginAccountInfo(new IsolatedMarginAccountInfoRequest()
             {
                 Symbols = symbol,
-                TimeStamp = DateTime.Now.Ticks
+                TimeStamp = DateTime.UtcNow.Ticks
             });
 
             var x = accountInfo.assets[0];
-            var AssetCoins = decimal.Parse(((dynamic)x).baseAsset.netAsset.Value);
-            var UsdtCoins = decimal.Parse(((dynamic)x).quoteAsset.free.Value);
+            var AssetCoins = x.baseAsset.netAsset;
+            var UsdtCoins = x.quoteAsset.free;
 
             decimal CloseSellQuant = -Math.Ceiling(10m * AssetCoins) / 10m;
-
+            long res = -1;
             if (CloseSellQuant / lastPrice > 10m)
             {
                 // Create an order with varying options
-                var createIsolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
+                var isolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
                 {
                     //Price = 0.5m,
                     Quantity = CloseSellQuant,
@@ -182,9 +182,9 @@ namespace BinanceExchange.API.Client.Trade
                     SideEffectType = SideEffectType.AutoRepay,
                     //TimeStamp = 1629287214
                 });
+                res = isolatedOrder.OrderId;
             }
-
-            return true;
+            return res;
         }
         ////////////////////////////////////////////////////////////////////////////////////////
     }

@@ -321,11 +321,11 @@ namespace BinanceExchange.API.Client
         /// <returns>This method can return <see cref="AcknowledgeCreateOrderResponse"/>, <see cref="FullCreateOrderResponse"/> 
         /// or <see cref="ResultCreateOrderResponse"/> based on the provided NewOrderResponseType enum in the request.
         /// </returns>
-        public async Task<dynamic> QueryIsolatedMarginAccountInfo(IsolatedMarginAccountInfoRequest request)
+        public async Task<IsolatedMarginAccountInfoResponse> QueryIsolatedMarginAccountInfo(IsolatedMarginAccountInfoRequest request)
         {
             Guard.AgainstNull(request.Symbols);
 
-            return await _apiProcessor.ProcessGetRequest<dynamic>(Endpoints.Account.NewOrder(request));
+            return await _apiProcessor.ProcessGetRequest<IsolatedMarginAccountInfoResponse>(Endpoints.Account.NewOrder(request));
         }
 
         /// <summary>
