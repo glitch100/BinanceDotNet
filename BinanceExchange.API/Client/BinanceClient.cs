@@ -137,9 +137,9 @@ namespace BinanceExchange.API.Client
         public async Task<OrderBookResponse> GetOrderBook(string symbol, bool useCache = false, int limit = 100)
         {
             Guard.AgainstNull(symbol);
-            if (limit > 100)
+            if (limit > 5000)
             {
-                throw new ArgumentException("When requesting the order book, you can't request more than 100 at a time.", nameof(limit));
+                throw new ArgumentException("When requesting the order book, you can't request more than 5000 at a time.", nameof(limit));
             }
             return await _apiProcessor.ProcessGetRequest<OrderBookResponse>(Endpoints.MarketData.OrderBook(symbol, limit, useCache));
         }
