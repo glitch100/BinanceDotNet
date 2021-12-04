@@ -15,6 +15,8 @@ namespace BinanceExchange.API.Enums
         LotSize,
         [EnumMember(Value = "MIN_NOTIONAL")]
         MinNotional,
+        [EnumMember(Value = "ICEBERG_PARTS")]
+        IcebergParts,
         [EnumMember(Value = "MARKET_LOT_SIZE")]
         MarketLotSize,
         [EnumMember(Value = "MAX_NUM_ORDERS")]
@@ -23,7 +25,8 @@ namespace BinanceExchange.API.Enums
         MaxNumAlgoOrders,
         [EnumMember(Value = "MAX_NUM_ICEBERG_ORDERS")]
         MaxNumIcebergOrders,
-
+        [EnumMember(Value = "MAX_POSITION")]
+        MaxPosition,
         #endregion
 
         #region Exchange Filters
@@ -35,7 +38,6 @@ namespace BinanceExchange.API.Enums
         #endregion
         [EnumMember(Value = "PERCENTAGE_PRICE")]
         PercentagePrice,
-        [EnumMember(Value = "ICEBERG_PARTS")]
-        IcebergParts,
+
     }
 }
