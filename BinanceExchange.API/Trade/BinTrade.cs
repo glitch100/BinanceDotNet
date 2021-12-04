@@ -39,7 +39,7 @@ namespace BinanceExchange.API.Client.Trade
             }
             else
             {
-                throw new Exception("the rquested asset info was not founf under the specified accout");
+                throw new Exception("The requested asset info was not found under the specified account");
             }
 
             var maxBorrowAsset = await client.QueryMaxBorrow(new MaxBorrowRequest()
