@@ -91,12 +91,11 @@ namespace BinanceExchange.API.Client.Trade
 
 
         /// <summary>
-        /// Send isolated account market buy command
+        /// Send isolated account market buy / sell command
         /// </summary>
         /// <param name="client"></param>
         /// <param name="symbol">the trading symbol (BTCUSDT...)</param>
-        /// <param name="asset">the trading asset such as BTC, USDT ...</param>
-        /// <param name="price"></param>
+        /// <param name="quant"></param>
         /// <returns></returns>
         public static async Task<long> BuyCommandMarket(BinanceClient client, string symbol, decimal quant)
         {
@@ -104,6 +103,22 @@ namespace BinanceExchange.API.Client.Trade
             {
                 Quantity = quant,
                 Side = OrderSide.Buy,
+                Symbol = symbol,
+                Type = OrderType.Market,
+                NewOrderResponseType = NewOrderResponseType.Full,
+                IsIsolated = "TRUE",
+                SideEffectType = SideEffectType.MarginBuy,
+            });
+
+            return isolatedOrder.OrderId;
+        }
+
+        public static async Task<long> SellCommandMarket(BinanceClient client, string symbol, decimal quant)
+        {
+            var isolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
+            {
+                Quantity = quant,
+                Side = OrderSide.Sell,
                 Symbol = symbol,
                 Type = OrderType.Market,
                 NewOrderResponseType = NewOrderResponseType.Full,
