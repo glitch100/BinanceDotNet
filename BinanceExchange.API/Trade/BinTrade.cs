@@ -7,6 +7,9 @@ using BinanceExchange.API.Models.Response;
 
 namespace BinanceExchange.API.Client.Trade
 {
+    /// <summary>
+    /// Be aware that at the time of writing this code, binace had a minimum threshold for comminting trades on 10.0 USD, below that the trade will fail
+    /// </summary>
     public class MarginTrade
     {
         /// <summary>
@@ -130,7 +133,7 @@ namespace BinanceExchange.API.Client.Trade
         }
 
 
-        public static async Task<long> CloseBuyPosition(BinanceClient client, string symbol, decimal lastPrice)
+        public static async Task<long> CloseBuyPositionMarket(BinanceClient client, string symbol)
         {
             var accountInfo = await client.QueryIsolatedMarginAccountInfo(new IsolatedMarginAccountInfoRequest()
             {
@@ -145,29 +148,26 @@ namespace BinanceExchange.API.Client.Trade
             decimal CloseBuyQuant = Math.Floor(10m * AssetCoins) / 10m;
 
             long res = -1;
-            if (CloseBuyQuant / lastPrice > 10m)
+            // Create an order with varying options
+            var isolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
             {
-                // Create an order with varying options
-                var isolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
-                {
-                    //Price = 0.5m,
-                    Quantity = CloseBuyQuant,
-                    Side = OrderSide.Sell,
-                    Symbol = symbol,
-                    Type = OrderType.Market,
-                    NewOrderResponseType = NewOrderResponseType.Full,
-                    //TimeInForce = TimeInForce.GTC, //error on market orders
-                    IsIsolated = "TRUE",
-                    SideEffectType = SideEffectType.AutoRepay,
-                    //TimeStamp = 1629287214
-                });
-                res = isolatedOrder.OrderId;
-            }
+                //Price = 0.5m,
+                Quantity = CloseBuyQuant,
+                Side = OrderSide.Sell,
+                Symbol = symbol,
+                Type = OrderType.Market,
+                NewOrderResponseType = NewOrderResponseType.Full,
+                //TimeInForce = TimeInForce.GTC, //error on market orders
+                IsIsolated = "TRUE",
+                SideEffectType = SideEffectType.AutoRepay,
+                //TimeStamp = 1629287214
+            });
+            res = isolatedOrder.OrderId;
             return res;
         }
 
 
-        public static async Task<long> CloseSellPosition(BinanceClient client, string symbol, decimal lastPrice)
+        public static async Task<long> CloseSellPositionMarket(BinanceClient client, string symbol)
         {
             var accountInfo = await client.QueryIsolatedMarginAccountInfo(new IsolatedMarginAccountInfoRequest()
             {
@@ -181,24 +181,21 @@ namespace BinanceExchange.API.Client.Trade
 
             decimal CloseSellQuant = -Math.Ceiling(10m * AssetCoins) / 10m;
             long res = -1;
-            if (CloseSellQuant / lastPrice > 10m)
+            // Create an order with varying options
+            var isolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
             {
-                // Create an order with varying options
-                var isolatedOrder = await client.CreateIsolatedOrder(new CreateIsolatedOrderRequest()
-                {
-                    //Price = 0.5m,
-                    Quantity = CloseSellQuant,
-                    Side = OrderSide.Buy,
-                    Symbol = symbol,
-                    Type = OrderType.Market,
-                    NewOrderResponseType = NewOrderResponseType.Full,
-                    //TimeInForce = TimeInForce.GTC, //error on market orders
-                    IsIsolated = "TRUE",
-                    SideEffectType = SideEffectType.AutoRepay,
-                    //TimeStamp = 1629287214
-                });
-                res = isolatedOrder.OrderId;
-            }
+                //Price = 0.5m,
+                Quantity = CloseSellQuant,
+                Side = OrderSide.Buy,
+                Symbol = symbol,
+                Type = OrderType.Market,
+                NewOrderResponseType = NewOrderResponseType.Full,
+                //TimeInForce = TimeInForce.GTC, //error on market orders
+                IsIsolated = "TRUE",
+                SideEffectType = SideEffectType.AutoRepay,
+                //TimeStamp = 1629287214
+            });
+            res = isolatedOrder.OrderId;
             return res;
         }
         ////////////////////////////////////////////////////////////////////////////////////////

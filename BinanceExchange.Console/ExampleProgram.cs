@@ -179,16 +179,16 @@ namespace BinanceExchange.Console
                 decimal availableQuotedAsset = 0.97m * await MarginTrade.MaxBuyPowerInAsset(client, "BTCUSDT", "USDT");
 
                 await MarginTrade.BuyCommandMarket(client, "BTCUSDT", 0.00002m);
-                await MarginTrade.CloseBuyPosition(client, "BTCUSDT", currentPrice4Buy);
+                await MarginTrade.CloseBuyPositionMarket(client, "BTCUSDT");
 
                 await MarginTrade.SellCommandMarket(client, "BTCUSDT", 0.00002m);
-                await MarginTrade.CloseSellPosition(client, "BTCUSDT", currentPrice4Sell);
+                await MarginTrade.CloseSellPositionMarket(client, "BTCUSDT");
 
                 await MarginTrade.BuyCommandIso(client, "BTCUSDT", currentPrice4Buy, 0.00002m);
-                await MarginTrade.CloseBuyPosition(client, "BTCUSDT", currentPrice4Buy);
+                await MarginTrade.CloseBuyPositionMarket(client, "BTCUSDT");
 
                 await MarginTrade.SellCommandIso(client, "BTCUSDT", currentPrice4Sell, 0.00002m);
-                await MarginTrade.CloseSellPosition(client, "BTCUSDT", currentPrice4Sell);
+                await MarginTrade.CloseSellPositionMarket(client, "BTCUSDT");
 
                 ///////////////////////////////////////////////////////////////////////////////////////////////
             }
