@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BinanceExchange.API;
 using BinanceExchange.API.Client;
 using BinanceExchange.API.Client.Interfaces;
+using BinanceExchange.API.Client.Trade;
 using BinanceExchange.API.Enums;
 using BinanceExchange.API.Market;
 using BinanceExchange.API.Models.Request;
@@ -160,6 +161,36 @@ namespace BinanceExchange.Console
                 {
                     
                 }
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                /// Test the client's Isolated commands
+                /// ==============================================
+                /// Using margin commands is all about borrowing while opening a position 
+                /// and repaying while closing it. Borrowing is a function of the cash you have
+                /// and the account type, this is why you first query your current purchasing power which
+                /// includes the maximum available borrow, then decide how much out of your purchasing power
+                /// will be used for the next order.
+                /// it worth mentioning that given a symbol as BTCUSDT, BTC is the "base asset" and USDT is 
+                /// the quoted asset.
+                /// taking 97% of the max avilable purchasing power increases the chance of successful commit.
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                decimal currentPrice4Sell = 999999m, currentPrice4Buy = 42000m;
+                decimal availableBaseAsset = 0.97m * await MarginTrade.MaxBuyPowerInAsset(client, "BTCUSDT", "BTC");
+                decimal availableQuotedAsset = 0.97m * await MarginTrade.MaxBuyPowerInAsset(client, "BTCUSDT", "USDT");
+
+                await MarginTrade.BuyCommandMarket(client, "BTCUSDT", 0.00002m);
+                await MarginTrade.CloseBuyPositionMarket(client, "BTCUSDT");
+
+                await MarginTrade.SellCommandMarket(client, "BTCUSDT", 0.00002m);
+                await MarginTrade.CloseSellPositionMarket(client, "BTCUSDT");
+
+                await MarginTrade.BuyCommandIso(client, "BTCUSDT", currentPrice4Buy, 0.00002m);
+                await MarginTrade.CloseBuyPositionMarket(client, "BTCUSDT");
+
+                await MarginTrade.SellCommandIso(client, "BTCUSDT", currentPrice4Sell, 0.00002m);
+                await MarginTrade.CloseSellPositionMarket(client, "BTCUSDT");
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////
             }
 
             // Start User Data Stream, ping and close

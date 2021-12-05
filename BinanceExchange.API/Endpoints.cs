@@ -29,6 +29,8 @@ namespace BinanceExchange.API
         /// Defaults to API binance domain (https)
         /// </summary>
         internal static string APIBaseUrl = "https://api.binance.com/api";
+        internal static string BAPIBaseUrl = "https://api.binance.com/bapi";
+        internal static string SAPIBaseUrl = "https://api.binance.com/sapi";
 
         /// <summary>
         /// Defaults to WAPI binance domain (https)
@@ -36,6 +38,8 @@ namespace BinanceExchange.API
         internal static string WAPIBaseUrl = "https://api.binance.com/wapi";
 
         private static string APIPrefix { get; } = $"{APIBaseUrl}";
+        private static string BAPIPrefix { get; } = $"{BAPIBaseUrl}";
+        private static string SAPIPrefix { get; } = $"{SAPIBaseUrl}/v1";
         private static string WAPIPrefix { get; } = $"{WAPIBaseUrl}";
 
         public static class UserStream
@@ -240,6 +244,24 @@ namespace BinanceExchange.API
             public static BinanceEndpointData SystemStatus()
             {
                 return new BinanceEndpointData(new Uri($"{WAPIPrefix}/{ApiVersion}/systemStatus.html"), EndpointSecurityType.None);
+            }
+
+            public static BinanceEndpointData NewOrder(CreateIsolatedOrderRequest request)
+            {
+                var queryString = GenerateQueryStringFromData(request);
+                return new BinanceEndpointData(new Uri($"{SAPIPrefix}/margin/order?{queryString}"), EndpointSecurityType.Signed);
+            }
+
+            public static BinanceEndpointData NewOrder(MaxBorrowRequest request)
+            {
+                var queryString = GenerateQueryStringFromData(request);
+                return new BinanceEndpointData(new Uri($"{SAPIPrefix}/margin/maxBorrowable?{queryString}"), EndpointSecurityType.Signed);
+            }
+
+            public static BinanceEndpointData NewOrder(IsolatedMarginAccountInfoRequest request)
+            {
+                var queryString = GenerateQueryStringFromData(request);
+                return new BinanceEndpointData(new Uri($"{SAPIPrefix}/margin/isolated/account?{queryString}"), EndpointSecurityType.Signed);
             }
         }
 
